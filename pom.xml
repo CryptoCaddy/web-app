@@ -1,0 +1,15 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cryptocaddy</groupId>
+    <version>1.0</version>
+    <artifactId>CryptoCaddyPlatform</artifactId>
+    <packaging>pom</packaging>
+    <name>CryptoCaddyPlatform</name>
+
+    <modules>
+        <module>core</module>
+        <module>services</module>
+    </modules>
+
+    <dependencies></dependencies>
+</project>

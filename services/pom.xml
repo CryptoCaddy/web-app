@@ -1,0 +1,12 @@
+<project>
+    <artifactId>services</artifactId>
+    <packaging>pom</packaging>
+    <name>services</name>
+
+    <parent>
+        <groupId>com.cryptocaddy</groupId>
+        <artifactId>CryptoCaddyPlatform</artifactId>
+    </parent>
+
+    <dependencies></dependencies>
+</project>
