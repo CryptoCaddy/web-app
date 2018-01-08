@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cache-manager</artifactId>
     <name>cache-manager</name>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>com.cryptocaddy</groupId>

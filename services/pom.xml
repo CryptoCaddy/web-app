@@ -15,13 +15,26 @@
         <version>1.0</version>
     </parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.cryptocaddy</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0</version>
-        </dependency>
+    <properties>
+        <swagger.version>2.6.1</swagger.version>
+    </properties>
 
+    <modules>
+        <module>cryptocaddy</module>
+    </modules>
 
-    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${project.maven.version}</version>
+                <configuration>
+                    <source>${project.java.version}</source>
+                    <target>${project.java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
