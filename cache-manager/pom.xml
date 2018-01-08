@@ -5,8 +5,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>services</artifactId>
-    <name>services</name>
+    <artifactId>cache-manager</artifactId>
+    <name>cache-manager</name>
     <packaging>pom</packaging>
 
     <parent>
@@ -15,13 +15,4 @@
         <version>1.0</version>
     </parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.cryptocaddy</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-
-    </dependencies>
 </project>
