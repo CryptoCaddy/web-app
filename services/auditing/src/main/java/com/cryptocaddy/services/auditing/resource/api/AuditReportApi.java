@@ -22,6 +22,7 @@ public interface AuditReportApi {
             @ApiResponse(code = 200, message = "Audit Report Response", response = AuditReport.class),
             @ApiResponse(code = 400, message = "Unexpected Error", response = RestErrorInfo.class)
     })
+    @SuppressWarnings("all")
     @RequestMapping(value = "/auditReport/{type}",
             produces = { "application/json" },
             method = RequestMethod.GET)

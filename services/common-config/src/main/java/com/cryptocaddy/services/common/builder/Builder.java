@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 public class Builder<T> {
     private T instance;
 
-    public Builder(Class<T> clazz) {
+    private Builder(Class<T> clazz) {
         try {
             this.instance = clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {

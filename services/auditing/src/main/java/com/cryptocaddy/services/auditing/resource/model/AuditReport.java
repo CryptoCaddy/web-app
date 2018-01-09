@@ -5,21 +5,20 @@ public class AuditReport {
     private String name;
 
     public AuditReport() {
+
     }
 
-    public AuditReport(String type, String name) {
-        this.type = type;
-        this.name = name;
-    }
-
+    @SuppressWarnings("unused")
     public String getType() {
         return type;
     }
+
 
     public void setType(String type) {
         this.type = type;
     }
 
+    @SuppressWarnings("unused")
     public String getName() {
         return name;
     }

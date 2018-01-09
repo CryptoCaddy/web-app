@@ -7,6 +7,7 @@ public class AuditReportPathAttributes {
         return type;
     }
 
+    @SuppressWarnings("unused")
     public void setType(String type) {
         this.type = type;
     }

@@ -13,16 +13,17 @@ public class AuditReportValidator extends GenericValidator<AuditReportPathAttrib
     private static final List<Predicate<AuditReportPathAttributes>> VALIDATORS = new LinkedList<>();
 
     static {
-        VALIDATORS.add(auditReportPathAttributes -> notBlank("Type", auditReportPathAttributes.getType()));
+        VALIDATORS.add(auditReportPathAttributes -> notBlank(auditReportPathAttributes.getType()));
     }
 
     public AuditReportValidator() {
         super(VALIDATORS);
     }
 
-    private static boolean notBlank(String desc, String value) {
+    @SuppressWarnings("unused")
+    private static boolean notBlank(String value) {
         if (isBlank(value)) {
-            throw new IllegalArgumentException(desc + " may not be null or empty");
+            throw new IllegalArgumentException("Required path parameter may not be null or empty!");
         }
         return true;
     }

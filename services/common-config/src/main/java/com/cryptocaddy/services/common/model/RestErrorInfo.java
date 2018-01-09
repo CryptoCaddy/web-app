@@ -13,4 +13,13 @@ public class RestErrorInfo {
         this.message = e.getLocalizedMessage();
     }
 
+    @SuppressWarnings("unused")
+    public String getDetail() {
+        return detail;
+    }
+
+    @SuppressWarnings("unused")
+    public String getMessage() {
+        return message;
+    }
 }

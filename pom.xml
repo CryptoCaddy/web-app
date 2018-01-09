@@ -11,7 +11,8 @@
     <name>CryptoCaddyPlatform</name>
     <packaging>pom</packaging>
 
-    <modules>
+    <modules><module>config</module>
+        <module>docs</module>
         <module>cache-manager</module>
         <module>core</module>
         <module>services</module>
