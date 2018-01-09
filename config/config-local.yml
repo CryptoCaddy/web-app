@@ -1,0 +1,9 @@
+logging:
+  level:
+    .: debug
+    org.springframework: debug
+spring:
+  profiles: local
+  cloud:
+    config:
+      enabled: false

@@ -1,0 +1,5 @@
+spring:
+  profiles: prod
+  cloud:
+    config:
+      enabled: true
