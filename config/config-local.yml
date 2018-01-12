@@ -7,6 +7,18 @@ spring:
   cloud:
     config:
       enabled: false
+
+#add keys here to hard coded test functionality. ensure keys are read only and this is in .gitignore file.
 binance:
-  bkey:
-  bsecret: 
+  binancekey:
+  binancesecret:
+bittrex:
+  bittrexkey:
+  bittrexsecret:
+coinbase:
+  coinbasekey:
+  coinbasesecret:
+gdax:
+  gdaxkey:
+  gdaxsecret:
+  gdaxpass:
