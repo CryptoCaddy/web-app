@@ -31,14 +31,12 @@ public class AuditReportService {
 
         runTestRoutines();
 
-        return null;
 
-        /*
-        ArrayList<Coin> binanceCoinList = testBinance();
+        List<Coin> binanceCoinList = testBinanceWallets();
 
         return Builder.build(AuditReport.class)
                 .with(auditReport -> auditReport.setCoins(binanceCoinList))
-                .get();*/
+                .get();
     }
 
     private void runTestRoutines(){
@@ -65,7 +63,7 @@ public class AuditReportService {
     private String binanceKey;
     @Value("${binance.binancesecret}")
     private String binanceSecret;
-    private ArrayList<Coin> testBinanceWallets(){
+    private List<Coin> testBinanceWallets(){
         if (binanceSecret == "" || binanceKey == "") {
             return null;
         }
@@ -86,7 +84,7 @@ public class AuditReportService {
     private String bittrexKey;
     @Value("${bittrex.bittrexsecret}")
     private String bittrexSecret;
-    private ArrayList<Coin> testBittrexWallets(){
+    private List<Coin> testBittrexWallets(){
         if (bittrexKey == "" || bittrexSecret == "") {
             return null;
         }
@@ -107,7 +105,7 @@ public class AuditReportService {
     private String coinbaseKey;
     @Value("${coinbase.coinbasesecret}")
     private String coinbaseSecret;
-    private ArrayList<Coin> testCoinbaseWallets(){
+    private List<Coin> testCoinbaseWallets(){
         if (coinbaseKey == "" || coinbaseSecret == "") {
             return null;
         }
@@ -121,7 +119,7 @@ public class AuditReportService {
     private String gdaxSecret;
     @Value("${gdax.gdaxpass}")
     private String gdaxPass;
-    private ArrayList<Coin> testGDAXWallets(){
+    private List<Coin> testGDAXWallets(){
         if (gdaxKey == "" || gdaxSecret == "" || gdaxPass == "") {
             return null;
         }

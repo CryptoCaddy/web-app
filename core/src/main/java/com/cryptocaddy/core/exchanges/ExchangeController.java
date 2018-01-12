@@ -17,10 +17,7 @@ import org.knowm.xchange.utils.DateUtils;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jon Waggoner
@@ -56,8 +53,8 @@ public abstract class ExchangeController {
     }
 
     //returns a list of all coins in the exchange with balance data
-    public ArrayList<Coin> getAllCoins(){
-        ArrayList<Coin> coinList = new ArrayList<>();
+    public List<Coin> getAllCoins(){
+        List<Coin> coinList = new ArrayList<>();
 
         AccountInfo accountInfo = getAccountInfo();
         if(accountInfo == null){

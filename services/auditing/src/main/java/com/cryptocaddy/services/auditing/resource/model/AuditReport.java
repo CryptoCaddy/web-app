@@ -5,24 +5,25 @@ import org.knowm.xchange.dto.account.AccountInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AuditReport implements Serializable {
-    ArrayList<Coin> coins;
+    List<Coin> coins;
 
     public AuditReport() {
 
     }
 
-    public AuditReport(ArrayList<Coin> coins) {
+    public AuditReport(List<Coin> coins) {
         //testing exchange api calls with hard-coded data. remove if found
         this.coins = coins;
     }
 
-    public ArrayList<Coin> getCoins() {
+    public List<Coin> getCoins() {
         return coins;
     }
 
-    public void setCoins(ArrayList<Coin> coins) {
+    public void setCoins(List<Coin> coins) {
         this.coins = coins;
     }
 
