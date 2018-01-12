@@ -1,10 +1,20 @@
 package com.cryptocaddy.services.auditing.resource.model;
 
+import com.cryptocaddy.core.exchanges.binance.BinanceController;
+import com.cryptocaddy.core.exchanges.gdax.GdaxController;
+
 public class AuditReport {
     private String type;
     private String name;
 
     public AuditReport() {
+
+        //testing exchange api calls with hard-coded data. remove if found
+        TestingSoRemoveIfFound();
+
+    }
+
+    private void TestingSoRemoveIfFound(){
 
     }
 

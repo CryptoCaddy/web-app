@@ -17,8 +17,8 @@ public abstract class AbstractRestHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseBody
     public RestErrorInfo handleResourceNotFoundException(ResourceNotFoundException e) {
-        System.out.println("Sorry resource was not found: " + e.getMessage());
-        return new RestErrorInfo(e, "Sorry resource was not found: ");
+        System.out.println("Sorry - resource was not found: " + e.getMessage());
+        return new RestErrorInfo(e, "Sorry - resource was not found: ");
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -26,7 +26,7 @@ public abstract class AbstractRestHandler {
     @ResponseBody
     public RestErrorInfo handleIllegalArgumentException(IllegalArgumentException e) {
         System.out.println("Illegal argument exception: " + e.getMessage());
-        return new RestErrorInfo(e, "Sorry validation failed: ");
+        return new RestErrorInfo(e, "Sorry - validation failed: ");
     }
 
 }
