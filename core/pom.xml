@@ -48,7 +48,6 @@
             <scope>import</scope>
             <type>pom</type>
         </dependency>
-
         <dependency>
             <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-core</artifactId>
@@ -74,7 +73,6 @@
             <artifactId>xchange-bittrex</artifactId>
             <version>4.3.2</version>
         </dependency>
-
     </dependencies>
 
     <build>

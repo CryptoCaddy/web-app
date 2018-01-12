@@ -5,6 +5,7 @@ import com.cryptocaddy.core.exchanges.ExchangeController;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
+import org.knowm.xchange.bittrex.BittrexExchange;
 import org.knowm.xchange.dto.account.AccountInfo;
 
 
@@ -16,21 +17,15 @@ import java.util.ArrayList;
  */
 public class BittrexController extends ExchangeController {
 
-
     public BittrexController(String key, String secret) {
         super(key, secret);
     }
 
     protected Exchange getExchange(){
-        //TODO: uncomment and fix once maven build is fixed
-/*
-        ExchangeSpecification specification = new ExchangeSpecification(FFFIIIIXXXXXX.class.getName());
+        ExchangeSpecification specification = new ExchangeSpecification(BittrexExchange.class.getName());
         specification.setApiKey(accountKey);
         specification.setSecretKey(accountSecret);
         return ExchangeFactory.INSTANCE.createExchange(specification);
-        */
-
-return null;
     }
 
 
