@@ -3,6 +3,7 @@ package com.cryptocaddy.core.exchanges;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.account.AccountInfo;
 import org.knowm.xchange.service.account.AccountService;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
  * Date: 1/11/2018
  */
 public abstract class ExchangeController {
-
     protected String accountKey;
     protected String accountSecret;
 
@@ -48,8 +48,6 @@ public abstract class ExchangeController {
         }
 
         //TODO: convert the coins in the json array to coin objects and add to coinList
-
-
 
         return coinList;
     }

@@ -1,39 +1,26 @@
 package com.cryptocaddy.services.auditing.resource.model;
 
-import com.cryptocaddy.core.exchanges.binance.BinanceController;
+import org.knowm.xchange.dto.account.AccountInfo;
 
-public class AuditReport {
-    private String type;
-    private String name;
+import java.io.Serializable;
+
+public class AuditReport implements Serializable {
+    AccountInfo accountInfo;
 
     public AuditReport() {
+
+    }
+
+    public AuditReport(AccountInfo accountInfo) {
         //testing exchange api calls with hard-coded data. remove if found
-        TestingSoRemoveIfFound();
-
+        this.accountInfo = accountInfo;
     }
 
-    private void TestingSoRemoveIfFound(){
-        //enter your shit here nick
-//        BinanceController binanceController = new BinanceController(bKey, bSecret);
-//        binanceController.getAllCoins();
+    public AccountInfo getAccountInfo() {
+        return accountInfo;
     }
 
-    @SuppressWarnings("unused")
-    public String getType() {
-        return type;
+    public void setAccountInfo(AccountInfo accountInfo) {
+        this.accountInfo = accountInfo;
     }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @SuppressWarnings("unused")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 }

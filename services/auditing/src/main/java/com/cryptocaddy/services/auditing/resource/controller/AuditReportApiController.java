@@ -31,10 +31,11 @@ public class AuditReportApiController extends AbstractRestHandler implements Aud
 
         AuditReportValidator auditReportValidator = new AuditReportValidator();
         if (!auditReportValidator.test(auditReportPathAttributes)) {
-            return new ResponseEntity<>(new AuditReport(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AuditReport(null), HttpStatus.BAD_REQUEST);
         }
 
         AuditReport auditReport = auditReportService.getAuditReport(auditReportPathAttributes, auditReportAttributes);
+
         return new ResponseEntity<>(auditReport, HttpStatus.OK);
     }
 
