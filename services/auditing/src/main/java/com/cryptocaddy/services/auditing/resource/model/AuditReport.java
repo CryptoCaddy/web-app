@@ -1,26 +1,29 @@
 package com.cryptocaddy.services.auditing.resource.model;
 
+import com.cryptocaddy.core.exchanges.Coin;
 import org.knowm.xchange.dto.account.AccountInfo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class AuditReport implements Serializable {
-    AccountInfo accountInfo;
+    ArrayList<Coin> coins;
 
     public AuditReport() {
 
     }
 
-    public AuditReport(AccountInfo accountInfo) {
+    public AuditReport(ArrayList<Coin> coins) {
         //testing exchange api calls with hard-coded data. remove if found
-        this.accountInfo = accountInfo;
+        this.coins = coins;
     }
 
-    public AccountInfo getAccountInfo() {
-        return accountInfo;
+    public ArrayList<Coin> getCoins() {
+        return coins;
     }
 
-    public void setAccountInfo(AccountInfo accountInfo) {
-        this.accountInfo = accountInfo;
+    public void setCoins(ArrayList<Coin> coins) {
+        this.coins = coins;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.cryptocaddy.services.auditing.resource.service;
 
+import com.cryptocaddy.core.exchanges.Coin;
 import com.cryptocaddy.core.exchanges.binance.BinanceController;
 import com.cryptocaddy.core.exchanges.bittrex.BittrexController;
 import com.cryptocaddy.core.exchanges.coinbase.CoinbaseController;
@@ -7,8 +8,13 @@ import com.cryptocaddy.core.exchanges.gdax.GdaxController;
 import com.cryptocaddy.services.auditing.resource.model.AuditReport;
 import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportAttributes;
 import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportPathAttributes;
+import com.cryptocaddy.services.common.builder.Builder;
+import org.knowm.xchange.dto.account.AccountInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 @Service
 public class AuditReportService {
@@ -23,21 +29,18 @@ public class AuditReportService {
 
 
         runTestRoutines();
-        return null;
 
-        /*
-        AccountInfo accountInfo = AccountInfo();
+        ArrayList<Coin> binanceCoinList = testBinance();
 
         return Builder.build(AuditReport.class)
-                .with(auditReport -> auditReport.setAccountInfo(accountInfo))
+                .with(auditReport -> auditReport.setCoins(binanceCoinList))
                 .get();
-                */
     }
 
     private void runTestRoutines(){
-        testBinance();
-        testBittrex();
-        testGDAX();
+//        testBinance();
+//        testBittrex();
+//        testGDAX();
 
         //Coinbase is currently not working as is.
         //testCoinbase();
@@ -52,9 +55,12 @@ public class AuditReportService {
     private String binanceKey;
     @Value("${binance.binancesecret}")
     private String binanceSecret;
-    private void testBinance(){
+    private ArrayList<Coin> testBinance(){
+        if (binanceSecret == "" || binanceKey == "") {
+            return null;
+        }
         BinanceController binanceController = new BinanceController(binanceKey, binanceSecret);
-        binanceController.getAllCoins();
+        return binanceController.getAllCoins();
     }
 
 
@@ -62,18 +68,24 @@ public class AuditReportService {
     private String bittrexKey;
     @Value("${bittrex.bittrexsecret}")
     private String bittrexSecret;
-    private void testBittrex(){
+    private ArrayList<Coin> testBittrex(){
+        if (bittrexKey == "" || binanceSecret == "") {
+            return null;
+        }
         BittrexController bittrexController = new BittrexController(bittrexKey, bittrexSecret);
-        bittrexController.getAllCoins();
+        return bittrexController.getAllCoins();
     }
 
     @Value("${coinbase.coinbasekey}")
     private String coinbaseKey;
     @Value("${coinbase.coinbasesecret}")
     private String coinbaseSecret;
-    private void testCoinbase(){
+    private ArrayList<Coin> testCoinbase(){
+        if (coinbaseKey == "" || coinbaseSecret == "") {
+            return null;
+        }
         CoinbaseController coinbaseController = new CoinbaseController(coinbaseKey, coinbaseSecret);
-        coinbaseController.getAllCoins();
+        return coinbaseController.getAllCoins();
     }
 
     @Value("${gdax.gdaxkey}")
@@ -82,9 +94,12 @@ public class AuditReportService {
     private String gdaxSecret;
     @Value("${gdax.gdaxpass}")
     private String gdaxPass;
-    private void testGDAX(){
+    private ArrayList<Coin> testGDAX(){
+        if (gdaxKey == "" || gdaxSecret == "" || gdaxPass == "") {
+            return null;
+        }
         GdaxController gdaxController = new GdaxController(gdaxKey, gdaxSecret, gdaxPass);
-        gdaxController.getAllCoins();
+        return gdaxController.getAllCoins();
     }
 
 }
