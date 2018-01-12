@@ -60,7 +60,8 @@ public abstract class ExchangeController {
             for (Map.Entry<Currency, Balance> entry : currencyBalanceMap.entrySet())
             {
                 Balance balance = entry.getValue();
-                if (balance.getTotal() == BigDecimal.ZERO){
+                BigDecimal zero = new BigDecimal("0E-8");
+                if (balance.getTotal() == BigDecimal.ZERO || balance.getTotal().compareTo(zero) == 0){
                     continue;
                 }
 
