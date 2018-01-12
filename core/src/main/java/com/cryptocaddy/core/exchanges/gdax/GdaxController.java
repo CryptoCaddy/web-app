@@ -34,19 +34,7 @@ public class GdaxController extends ExchangeController  {
     }
 
 
-    public ArrayList<Coin> getAllCoins(){
-        ArrayList<Coin> coinList = new ArrayList<>();
 
-        AccountInfo accountInfo = getAccountInfo();
-        if(accountInfo == null){
-            return coinList;
-        }
-
-        //TODO: convert the coins in the json array to coin objects and add to coinList
-
-
-        return coinList;
-    }
 
 
 }

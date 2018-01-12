@@ -22,8 +22,6 @@ public abstract class ExchangeController {
     }
 
     protected abstract Exchange getExchange();
-    //public abstract AccountInfo getAccountInfo();
-    public abstract ArrayList<Coin> getAllCoins();
 
     //nullable return type
     public AccountInfo getAccountInfo() {
@@ -39,6 +37,21 @@ public abstract class ExchangeController {
         }
 
         return accountInfo;
+    }
+
+    public ArrayList<Coin> getAllCoins(){
+        ArrayList<Coin> coinList = new ArrayList<>();
+
+        AccountInfo accountInfo = getAccountInfo();
+        if(accountInfo == null){
+            return coinList;
+        }
+
+        //TODO: convert the coins in the json array to coin objects and add to coinList
+
+
+
+        return coinList;
     }
 
 }
