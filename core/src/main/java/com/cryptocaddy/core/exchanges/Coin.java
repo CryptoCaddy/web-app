@@ -1,5 +1,8 @@
 package com.cryptocaddy.core.exchanges;
 
+import org.knowm.xchange.currency.Currency;
+import org.knowm.xchange.dto.account.Balance;
+
 import java.math.BigDecimal;
 
 /**
@@ -8,12 +11,33 @@ import java.math.BigDecimal;
  */
 public class Coin {
 
-    public String symbol;
-    public BigDecimal quantity;
+    private Currency backingCurrency;
+    private Balance backingBalance;
 
-    public Coin(String symbol, BigDecimal quantity){
-        this.symbol = symbol;
-        this.quantity = quantity;
+    public String symbol;
+    public String currencyCode;
+    public String displayName;
+
+    public BigDecimal totalQuantity;
+    public BigDecimal available;
+    public BigDecimal availableForWithdrawal;
+    public BigDecimal withdrawing;
+    public BigDecimal depositing;
+
+
+    public Coin(Currency currency, Balance balance){
+        symbol = currency.getSymbol();
+        currencyCode = currency.getCurrencyCode();
+        displayName = currency.getDisplayName();
+
+        totalQuantity = balance.getTotal();
+        available = balance.getAvailable();
+        availableForWithdrawal = balance.getAvailableForWithdrawal();
+        withdrawing = balance.getWithdrawing();
+        depositing = balance.getDepositing();
+
+        backingCurrency = currency;
+        backingBalance = balance;
     }
 
 }

@@ -14,11 +14,15 @@ import org.springframework.stereotype.Service;
 public class AuditReportService {
 
 
+    //TODO: Remove test functions and actually implement real audit report retriever
     public AuditReport getAuditReport(AuditReportPathAttributes auditReportPathAttributes,
                                       AuditReportAttributes auditReportAttributes) {
 
-        /* This is useless currently. Don't let it fool you. */
+        /* This function is currently useless. Don't let it fool you. */
 
+
+
+        runTestRoutines();
         return null;
 
         /*
@@ -33,8 +37,11 @@ public class AuditReportService {
     private void runTestRoutines(){
         testBinance();
         testBittrex();
-        testCoinbase();
         testGDAX();
+
+        //Coinbase is currently not working as is.
+        //testCoinbase();
+
     }
 
     /*
