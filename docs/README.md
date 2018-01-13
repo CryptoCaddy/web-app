@@ -1,6 +1,6 @@
 # Web-Services
 
-One Paragraph of project description goes here
+CryptoCaddy Web Services project provides back end APIs for the apps to consume.  There are a core set of APIs that allow users to create an account, add one to many exchange APIs to their account, and then view their coin listings.
 
 ## Getting Started
 
@@ -19,31 +19,37 @@ Spring Boot CLI
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+Clone the web-services repo
 
 ```
-Give the example
+git clone https://github.com/CryptoCaddy/web-services.git
 ```
 
-And repeat
+Compile the source code - in terminal go to root directory and run a clean install
 
 ```
-until finished
+mvn clean install
+```
+
+Create a run configuration in an IDE for a spring boot app and add an environment variable
+
+```
+Start class: com.cryptocaddy.services.auditing.Application
+Environment variable: spring.config.name = config
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+If running from an IDE just use the run configuration described above.  
+Otherwise you can use the Spring command line to run start the application (look up Spring CLI).
+Last options is using jetty to run the application through a terminal.
 
 ## Built With
 
 * [Spring Boot Framework](https://spring.io/docs/) - powerful framework to create stand-alone Spring application with production grade features and embedded Tomcat server
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
@@ -51,11 +57,11 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+//
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Nicholas Fields** 
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -65,6 +71,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* //
