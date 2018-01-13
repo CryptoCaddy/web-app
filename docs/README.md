@@ -25,6 +25,14 @@ Clone the web-services repo
 git clone https://github.com/CryptoCaddy/web-services.git
 ```
 
+IMPORTANT!! Tell git to skip the local config file during future commits. 
+This is the file where hard coded API Keys/Secrets can be stored locally for testing purposes.
+
+```
+git update-index --skip-worktree config/config-local.yml
+```
+
+
 Compile the source code - in terminal go to root directory and run a clean install
 
 ```
@@ -44,7 +52,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 If running from an IDE just use the run configuration described above.  
 Otherwise you can use the Spring command line to run start the application (look up Spring CLI).
-Last options is using jetty to run the application through a terminal.
+Other option is to use jetty to run the application through terminal.
 
 ## Built With
 
@@ -61,13 +69,14 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Authors
 
+* **Jon Waggoner** 
 * **Nicholas Fields** 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/CryptoCaddy/web-services/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](../LICENSE.md) file for details
 
 ## Acknowledgments
 

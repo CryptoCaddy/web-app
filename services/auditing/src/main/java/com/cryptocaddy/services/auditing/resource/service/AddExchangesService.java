@@ -15,7 +15,7 @@ public class AddExchangesService {
         String username = addExchangesRequestBody.getUsername();
         String password = addExchangesRequestBody.getPassword();
 
-        // TODO: 1/13/2018 - Wire up to some core method that will add these exchanges to a user's account in cloud storage
+        // TODO: 1/13/2018 - Wire up to some core method that will add these exchanges to a user's account in db/cloud-storage
 
         return new Result("Success");
     }
