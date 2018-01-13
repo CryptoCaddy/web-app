@@ -10,8 +10,8 @@ spring:
 
 #add keys here to hard coded test functionality. ensure keys are read only and this is in .gitignore file.
 binance:
-  binancekey: txk9WVrAcjaVQbFFDiRsE4zYigjZBnQpydComEOcTflq8tmqh0PuVkKHUR7CC28L
-  binancesecret: oV3cvBL0h7cQ4uZsTUOeLoDZnv2FsXWgF90UHrUhVfd2FsvRrpMDww5PFeo8Dga6
+  binancekey: 
+  binancesecret:
 bittrex:
   bittrexkey:
   bittrexsecret:
