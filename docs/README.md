@@ -70,7 +70,7 @@ Note: at this time a json conversion error occurs in the return type for the exc
 
 ## API Documentation
 
-Currently only available on local host when service is running at localport:{port-number}/api
+Currently only available on local host when service is running at localhost:{port-number}/api
 
 ## Built With
 
