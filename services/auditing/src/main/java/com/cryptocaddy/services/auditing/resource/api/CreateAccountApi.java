@@ -1,0 +1,38 @@
+package com.cryptocaddy.services.auditing.resource.api;
+
+import com.cryptocaddy.services.auditing.resource.model.AuditReport;
+import com.cryptocaddy.services.auditing.resource.model.Result;
+import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportAttributes;
+import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportPathAttributes;
+import com.cryptocaddy.services.auditing.resource.model.attributes.CreateAccountRequestBody;
+import com.cryptocaddy.services.common.model.RestErrorInfo;
+import io.swagger.annotations.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * Created by Nick Fields
+ * Date: 1/7/2018
+ */
+@Api(value = "createAccount", description = "Create new user account API")
+public interface CreateAccountApi {
+
+    @ApiOperation(value = "Create Account", notes = "The Create Account API creates a new user account and returns success/failure", response = Result.class, tags = {"Create Account"})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Create Account Response", response = Result.class),
+            @ApiResponse(code = 400, message = "Unexpected Error", response = RestErrorInfo.class)
+    })
+    @SuppressWarnings("all")
+    @RequestMapping(value = "/createAccount",
+            produces = { "application/json" },
+            method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "Report Type", paramType = "path", required = true),
+            @ApiImplicitParam(name = "name", value = "Name", paramType = "query")
+    })
+    ResponseEntity<Result> createAccountPost(@RequestBody CreateAccountRequestBody createAccountRequestBody);
+
+}
