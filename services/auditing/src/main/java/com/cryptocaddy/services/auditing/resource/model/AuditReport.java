@@ -15,7 +15,6 @@ public class AuditReport implements Serializable {
     }
 
     public AuditReport(List<Coin> coins) {
-        //testing exchange api calls with hard-coded data. remove if found
         this.coins = coins;
     }
 

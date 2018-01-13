@@ -25,6 +25,3 @@ info:
     version: ${project.version}
 server:
   contextPath: "/api"
-binance:
-  bkey:
-  bsecret:

@@ -29,6 +29,7 @@ IMPORTANT!! Tell git to skip the local config file during future commits.
 This is the file where hard coded API Keys/Secrets can be stored locally for testing purposes.
 
 ```
+cd web-services
 git update-index --skip-worktree config/config-local.yml
 ```
 
@@ -52,7 +53,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 If running from an IDE just use the run configuration described above.  
 Otherwise you can use the Spring command line to run start the application (look up Spring CLI).
-Other option is to use jetty to run the application through terminal.
+Another option is to use jetty to run the application through terminal.
 
 ## Built With
 
@@ -76,7 +77,7 @@ See also the list of [contributors](https://github.com/CryptoCaddy/web-services/
 
 ## License
 
-This project is licensed under the AGPL-3.0 License - see the [LICENSE.md](https://github.com/CryptoCaddy/web-services/LICENSE.md) file for details
+This project is licensed under the AGPL-3.0 License - see the [LICENSE.md](https://github.com/CryptoCaddy/web-services/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 

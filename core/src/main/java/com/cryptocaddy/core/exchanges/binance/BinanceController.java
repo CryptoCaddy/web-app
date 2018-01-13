@@ -23,4 +23,6 @@ public class BinanceController extends ExchangeController {
         return ExchangeFactory.INSTANCE.createExchange(specification);
     }
 
+    //TODO: override inherited function to get trades. Binance wants different info than the rest so we cant fall back on default implementation.
+
 }
