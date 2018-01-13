@@ -47,13 +47,27 @@ Start class: com.cryptocaddy.services.auditing.Application
 Environment variable: spring.config.name = config
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Deployment
 
 If running from an IDE just use the run configuration described above.  
 Otherwise you can use the Spring command line to run start the application (look up Spring CLI).
 Another option is to use jetty to run the application through terminal.
+
+##Example Test
+
+A quick way to see the current flow of the CryptoCaddy web-service is to navigate to the config-local.yml file in the config directory, and add your personal API keys.
+Please ensure that the keys are set to read only permissions and whitelist your IP address with the exchanges if they offer it.
+Also, ensure you followed the step above to ignore the config-local.yml file from future commits.
+
+Once API keys/secrets are entered, you can test getting exchange wallets and trade history by running the service locally and navigate to the proper port and endpoints:
+
+localhost:8080/api/testExchangeWallets
+localhost:8080/api/testExchangeTrades 
+
+##API Documentation
+
+Currently only available on local host when service is running at localport:{port-number}/api
 
 ## Built With
 
@@ -81,4 +95,4 @@ This project is licensed under the AGPL-3.0 License - see the [LICENSE.md](https
 
 ## Acknowledgments
 
-* //
+* CryptoCaddy uses the [XChange](https://github.com/timmolter/XChange) repo.

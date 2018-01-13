@@ -31,12 +31,12 @@ public interface TestExchangesApi {
     @SuppressWarnings("all")
     @RequestMapping(value = "/testExchangeWallets",
             produces = { "application/json" },
-            method = RequestMethod.POST)
+            method = RequestMethod.GET)
     ResponseEntity<List<Coin>> testExchangeWallets();
 
     @RequestMapping(value = "/testExchangeTrades",
             produces = { "application/json" },
-            method = RequestMethod.POST)
+            method = RequestMethod.GET)
     ResponseEntity<List<UserTrade>> testExchangeTrades();
 
 }

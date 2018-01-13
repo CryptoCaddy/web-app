@@ -51,11 +51,9 @@ public class TestExchangeService {
 
         List<UserTrade> tradeList = new ArrayList<>();
 
-        /* Binance requires actual trade pairs to get trade history which is different from the other exchanges. Still needs fixing.
         List<UserTrade> binanceList = testBinanceTrades();
         if (binanceList != null)
             tradeList.addAll(binanceList);
-        */
 
         List<UserTrade> bittrexList = testBittrexTrades();
         if (bittrexList != null)
@@ -64,6 +62,12 @@ public class TestExchangeService {
         List<UserTrade> gdaxList = testGDAXTrades();
         if (gdaxList != null)
             tradeList.addAll(gdaxList);
+
+        /* coinbase not currently working correctly
+        List<Coin> coinbaseList = testCoinbaseTrades();
+        if (coinbaseList != null)
+            coinList.addAll(coinbaseList);
+            */
 
         return tradeList;
 

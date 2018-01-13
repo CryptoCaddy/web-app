@@ -29,7 +29,6 @@ public class TestExchangesApiController extends AbstractRestHandler implements T
     @Override
     public ResponseEntity<List<Coin>> testExchangeWallets() {
 
-        //TestExchangeService testController = new TestExchangeService();
         List<Coin> result = testExchangeService.runWalletTestRoutines();
 
         return new ResponseEntity<>(result, HttpStatus.OK);
