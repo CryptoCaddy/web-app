@@ -2,7 +2,6 @@ package com.cryptocaddy.services.auditing.resource.api;
 
 import com.cryptocaddy.services.auditing.resource.model.AuditReport;
 import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportAttributes;
-import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportPathAttributes;
 import com.cryptocaddy.services.common.model.RestErrorInfo;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +26,8 @@ public interface AuditReportApi {
             produces = { "application/json" },
             method = RequestMethod.GET)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "Report Type", paramType = "path", required = true),
-            @ApiImplicitParam(name = "name", value = "Name", paramType = "query")
+            @ApiImplicitParam(name = "username", value = "Username", required = true, paramType = "query")
     })
-    ResponseEntity<AuditReport> auditReportGet(@ModelAttribute AuditReportPathAttributes auditReportPathAttributes,
-                                               @ModelAttribute AuditReportAttributes auditReportAttributes);
+    ResponseEntity<AuditReport> auditReportGet(@ModelAttribute AuditReportAttributes auditReportAttributes);
 
 }

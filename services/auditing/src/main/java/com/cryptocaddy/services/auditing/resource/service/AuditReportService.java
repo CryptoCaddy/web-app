@@ -8,13 +8,12 @@ import com.cryptocaddy.core.exchanges.coinbase.CoinbaseController;
 import com.cryptocaddy.core.exchanges.gdax.GdaxController;
 import com.cryptocaddy.services.auditing.resource.model.AuditReport;
 import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportAttributes;
-import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportPathAttributes;
 import com.cryptocaddy.services.common.builder.Builder;
 import org.knowm.xchange.dto.trade.UserTrade;
 import org.knowm.xchange.dto.trade.UserTrades;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
@@ -22,15 +21,12 @@ public class AuditReportService {
 
 
     //TODO: Remove test functions and actually implement real audit report retriever
-    public AuditReport getAuditReport(AuditReportPathAttributes auditReportPathAttributes,
-                                      AuditReportAttributes auditReportAttributes) {
+    public AuditReport getAuditReport(AuditReportAttributes auditReportAttributes) {
+        String username = auditReportAttributes.getUsername();
+        // TODO: 1/13/2018 - use this username and go to core and lookup account exchange apis and get all coins for these accounts and return
 
         /* This function is currently useless. Don't let it fool you. */
-
-
-
         runTestRoutines();
-
 
         List<Coin> binanceCoinList = testBinanceWallets();
 

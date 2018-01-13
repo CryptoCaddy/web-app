@@ -4,7 +4,6 @@ import com.cryptocaddy.services.auditing.resource.api.AbstractRestHandler;
 import com.cryptocaddy.services.auditing.resource.api.AuditReportApi;
 import com.cryptocaddy.services.auditing.resource.model.AuditReport;
 import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportAttributes;
-import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportPathAttributes;
 import com.cryptocaddy.services.auditing.resource.service.AuditReportService;
 import com.cryptocaddy.services.auditing.resource.validation.AuditReportValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +25,14 @@ public class AuditReportApiController extends AbstractRestHandler implements Aud
     }
 
     @Override
-    public ResponseEntity<AuditReport> auditReportGet(AuditReportPathAttributes auditReportPathAttributes,
-                                                      AuditReportAttributes auditReportAttributes) {
+    public ResponseEntity<AuditReport> auditReportGet(AuditReportAttributes auditReportAttributes) {
 
         AuditReportValidator auditReportValidator = new AuditReportValidator();
-        if (!auditReportValidator.test(auditReportPathAttributes)) {
+        if (!auditReportValidator.test(auditReportAttributes)) {
             return new ResponseEntity<>(new AuditReport(null), HttpStatus.BAD_REQUEST);
         }
 
-        AuditReport auditReport = auditReportService.getAuditReport(auditReportPathAttributes, auditReportAttributes);
+        AuditReport auditReport = auditReportService.getAuditReport(auditReportAttributes);
 
         return new ResponseEntity<>(auditReport, HttpStatus.OK);
     }

@@ -1,16 +1,10 @@
 package com.cryptocaddy.services.auditing.resource.controller;
 
 import com.cryptocaddy.services.auditing.resource.api.AbstractRestHandler;
-import com.cryptocaddy.services.auditing.resource.api.AuditReportApi;
 import com.cryptocaddy.services.auditing.resource.api.CreateAccountApi;
-import com.cryptocaddy.services.auditing.resource.model.AuditReport;
 import com.cryptocaddy.services.auditing.resource.model.Result;
-import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportAttributes;
-import com.cryptocaddy.services.auditing.resource.model.attributes.AuditReportPathAttributes;
 import com.cryptocaddy.services.auditing.resource.model.attributes.CreateAccountRequestBody;
-import com.cryptocaddy.services.auditing.resource.service.AuditReportService;
 import com.cryptocaddy.services.auditing.resource.service.CreateAccountService;
-import com.cryptocaddy.services.auditing.resource.validation.AuditReportValidator;
 import com.cryptocaddy.services.auditing.resource.validation.CreateAccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
