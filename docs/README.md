@@ -54,7 +54,7 @@ If running from an IDE just use the run configuration described above.
 Otherwise you can use the Spring command line to run start the application (look up Spring CLI).
 Another option is to use jetty to run the application through terminal.
 
-##Example Test
+## Example Test
 
 A quick way to see the current flow of the CryptoCaddy web-service is to navigate to the config-local.yml file in the config directory, and add your personal API keys.
 Please ensure that the keys are set to read only permissions and whitelist your IP address with the exchanges if they offer it.
@@ -68,7 +68,7 @@ localhost:8080/api/testExchangeTrades
 
 Note: at this time a json conversion error occurs in the return type for the exchange trades due to a cycle. The trades themselves are being properly fetched and created though.
 
-##API Documentation
+## API Documentation
 
 Currently only available on local host when service is running at localport:{port-number}/api
 
