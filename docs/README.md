@@ -63,7 +63,10 @@ Also, ensure you followed the step above to ignore the config-local.yml file fro
 Once API keys/secrets are entered, you can test getting exchange wallets and trade history by running the service locally and navigate to the proper port and endpoints:
 
 localhost:8080/api/testExchangeWallets
+
 localhost:8080/api/testExchangeTrades 
+
+Note: at this time a json conversion error occurs in the return type for the exchange trades due to a cycle. The trades themselves are being properly fetched and created though.
 
 ##API Documentation
 
