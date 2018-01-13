@@ -10,7 +10,6 @@ spring:
 
 #Add hard coded keys here to test functionality.
 #Ensure keys are read only and that you have run the command to skip this file in future commits. See readme file for this command.
-#Note: Binance still needs trade history implementation and coinbase is currently not working.
 binance:
   binancekey: 
   binancesecret:
@@ -18,8 +17,8 @@ bittrex:
   bittrexkey:
   bittrexsecret:
 coinbase:
-  coinbasekey: #not yet implemented
-  coinbasesecret: #not yet implemented
+  coinbasekey:
+  coinbasesecret:
 gdax:
   gdaxkey:
   gdaxsecret:
