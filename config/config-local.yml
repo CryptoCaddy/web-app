@@ -18,8 +18,8 @@ bittrex:
   bittrexkey:
   bittrexsecret:
 coinbase:
-  coinbasekey:
-  coinbasesecret:
+  coinbasekey: #not yet implemented
+  coinbasesecret: #not yet implemented
 gdax:
   gdaxkey:
   gdaxsecret:
