@@ -61,7 +61,7 @@ Other option is to use jetty to run the application through terminal.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -76,7 +76,7 @@ See also the list of [contributors](https://github.com/CryptoCaddy/web-services/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](../LICENSE.md) file for details
+This project is licensed under the AGPL-3.0 License - see the [LICENSE.md](https://github.com/CryptoCaddy/web-services/LICENSE.md) file for details
 
 ## Acknowledgments
 
