@@ -77,12 +77,12 @@ public class TestExchangeService {
 
 
 
-    @Value("${binance.binancekey}")
+    @Value("${binance.binancekey:}")
     private String binanceKey;
-    @Value("${binance.binancesecret}")
+    @Value("${binance.binancesecret:}")
     private String binanceSecret;
     private List<Coin> testBinanceWallets(){
-        if (binanceSecret == "" || binanceKey == ""  || binanceSecret == null || binanceKey == null) {
+        if (binanceSecret == null || binanceKey == null || binanceSecret.isEmpty() || binanceKey.isEmpty()) {
             System.out.println("Null or empty key/secret");
             return null;
         }
@@ -91,7 +91,7 @@ public class TestExchangeService {
     }
 
     private List<UserTrade> testBinanceTrades(){
-        if (binanceSecret == "" || binanceKey == ""  || binanceSecret == null || binanceKey == null) {
+        if (binanceSecret == null || binanceKey == null || binanceSecret.isEmpty() || binanceKey.isEmpty()) {
             System.out.println("Null or empty key/secret");
             return null;
         }
@@ -100,12 +100,12 @@ public class TestExchangeService {
     }
 
 
-    @Value("${bittrex.bittrexkey}")
+    @Value("${bittrex.bittrexkey:}")
     private String bittrexKey;
-    @Value("${bittrex.bittrexsecret}")
+    @Value("${bittrex.bittrexsecret:}")
     private String bittrexSecret;
     private List<Coin> testBittrexWallets(){
-        if (bittrexKey == "" || bittrexSecret == "" || bittrexKey == null || bittrexSecret == null) {
+        if (bittrexKey == null || bittrexSecret == null || bittrexKey.isEmpty() || bittrexSecret.isEmpty()) {
             System.out.println("Null or empty key/secret");
             return null;
         }
@@ -114,7 +114,7 @@ public class TestExchangeService {
     }
 
     private List<UserTrade> testBittrexTrades(){
-        if (bittrexKey == "" || bittrexSecret == "" || bittrexKey == null || bittrexSecret == null) {
+        if (bittrexKey == null || bittrexSecret == null || bittrexKey.isEmpty() || bittrexSecret.isEmpty()) {
             System.out.println("Null or empty key/secret");
             return null;
         }
@@ -123,12 +123,12 @@ public class TestExchangeService {
     }
 
 
-    @Value("${coinbase.coinbasekey}")
+    @Value("${coinbase.coinbasekey:}")
     private String coinbaseKey;
-    @Value("${coinbase.coinbasesecret}")
+    @Value("${coinbase.coinbasesecret:}")
     private String coinbaseSecret;
     private List<Coin> testCoinbaseWallets(){
-        if (coinbaseKey == "" || coinbaseSecret == "" || coinbaseKey == null || coinbaseSecret == null) {
+        if (coinbaseKey == null || coinbaseSecret == null || coinbaseKey.isEmpty() || coinbaseSecret.isEmpty()) {
             System.out.println("Null or empty key/secret");
             return null;
         }
@@ -136,15 +136,15 @@ public class TestExchangeService {
         return coinbaseController.getAllCoins();
     }
 
-    @Value("${gdax.gdaxkey}")
+    @Value("${gdax.gdaxkey:}")
     private String gdaxKey;
-    @Value("${gdax.gdaxsecret}")
+    @Value("${gdax.gdaxsecret:}")
     private String gdaxSecret;
-    @Value("${gdax.gdaxpass}")
+    @Value("${gdax.gdaxpass:}")
     private String gdaxPass;
     private List<Coin> testGDAXWallets(){
-        if (gdaxKey == "" || gdaxSecret == "" || gdaxPass == "" || gdaxKey == null || gdaxSecret == null || gdaxPass == null) {
-            System.out.println("Null or empty key/secret");
+        if (gdaxKey == null || gdaxSecret == null || gdaxPass == null || gdaxKey.isEmpty() || gdaxSecret.isEmpty() || gdaxPass.isEmpty()) {
+            System.out.println("Nullor empty key/secret");
             return null;
         }
         GdaxController gdaxController = new GdaxController(gdaxKey, gdaxSecret, gdaxPass);
@@ -152,7 +152,7 @@ public class TestExchangeService {
     }
 
     private List<UserTrade> testGDAXTrades(){
-        if (gdaxKey == "" || gdaxSecret == "" || gdaxPass == "" || gdaxKey == null || gdaxSecret == null || gdaxPass == null) {
+        if (gdaxKey == null || gdaxSecret == null || gdaxPass == null || gdaxKey.isEmpty() || gdaxSecret.isEmpty() || gdaxPass.isEmpty()) {
             System.out.println("Null or empty key/secret");
             return null;
         }
