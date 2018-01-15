@@ -144,7 +144,7 @@ public class TestExchangeService {
     private String gdaxPass;
     private List<Coin> testGDAXWallets(){
         if (gdaxKey == null || gdaxSecret == null || gdaxPass == null || gdaxKey.isEmpty() || gdaxSecret.isEmpty() || gdaxPass.isEmpty()) {
-            System.out.println("Nullor empty key/secret");
+            System.out.println("Null or empty key/secret");
             return null;
         }
         GdaxController gdaxController = new GdaxController(gdaxKey, gdaxSecret, gdaxPass);
