@@ -1,0 +1,25 @@
+logging:
+  level:
+    .: debug
+    org.springframework: debug
+spring:
+  profiles: local
+  cloud:
+    config:
+      enabled: false
+
+#Add hard coded keys here to test functionality.
+#Ensure keys are read only and that you have run the command to skip this file in future commits. See readme file for this command.
+binance:
+  binancekey:
+  binancesecret:
+bittrex:
+  bittrexkey:
+  bittrexsecret:
+coinbase:
+  coinbasekey:
+  coinbasesecret:
+gdax:
+  gdaxkey:
+  gdaxsecret:
+  gdaxpass:
