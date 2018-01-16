@@ -17,7 +17,7 @@ NPM 5.4+
 
 ### Installing
 
-Installing dependencies
+Install dependencies
 
 ```
 npm install
