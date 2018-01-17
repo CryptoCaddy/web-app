@@ -1,0 +1,10 @@
+<mat-toolbar role="header" [color]="'primary'">
+  <a mat-button [routerLink]="[ '/home' ]">Home</a>
+  <a mat-button [routerLink]="[ '/reports' ]">Reports</a>
+  <button mat-button [matMenuTriggerFor]="demoMenu">Demo</button>
+  <mat-menu #demoMenu="matMenu">
+    <a mat-menu-item [routerLink]="[ '/demo', 'exchange-wallet' ]">Exchange Wallet</a>
+  </mat-menu>
+  <span class="cdy-spacer"></span>
+  <a mat-button [routerLink]="[ '/auth/login' ]">Login</a>
+</mat-toolbar>

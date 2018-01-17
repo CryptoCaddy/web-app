@@ -1,0 +1,6 @@
+@import '~@angular/material/theming';
+@import 'globals/theme';
+
+.cdyg-page-banner {
+  background: mat-color($cdy-app-primary);
+}

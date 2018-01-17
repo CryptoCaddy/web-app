@@ -1,0 +1,7 @@
+// Generate the theme
+@import '~@angular/material/theming';
+@import "theme";
+@include angular-material-theme($cdy-app-theme);
+
+@import "forms";
+@import "page";

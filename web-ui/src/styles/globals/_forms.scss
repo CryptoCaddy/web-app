@@ -1,0 +1,15 @@
+mat-form-field {
+  &.cdyg-full-width {
+    display: block;
+  }
+}
+
+.cdyg-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+
+  ~ mat-error {
+    margin-top: 1rem;
+  }
+}

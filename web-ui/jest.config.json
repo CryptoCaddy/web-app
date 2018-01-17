@@ -1,0 +1,18 @@
+{
+  "preset": "jest-preset-angular",
+  "setupTestFrameworkScriptFile": "<rootDir>/jest/jest.setup.ts",
+  "testEnvironment": "jsdom",
+  "testRegex": "\\.spec\\.(ts|js)$",
+  "testPathIgnorePatterns": [
+    "/test-backend/"
+  ],
+  "collectCoverageFrom": [
+    "src/app/**/*.{ts,tsx}"
+  ],
+  "coverageReporters": [
+    "html",
+    "lcovonly",
+    "clover",
+    "text-summary"
+  ]
+}

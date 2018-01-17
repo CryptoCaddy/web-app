@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@import 'globals/theme';
+
+cdy-page-content {
+  margin-top: 6rem;
+}
+
+mat-card {
+  max-width: 24rem;
+  margin: 0 auto;
+}
