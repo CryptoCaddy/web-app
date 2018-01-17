@@ -1,6 +1,14 @@
 # CryptoCaddy
 
-> todo: write project description
+CryptoCaddy is a platform designed to automate the complicated process of generating gain/loss documents for tax purposes and live portfolio tracking based on exchange API keys, blockchain explorers and csv uploads. The web-app is the central component to the project and will be at the core of any peripheral mobile or desktop applications that become a part of the CryptoCaddy platform. 
+
+This web-app repository is divided into 3 main components: web-services (Java/MySQL), fiat-engine (Python/MySQL) and web-ui (TypeScript/Angular). 
+
+```
+* The web-services directory is the root of the Java back end service for the web-app. It houses the central api that the web-ui and other peripherals will leverage to access private user and market level data. 
+* The fiat-engine directory is the root of the Python service that will be used to access the historical fiat value of coins based on timestamps. It will keep the MySQL database up to date with historical market data and access that data as neccessary to convert historical coin values into fiat values when generating gain/loss data in the Java web-service.
+* The web-ui is written with TypeScript and Angular. It uses the Java back end api for all data. It does not directly interface with the fiat-engine.
+```
 
 ## Getting Started
 
@@ -94,7 +102,7 @@ Please read [CONTRIBUTING.md]() for details on our code of conduct, and the proc
 
 ## Versioning
 
-//
+(No stable versions released yet)
 
 ## Authors
 
@@ -109,4 +117,4 @@ This project is licensed under the AGPL-3.0 License - see the [LICENSE.md](https
 
 ## Acknowledgments
 
-* CryptoCaddy uses the [XChange](https://github.com/timmolter/XChange) repo.
+* CryptoCaddy uses the [XChange](https://github.com/timmolter/XChange) repository.
