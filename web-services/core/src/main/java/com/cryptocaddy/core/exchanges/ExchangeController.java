@@ -1,5 +1,8 @@
 package com.cryptocaddy.core.exchanges;
 
+import com.cryptocaddy.core.model.Coin;
+import com.cryptocaddy.core.model.Transaction;
+import com.cryptocaddy.core.model.TransactionHistory;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.dto.account.AccountInfo;
@@ -7,16 +10,13 @@ import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.dto.account.Wallet;
 import org.knowm.xchange.dto.trade.UserTrade;
 import org.knowm.xchange.dto.trade.UserTrades;
-import org.knowm.xchange.gdax.GDAX;
 import org.knowm.xchange.service.account.AccountService;
 import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
-import org.knowm.xchange.utils.DateUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.*;
 import java.util.*;
 
 /**
@@ -90,22 +90,29 @@ public abstract class ExchangeController {
 
 
     //nullable return type
-    public UserTrades getTradeHistory(){
-        UserTrades tradeHistory = null;
+    public TransactionHistory getTransactionHistory(){
+        TransactionHistory txHistory = null;
 
-        TradeService tradeService = getExchange().getTradeService();
-        //TODO: set end date to end of tax year in params before getting trades
+        Exchange exchange = getExchange();
+        TradeService tradeService = exchange.getTradeService();
+        //TODO: set end date to end of tax year in params before getting trades or accept start / end dates
         TradeHistoryParams params = new TradeHistoryParamsAll();
         try {
-            tradeHistory = tradeService.getTradeHistory(params);
+            UserTrades tradeHistory = tradeService.getTradeHistory(params);
             //TODO: place in #if debug preprocessor or equivalent
             System.out.println(tradeHistory.toString());
+
+            txHistory = new TransactionHistory();
+            for (UserTrade userTrade : tradeHistory.getUserTrades()){
+                Transaction tx = new Transaction(userTrade);
+                txHistory.addTransaction(tx);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return tradeHistory;
+        return txHistory;
     }
 
     public void getReport(){

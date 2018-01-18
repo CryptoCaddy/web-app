@@ -1,4 +1,4 @@
-package com.cryptocaddy.core.exchanges;
+package com.cryptocaddy.core.model;
 
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.dto.account.Balance;

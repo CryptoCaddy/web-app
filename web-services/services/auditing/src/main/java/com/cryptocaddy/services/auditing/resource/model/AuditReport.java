@@ -1,10 +1,8 @@
 package com.cryptocaddy.services.auditing.resource.model;
 
-import com.cryptocaddy.core.exchanges.Coin;
-import org.knowm.xchange.dto.account.AccountInfo;
+import com.cryptocaddy.core.model.Coin;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AuditReport implements Serializable {

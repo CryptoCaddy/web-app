@@ -1,6 +1,7 @@
 package com.cryptocaddy.core.exchanges.binance;
 
 import com.cryptocaddy.core.exchanges.ExchangeController;
+import com.cryptocaddy.core.model.TransactionHistory;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -31,12 +32,12 @@ public class BinanceController extends ExchangeController {
 
     //TODO: override inherited function to get trades. Binance wants different info than the rest so we cant fall back on default implementation.
     //nullable return type
-    public UserTrades getTradeHistory(){
-        UserTrades tradeHistory = null;
+    public TransactionHistory getTransactionHistory(){
+        TransactionHistory txHistory = null;
 
         System.out.println("Binance trade history not yet implemented. Needs specific trade pairs in request unlike other exchanges.");
 
-        return tradeHistory;
+        return txHistory;
     }
 
 }

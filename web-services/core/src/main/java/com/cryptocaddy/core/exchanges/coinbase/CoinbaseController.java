@@ -1,14 +1,10 @@
 package com.cryptocaddy.core.exchanges.coinbase;
 
-import com.cryptocaddy.core.exchanges.Coin;
 import com.cryptocaddy.core.exchanges.ExchangeController;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.coinbase.CoinbaseExchange;
-import org.knowm.xchange.dto.account.AccountInfo;
-
-import java.util.ArrayList;
 
 /**
  * Created by Jon Waggoner

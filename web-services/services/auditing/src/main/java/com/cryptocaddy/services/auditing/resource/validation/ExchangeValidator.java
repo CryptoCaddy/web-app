@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class ExchangeWalletsValidator extends GenericValidator<Exchange> {
+public class ExchangeValidator extends GenericValidator<Exchange> {
     private static final List<Predicate<Exchange>> VALIDATORS = new LinkedList<>();
 
     static {
@@ -19,7 +19,7 @@ public class ExchangeWalletsValidator extends GenericValidator<Exchange> {
         VALIDATORS.add(exchange -> notBlank(exchange.getExchangeSecret()));
     }
 
-    public ExchangeWalletsValidator() {
+    public ExchangeValidator() {
         super(VALIDATORS);
     }
 
