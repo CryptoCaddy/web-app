@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get install -y gnupg bzip2
 
 #install node
-ADD https://deb.nodesource.com/setup_7.x /opt/node_ppa.sh
+ADD https://deb.nodesource.com/setup_8.x /opt/node_ppa.sh
 RUN chmod u+x /opt/node_ppa.sh
 RUN /opt/node_ppa.sh
 RUN apt-get install -y nodejs
@@ -16,8 +16,8 @@ COPY . /opt/client
 WORKDIR /opt/client
 
 #compile
-#RUN npm install
-#RUN npm run build
+RUN npm install
+RUN npm run build
 
 #copy our static assets to nginx's root
 RUN cp -r /opt/client/dist/* /usr/share/nginx/html
