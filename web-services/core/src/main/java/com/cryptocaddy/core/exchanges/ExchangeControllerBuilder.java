@@ -9,6 +9,8 @@ public class ExchangeControllerBuilder {
 
     public static ExchangeController createExchangeController(String exchangeName, String apiKey, String apiSecret, String apiPass){
 
+        //we can surely do this cleaner by mapping enum values to runnable... this is just a quick implementation
+
         if (exchangeName.equalsIgnoreCase(SupportedExchanges.BINANCE.name()))
             return new BinanceController(apiKey, apiSecret);
         else if (exchangeName.equalsIgnoreCase(SupportedExchanges.BITTREX.name()))
