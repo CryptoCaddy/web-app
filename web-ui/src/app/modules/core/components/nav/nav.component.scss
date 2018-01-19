@@ -1,0 +1,25 @@
+@import "vars/dimensions";
+@import "~@angular/material/theming";
+
+:host {
+  @include mat-elevation(6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.mat-toolbar {
+  height: $navbar-height;
+  padding: 0.5rem 1rem;
+}
+
+.cdy-header-image {
+  height: $navbar-height;
+  width: auto;
+}
+
+.cdy-spacer {
+  flex: 1;
+}

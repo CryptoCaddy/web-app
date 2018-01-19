@@ -1,0 +1,9 @@
+:host-context(mat-card) {
+  display: block;
+
+  // Overwriting the mat-card paddding
+  margin-top: -24px !important;
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-bottom: 24px;
+}
