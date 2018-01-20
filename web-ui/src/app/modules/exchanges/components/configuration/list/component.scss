@@ -1,0 +1,13 @@
+mat-panel-title {
+  margin: 0;
+  align-items: center;
+  justify-content: space-between;
+
+  .mat-chip-list {
+    display: block;
+  }
+
+  .mat-chip {
+    text-transform: uppercase;
+  }
+}

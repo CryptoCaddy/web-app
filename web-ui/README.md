@@ -82,8 +82,8 @@ ng generate directive|pipe|service|class|guard|interface|enum|module <name>
 
 ### Further guides
 
-* [Folder structure](./docs/folder-structure.md)
-* [Styling components](./docs/styling-components.md)
+* [Front End Architecture](./docs/architecture.md)
+* [Styling Components](./docs/styling-components.md)
 
 ## Build
 

@@ -1,0 +1,11 @@
+<h2>{{ exchange.exchangeName }}</h2>
+
+<cdy-exchange-wallet-table
+  *ngIf="!errorMsg; else errorTemplate"
+  [dataSource]="dataSource"
+  [loading]="loading"
+></cdy-exchange-wallet-table>
+
+<ng-template #errorTemplate>
+  <mat-error>{{ errorMsg }}</mat-error>
+</ng-template>

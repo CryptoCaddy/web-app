@@ -1,0 +1,15 @@
+mat-form-field {
+  display: block;
+
+  button + button {
+    margin-left: .5rem;
+  }
+}
+
+.mat-action-row {
+  border: none;
+}
+
+.mat-action-row.cdy-errors {
+  justify-content: initial;
+}

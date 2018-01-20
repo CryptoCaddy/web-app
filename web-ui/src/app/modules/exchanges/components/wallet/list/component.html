@@ -1,0 +1,5 @@
+<cdy-exchange-wallet
+  *ngFor="let exchange of exchanges$ | async; trackBy: trackExchangeBy('exchangeName')"
+  [exchange]="exchange"
+>
+</cdy-exchange-wallet>

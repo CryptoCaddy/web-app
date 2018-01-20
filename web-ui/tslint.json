@@ -59,6 +59,7 @@
     "no-trailing-whitespace": true,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
+    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
@@ -119,7 +120,7 @@
       "cdy",
       "camelCase"
     ],
-    "component-class-suffix": true,
+    "component-class-suffix": [ true, "Component", "Page" ],
     "directive-class-suffix": true,
     "no-input-rename": true,
     "no-output-on-prefix": true,

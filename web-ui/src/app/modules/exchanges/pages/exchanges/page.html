@@ -1,0 +1,14 @@
+<cdy-page-content>
+
+  <h1 cdy-header>Exchanges</h1>
+
+  <cdy-exchange-configuration-list
+    cdy-sidebar
+    [dataSource]="configurationDataSource"
+  ></cdy-exchange-configuration-list>
+
+  <cdy-exchange-wallet-list
+    [dataSource]="walletDataSource"
+  ></cdy-exchange-wallet-list>
+
+</cdy-page-content>
