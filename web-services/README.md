@@ -58,6 +58,17 @@ localhost:8080/api/testExchangeTrades
 
 Note: at this time a json conversion error occurs in the return type for the exchange trades due to a cycle. The trades themselves are being properly fetched and created though.
 
+## Debugging with Docker
+
+To debug a running spring docker container use the following commands in place of the previously provided commands.
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.debug.yml build
+docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+```
+
+A JVM debugging port will now be available at port `50505` at the docker machine's ip.
+
 ## API Documentation
 
 Currently only available on local host when service is running at localhost:8080/api
