@@ -10,7 +10,7 @@ export class AppConfigService {
         return '/api';
 
       default:
-        return 'http://localhost:8080';
+        return 'http://localhost:8080/api';
     }
   }
 
