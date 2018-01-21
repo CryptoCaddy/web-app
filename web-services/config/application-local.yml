@@ -1,7 +1,7 @@
 logging:
   level:
-    .: debug
-    org.springframework: debug
+    .: info
+    org.springframework: info
 spring:
   profiles: local
   cloud:

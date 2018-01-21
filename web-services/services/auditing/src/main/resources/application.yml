@@ -1,0 +1,33 @@
+logging:
+  level:
+    .: info
+    org.springframework: info
+spring:
+  cloud:
+    config:
+      enabled: false
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: "/api-docs"
+info:
+  build:
+    artifact: ${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+server:
+  contextPath: "/api"
+mysql:
+  database: testdb
+  user: nick
+  password: test
+  root:
+    password: test
