@@ -1,12 +1,27 @@
 # CryptoCaddy - WebUi
 
-## Development
+## Getting Started
 
 ### Prerequisites
 
 * [Node.js](https://nodejs.org/) v8
 * [yarn](https://yarnpkg.com/) as Node.js package manager
 * [Angular CLI](https://github.com/angular/angular-cli)
+
+#### Example installation on Windows
+
+Simply download and run the .msi installers on the following sites:
+* [Node.js Download](https://nodejs.org/en/download/)
+* [Yarn Download](https://yarnpkg.com/en/docs/install)
+
+Then run the following
+```bash
+# install the Angular CLI as global package using yarn
+yarn global add @angular/cli
+
+# make sure everything works
+ng --version
+```
 
 #### Example installation on macOS (using brew)
 
@@ -36,7 +51,7 @@ To install the dependencies using yarn, simply run the following:
 yarn
 ```
 
-### Development server
+## Development
 
 ```bash
 # start the development server
@@ -44,6 +59,13 @@ yarn start
 ```
 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+The dev server proxies requests that are sent to `api/`.
+To set the server that it points to set the environment variable `API_SERVER` before running the above command, you can use the following command to set it appropriately when using docker:
+
+```
+export API_SERVER="http://"$(docker-machine ip)":8080"
+```
 
 ### Code scaffolding
 
@@ -72,7 +94,7 @@ yarn build
 The build artifacts will be stored in the `dist/` directory.
 The script is configured to build a production build with the [AOT compiler](https://angular.io/guide/aot-compiler).
 
-## Running unit tests
+## Unit tests
 
 ```bash
 yarn test
@@ -87,7 +109,7 @@ yarn tdd
 This will enter watch mode for testing only files that are affected by changes in git's working
 directory (= files that are changed but not staged).
 
-## Running end-to-end tests
+## End-to-end tests
 
 ```bash
 yarn e2e

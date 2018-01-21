@@ -1,39 +1,23 @@
-FROM nginx:latest
+#using a node image to build our frontend
+FROM node:latest
 
-#install dependencies
-RUN apt-get update
-RUN apt-get install -y gnupg bzip2
-
-#add node source list
-ADD https://deb.nodesource.com/setup_8.x /opt/node_ppa.sh
-RUN chmod u+x /opt/node_ppa.sh
-RUN /opt/node_ppa.sh
-
-#add yarn source list
-RUN apt-key adv --keyserver pgp.mit.edu --recv 9D41F3C3
-RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update
-
-#install node and yarn
-RUN apt-get install -y nodejs yarn
-
-#copy our source code to the docker container
+#create the folder for our source code
 RUN mkdir /opt/client
-COPY . /opt/client
-WORKDIR /opt/client
 
-#compile
+#copy and install only our dependencies, this is to prevent docker from clearing them if there's no change
+COPY package.json yarn.lock /opt/client/
+WORKDIR /opt/client
 RUN yarn install
+
+#copy the rest of our source code to the docker container and compile
+COPY . /opt/client
 RUN yarn build
 
-#run unit tests
-# RUN yarn test
+#nginx is the actual image we'll be running
+FROM nginx:latest
 
-#copy our static assets to nginx's root
-RUN cp -r /opt/client/dist/* /usr/share/nginx/html
-
-#purge source files
-RUN rm -rf /opt/client
+#copy our built static assets to nginx's root
+COPY --from=0 /opt/client/dist /usr/share/nginx/html
 
 #set the entrypoint
 CMD ["nginx", "-g", "daemon off;"]
