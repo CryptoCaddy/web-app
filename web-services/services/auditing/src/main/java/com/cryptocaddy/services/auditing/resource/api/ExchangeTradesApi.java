@@ -28,7 +28,7 @@ public interface ExchangeTradesApi {
     @SuppressWarnings("all")
     @RequestMapping(value = "/exchangeTrades",
             produces = { "application/json" },
-            method = RequestMethod.GET)
+            method = RequestMethod.POST)
     ResponseEntity<TransactionHistory> getExchangeTrades(@RequestBody Exchange exchange);
 
 }

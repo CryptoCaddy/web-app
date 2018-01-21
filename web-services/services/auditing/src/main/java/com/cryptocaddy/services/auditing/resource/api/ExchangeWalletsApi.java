@@ -27,7 +27,7 @@ public interface ExchangeWalletsApi {
     @SuppressWarnings("all")
     @RequestMapping(value = "/exchangeWallets",
             produces = { "application/json" },
-            method = RequestMethod.GET)
+            method = RequestMethod.POST)
     ResponseEntity<AuditReport> getExchangeWallets(@RequestBody Exchange exchange);
 
 }
