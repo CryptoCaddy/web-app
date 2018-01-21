@@ -1,0 +1,55 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+
+  <mat-form-field>
+    <input matInput
+      type="text"
+      [formControlName]="'exchangeKey'"
+      placeholder="API Key"
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+      type="text"
+      [formControlName]="'exchangeSecret'"
+      placeholder="API Secret"
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+      type="text"
+      [formControlName]="'exchangePass'"
+      placeholder="Passphrase"
+    >
+  </mat-form-field>
+
+  <mat-action-row>
+    <button
+      type="button"
+      *ngIf="exchange.isStored"
+      mat-button [color]="'warn'"
+      [disabled]="savePending"
+      (click)="onDelete($event)"
+    >
+      <cdy-button-content [loading]="deletePending" [spinnerColor]="'warn'">
+        Delete
+      </cdy-button-content>
+    </button>
+
+    <button
+      type="submit"
+      mat-button mat-raised-button [color]="'primary'"
+      [disabled]="deletePending"
+    >
+      <cdy-button-content [loading]="savePending" [spinnerColor]="'white'">
+        {{ exchange.isStored ? 'Update' : 'Save' }}
+      </cdy-button-content>
+    </button>
+  </mat-action-row>
+
+  <mat-action-row class="cdy-errors" *ngIf="form.errors">
+    <mat-error *ngIf="form.getError('generic'); let error">{{ error }}</mat-error>
+  </mat-action-row>
+
+</form>

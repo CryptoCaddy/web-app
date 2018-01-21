@@ -1,0 +1,11 @@
+<div class="cdy-content-container" [class.cdy-hidden]="loading">
+  <ng-content></ng-content>
+</div>
+
+<div class="cdy-spinner-container" *ngIf="loading">
+  <mat-progress-spinner
+    [color]="spinnerColor"
+    [mode]="spinnerMode"
+    [diameter]="20"
+  ></mat-progress-spinner>
+</div>

@@ -17,4 +17,5 @@ export interface ApiError {
 
   /** Timestamp */
   timestamp: number;
+
 }

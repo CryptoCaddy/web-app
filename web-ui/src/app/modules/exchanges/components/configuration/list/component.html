@@ -1,0 +1,32 @@
+<mat-accordion>
+
+  <mat-expansion-panel
+    *ngFor="let exchange of (exchanges$ | async); trackBy: trackExchangeBy('exchangeName')"
+    [hideToggle]="true"
+    [expanded]="exchange.exchangeName === opened"
+    (opened)="setOpened(exchange.exchangeName)"
+
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div>{{ exchange.exchangeName }}</div>
+
+        <div *ngIf="exchange.isStored">
+          <mat-chip-list>
+            <mat-basic-chip
+              [color]="'primary'"
+              [selected]="true"
+              [disabled]="true"
+            >enabled</mat-basic-chip>
+          </mat-chip-list>
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <cdy-exchange-configuration-item
+      [exchange]="exchange"
+      (submitChange)="onExchangeSubmit(exchange)"
+    ></cdy-exchange-configuration-item>
+  </mat-expansion-panel>
+
+</mat-accordion>
