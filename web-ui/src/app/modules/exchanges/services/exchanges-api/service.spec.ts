@@ -1,8 +1,8 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { AppConfigService } from 'app/modules/shared/app-config.service';
+import { AppConfigService } from 'app/modules/shared/services/app-config/service';
 
-import { ExchangesApiService } from './exchanges-api.service';
+import { ExchangesApiService } from './service';
 
 class AppConfigServiceMock extends AppConfigService {
   get apiUrl(): string { return '/api'; }

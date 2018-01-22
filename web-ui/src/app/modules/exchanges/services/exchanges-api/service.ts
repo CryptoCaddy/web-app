@@ -1,11 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppConfigService } from 'app/modules/shared/app-config.service';
+import { AppConfigService } from 'app/modules/shared/services/app-config/service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 
-import { AvailableExchange } from '../../models/available-exchange.model';
+import { SupportedExchange } from '../../models/supported-exchange.model';
 import { ExchangeWallet } from '../../models/exchange-wallet.model';
 import { Exchange } from '../../models/exchange.model';
 
@@ -35,7 +35,7 @@ export class ExchangesApiService {
   /**
    * Retrieve available exchanges.
    */
-  public getSupportedExchanges(): Observable<AvailableExchange[]> {
+  public getSupportedExchanges(): Observable<SupportedExchange[]> {
     return this.http.get<SupportedExchangesTO>(`${this.appConfig.apiUri}/supportedExchanges`)
       .pipe(map((res) => res.results.map((key) => ({ exchangeName: key }))));
   }
@@ -56,6 +56,12 @@ export class ExchangesApiService {
       `${this.appConfig.apiUri}/exchangeWallets`,
       { params },
     ).pipe(map(() => args));
+  }
+
+  /** remove stored credetials for the given exchange */
+  public removeCredentials(exchange: Exchange): Observable<boolean> {
+    // @TODO real request - for now only delay for demonstration
+    return of(true).pipe(delay(500));
   }
 
   /**

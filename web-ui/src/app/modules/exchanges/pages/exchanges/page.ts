@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ExchangesDataSource } from '../../data-sources/exchanges/data-source';
-import { AvailableExchangesProvider } from '../../storage/available-exchanges/provider';
+import { SupportedExchangesProvider } from '../../storage/supported-exchanges/provider';
 import { ExchangesProvider } from '../../storage/exchanges/provider';
 
 @Component({
@@ -15,15 +15,15 @@ export class ExchangesPage implements OnInit {
   public walletDataSource: ExchangesDataSource;
 
   constructor(
-    private availableExchangesData: AvailableExchangesProvider,
+    private supportedExchangesData: SupportedExchangesProvider,
     private exchangesData: ExchangesProvider,
   ) { }
 
   ngOnInit() {
-    const availableExchangesDb = this.availableExchangesData.get();
+    const supportedExchangesDb = this.supportedExchangesData.get();
     const exchangesDb = this.exchangesData.get();
-    this.configurationDataSource = new ExchangesDataSource(availableExchangesDb, exchangesDb);
-    this.walletDataSource = new ExchangesDataSource(availableExchangesDb, exchangesDb);
+    this.configurationDataSource = new ExchangesDataSource(supportedExchangesDb, exchangesDb);
+    this.walletDataSource = new ExchangesDataSource(supportedExchangesDb, exchangesDb);
     this.walletDataSource.enabledOnly = true;
   }
 

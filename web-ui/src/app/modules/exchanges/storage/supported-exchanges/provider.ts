@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 
 import { ExchangesApiService } from '../../services/exchanges-api/service';
-import { AvailableExchangesDatabase } from '../available-exchanges/database';
+import { SupportedExchangesDatabase } from '../supported-exchanges/database';
 
 @Injectable()
-export class AvailableExchangesProvider {
+export class SupportedExchangesProvider {
 
-  private database: AvailableExchangesDatabase;
+  private database: SupportedExchangesDatabase;
 
   constructor(private exchangesApi: ExchangesApiService) { }
 
-  public get(): AvailableExchangesDatabase {
+  public get(): SupportedExchangesDatabase {
     if (this.database) {
       return this.database;
     }
 
-    this.database = new AvailableExchangesDatabase(this.exchangesApi);
+    this.database = new SupportedExchangesDatabase(this.exchangesApi);
     this.database.init();
     return this.database;
   }

@@ -1,4 +1,11 @@
 {
+  "globals": {
+    "__isJest": true,
+    "ts-jest": {
+      "tsConfigFile": "src/tsconfig.spec.json"
+    },
+    "__TRANSFORM_HTML__": true
+  },
   "preset": "jest-preset-angular",
   "setupTestFrameworkScriptFile": "<rootDir>/jest/jest.setup.ts",
   "testEnvironment": "jsdom",
@@ -14,5 +21,6 @@
     "lcovonly",
     "clover",
     "text-summary"
-  ]
+  ],
+  "mapCoverage": true
 }

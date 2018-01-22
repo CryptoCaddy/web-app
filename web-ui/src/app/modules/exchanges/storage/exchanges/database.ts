@@ -2,19 +2,22 @@ import { ApiError } from 'app/modules/shared/models/api-error.model';
 import { Logger } from 'app/modules/shared/utils/logger.util';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { delay, tap } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
+import { catchError, tap } from 'rxjs/operators';
 
-import { Exchange } from '../../models/exchange.model';
+import { Exchange, isExchange } from '../../models/exchange.model';
 import { ExchangesApiService } from '../../services/exchanges-api/service';
 
 export class ExchangesDatabase {
 
   /** Subject that broadcasts to the {@link data$} stream. */
-  private _data$: BehaviorSubject<Exchange[]> = new BehaviorSubject([]);
+  private _data$: BehaviorSubject<Exchange[]> = new BehaviorSubject([ ]);
 
   /** Subject that emits when the data in the database changes. */
   public data$: Observable<Exchange[]> = this._data$.asObservable();
+
+  /** the the current state of the database data */
+  public get data(): Exchange[] { return this._data$.value; }
 
   /**
    * Creates an instance of ExchangeDatabase immediatly requesting data.
@@ -42,48 +45,55 @@ export class ExchangesDatabase {
       );
   }
 
-  public get data(): Exchange[] {
-    return this._data$.value;
-  }
-
+  /** add an exchange to the database */
   public add(exchange: Exchange): Observable<Exchange> {
     const data = this.data.slice()
       .concat([ { ...exchange } ]);
 
     return this.exchangesApi.checkCredentials(exchange).pipe(
-      tap((type) => Logger.logChange(this.constructor.name, 'add', data)),
       tap(() => this._data$.next(data)),
+      tap((type) => Logger.logChange(this.constructor.name, 'add', data)),
     );
   }
 
   /** update an existing record */
   public update(exchange: Exchange): Observable<Exchange> {
-    const index = this.getIndex(exchange);
-    const data = [
-      ...this.data.slice(0, index),
-      { ...exchange },
-      ...this.data.slice(index + 1),
-    ];
 
-    // @TODO real request - for now only delay for demonstration
-    return of(exchange).pipe(
-      delay(1000),
-      tap(() => Logger.logChange(this.constructor.name, 'update', data)),
-      tap(() => this._data$.next(data)),
+    return this.exchangesApi.checkCredentials(exchange).pipe(
+      catchError((err) => {
+        return _throw(err);
+      }),
+      tap(() => {
+        const result = this.getIndex(exchange);
+        if (typeof result === 'string') {
+          return _throw(result);
+        }
+
+        const data = [
+          ...this.data.slice(0, result),
+          { ...exchange },
+          ...this.data.slice(result + 1),
+        ];
+        this._data$.next(data);
+        Logger.logChange(this.constructor.name, 'update', data);
+      }),
     );
   }
 
   /** remove an existing record */
-  public drop(exchange: Exchange): Observable<Exchange> {
-    const index = this.getIndex(exchange);
+  public drop(exchange: Exchange): Observable<boolean> {
+    const result = this.getIndex(exchange);
+    if (typeof result === 'string') {
+      return _throw(result);
+    }
+
     const data = [
-      ...this.data.slice(0, index),
-      ...this.data.slice(index + 1),
+      ...this.data.slice(0, result),
+      ...this.data.slice(result + 1),
     ];
 
     // @TODO real request - for now only delay for demonstration
-    return of(exchange).pipe(
-      delay(1000),
+    return this.exchangesApi.removeCredentials(exchange).pipe(
       tap(() => Logger.logChange(this.constructor.name, 'drop', data)),
       tap(() => this._data$.next(data)),
     );
@@ -91,51 +101,74 @@ export class ExchangesDatabase {
 
   /** try to load data saved in users storage */
   private loadFromStorage(): void {
-    let sessionData: Exchange[];
+    let storedData: Exchange[];
 
-    // if data can not be loaded or does not exist, fail silently
-    try {
-      sessionData = JSON.parse(sessionStorage.getItem(this.constructor.name));
-    } catch (_e) {
+    const storedString = sessionStorage.getItem(this.constructor.name);
+    if (!storedString) {
       return;
     }
 
-    this._data$.next(sessionData);
-    Logger.logChange(this.constructor.name, 'loadFromStorage', sessionData);
+    try {
+      storedData = JSON.parse(storedString);
+    } catch (e) { }
+
+    if (!storedData || !(storedData instanceof Array)) {
+      return;
+    }
+
+    storedData = storedData.filter((item) => isExchange(item));
+
+    this._data$.next(storedData);
+    Logger.logChange(this.constructor.name, 'loadFromStorage', storedData);
   }
 
-  /** merge data retrieved from backend with possibly available data from storage*/
-  private initializeData(data: Exchange[]): void {
+  /** merge data retrieved from remote with possibly available data from storage*/
+  private initializeData(remoteData: Exchange[]): void {
 
     // if theres was no data in the users storage, just commit the servers data
     if (!this._data$.value || !this._data$.value.length) {
-      this._data$.next(data);
-      Logger.logChange(this.constructor.name, 'init', data);
+      this._data$.next(remoteData);
+      Logger.logChange(this.constructor.name, 'init', remoteData);
       return;
     }
 
     // otherwise add missing data to the users data
-    data = this.mergeData(this._data$.value, data);
+    const data = this.mergeData(this._data$.value, remoteData);
     this._data$.next(data);
     Logger.logChange(this.constructor.name, 'init', data);
     return;
   }
 
-  private mergeData(localData: Exchange[], serverData: Exchange[]): Exchange[] {
-    const data: Exchange[] = localData.slice();
-    for (const serverItem of serverData) {
-      if (data.findIndex((item) => item.exchangeName === serverItem.exchangeName) === -1) {
-        data.push(serverItem);
+  /**
+   * merges two exchange arrays into one
+   * if an entry exists twice (matching the key), the one in `second` is prefered
+   */
+  private mergeData(first: Exchange[], second: Exchange[]): Exchange[] {
+    let data: Exchange[] = first.slice();
+    for (const secondItem of second) {
+      const index = data.findIndex((item) => item.exchangeName === secondItem.exchangeName);
+      if (index === -1) {
+        data = data.concat([ secondItem ]);
+      } else {
+        data = [
+          ...data.slice(0, index),
+          secondItem,
+          ...data.slice(index + 1),
+        ];
       }
     }
 
     return data;
   }
 
-  private getIndex(exchange: Exchange): number {
+  /**
+   * get the index of the given exchange in the data array
+   * if none is present, returns a string that should be thrown as ObservableError
+   */
+  private getIndex(exchange: Exchange): number|string {
     const index = this.data.findIndex((e) => e.exchangeName === exchange.exchangeName);
     if (index === -1) {
-      throw new RangeError(`Element with exchangeName "${exchange.exchangeName}" does not exist.`);
+      return `Element with exchangeName "${exchange}" does not exist.`;
     }
 
     return index;

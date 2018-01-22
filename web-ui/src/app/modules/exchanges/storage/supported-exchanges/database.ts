@@ -1,16 +1,16 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
-import { AvailableExchange } from '../../models/available-exchange.model';
+import { SupportedExchange } from '../../models/supported-exchange.model';
 import { ExchangesApiService } from '../../services/exchanges-api/service';
 
-export class AvailableExchangesDatabase {
+export class SupportedExchangesDatabase {
 
   /** Subject that broadcasts to the {@link data$} stream. */
-  private _data$: BehaviorSubject<AvailableExchange[]> = new BehaviorSubject([]);
+  private _data$: BehaviorSubject<SupportedExchange[]> = new BehaviorSubject([]);
 
   /** Subject that emits when the data in the database changes. */
-  public data$: Observable<AvailableExchange[]> = this._data$.asObservable();
+  public data$: Observable<SupportedExchange[]> = this._data$.asObservable();
   /**
    * Creates an instance of ExchangeDatabase immediatly requesting data.
    */
@@ -18,10 +18,10 @@ export class AvailableExchangesDatabase {
 
   public init(): void {
     this.exchangesApi.getSupportedExchanges()
-      .subscribe((data: AvailableExchange[]) => this._data$.next(data));
+      .subscribe((data: SupportedExchange[]) => this._data$.next(data));
   }
 
-  public get data(): AvailableExchange[] {
+  public get data(): SupportedExchange[] {
     return this._data$.value;
   }
 

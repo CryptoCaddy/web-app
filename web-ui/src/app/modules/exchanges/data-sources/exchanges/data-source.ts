@@ -5,19 +5,19 @@ import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { map } from 'rxjs/operators';
 
-import { AvailableExchange } from '../../models/available-exchange.model';
+import { SupportedExchange } from '../../models/supported-exchange.model';
 import { computeExchangeFields, Exchange } from '../../models/exchange.model';
-import { AvailableExchangesDatabase } from '../../storage/available-exchanges/database';
+import { SupportedExchangesDatabase } from '../../storage/supported-exchanges/database';
 import { ExchangesDatabase } from '../../storage/exchanges/database';
 
-export class ExchangesDataSource extends DataSource<AvailableExchange> {
+export class ExchangesDataSource extends DataSource<SupportedExchange> {
 
   private _enabledOnly = new BehaviorSubject<boolean>(false);
   public get enabledOnly(): boolean { return this._enabledOnly.value; }
   public set enabledOnly(v: boolean) { this._enabledOnly.next(v); }
 
   constructor(
-    private availableExchangesDb: AvailableExchangesDatabase,
+    private supportedExchangesDb: SupportedExchangesDatabase,
     private exchangesDb: ExchangesDatabase,
   ) {
     super();
@@ -26,7 +26,7 @@ export class ExchangesDataSource extends DataSource<AvailableExchange> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Exchange[]> {
     const sources$ = merge(
-      this.availableExchangesDb.data$,
+      this.supportedExchangesDb.data$,
       this.exchangesDb.data$,
       this._enabledOnly,
     );
@@ -38,8 +38,8 @@ export class ExchangesDataSource extends DataSource<AvailableExchange> {
           return this.exchangesDb.data;
         }
 
-        // otherwise add missing exchanges from the availableExchanges database
-        return addMissingFromAvailable(this.exchangesDb.data, this.availableExchangesDb.data);
+        // otherwise add missing exchanges from the SupportedExchanges database
+        return addMissingFromAvailable(this.exchangesDb.data, this.supportedExchangesDb.data);
       }),
       map((exchanges) => sortByKey(exchanges, 'exchangeName')),
       map((exchanges) => exchanges.map(computeExchangeFields)),
@@ -52,7 +52,7 @@ export class ExchangesDataSource extends DataSource<AvailableExchange> {
 
 }
 
-export function addMissingFromAvailable(present: Exchange[], available: AvailableExchange[]): Exchange[] {
+export function addMissingFromAvailable(present: Exchange[], available: SupportedExchange[]): Exchange[] {
   return [
     ...present,
     ...available

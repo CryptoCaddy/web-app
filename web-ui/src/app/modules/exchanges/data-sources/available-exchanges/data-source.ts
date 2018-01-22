@@ -3,17 +3,17 @@ import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { map } from 'rxjs/operators';
 
-import { AvailableExchange } from '../../models/available-exchange.model';
-import { AvailableExchangesDatabase } from '../../storage/available-exchanges/database';
+import { SupportedExchange } from '../../models/supported-exchange.model';
+import { SupportedExchangesDatabase } from '../../storage/supported-exchanges/database';
 
-export class AvailableExchangesDataSource extends DataSource<AvailableExchange> {
+export class SupportedExchangesDataSource extends DataSource<SupportedExchange> {
 
-  constructor(private database: AvailableExchangesDatabase) {
+  constructor(private database: SupportedExchangesDatabase) {
     super();
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<AvailableExchange[]> {
+  connect(): Observable<SupportedExchange[]> {
     const sources$ = merge(this.database.data$);
 
     return sources$.pipe(

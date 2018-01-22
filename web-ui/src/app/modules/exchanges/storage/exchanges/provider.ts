@@ -27,7 +27,7 @@ export class ExchangesProvider {
     return existingIndex === -1 ? this.add(exchange) : this.update(exchange);
   }
 
-  public remove(exchange: Exchange): Observable<Exchange> {
+  public remove(exchange: Exchange): Observable<boolean> {
     return this.database.drop(exchange);
   }
 

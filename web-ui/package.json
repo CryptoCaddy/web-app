@@ -36,7 +36,6 @@
     "@angular/compiler-cli": "5.x",
     "@angular/language-service": "5.x",
     "@types/deep-freeze": "0.1.1",
-    "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/jest": "22.0.1",
     "@types/node": "~6.0.60",
@@ -47,8 +46,6 @@
     "jest": "22.1.2",
     "jest-preset-angular": "5.0.0",
     "protractor": "~5.1.2",
-    "ts-jest": "22.0.1",
-    "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "tslint-eslint-rules": "4.1.1",
     "typescript": "~2.4.2"

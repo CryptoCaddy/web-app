@@ -13,7 +13,7 @@ import { ExchangeWalletTableComponent } from './components/wallet/table/componen
 import { ExchangesPage } from './pages/exchanges/page';
 import { ExchangesRoutingModule } from './routing.module';
 import { ExchangesApiService } from './services/exchanges-api/service';
-import { AvailableExchangesProvider } from './storage/available-exchanges/provider';
+import { SupportedExchangesProvider } from './storage/supported-exchanges/provider';
 import { ExchangeWalletsProvider } from './storage/exchange-wallets/provider';
 import { ExchangesProvider } from './storage/exchanges/provider';
 
@@ -40,7 +40,7 @@ import { ExchangesProvider } from './storage/exchanges/provider';
     ExchangeWalletTableComponent,
   ],
   providers: [
-    AvailableExchangesProvider,
+    SupportedExchangesProvider,
     ExchangesApiService,
     ExchangesProvider,
     ExchangeWalletsProvider,
