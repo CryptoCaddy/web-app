@@ -1,10 +1,9 @@
 <!--
-Thank you for reporting an issue.
-
-This issue tracker is for bugs and issues found within CryptoCaddy.
-
-Please fill in as much of the template below as you're able.
 Provide a general summary of the issue in the title above
+
+This issue tracker is for bugs found within CryptoCaddy, as well as to request or recommend new features.
+
+Please fill in as much of the template below as you're able to. 
 -->
 
 ##### Description

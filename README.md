@@ -1,4 +1,5 @@
-# CryptoCaddy
+
+<img src='https://github.com/CryptoCaddy/web-app/blob/development/web-ui/src/assets/img/caddy-cropped.png'/>
 
 CryptoCaddy is a platform designed to automate the complicated process of generating gain/loss documents for tax purposes and live portfolio tracking based on exchange API keys, blockchain explorers and csv uploads. The web-app is the central component to the project and will be at the core of any peripheral mobile or desktop applications that become a part of the CryptoCaddy platform. 
 
