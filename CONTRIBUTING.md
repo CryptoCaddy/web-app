@@ -19,15 +19,17 @@ valued.
 
 
 
-## Discussions And General Help
-Go to our [slack](https://cryptocaddy.slack.com/) for the most recent project information and to discuss anything related to the platform.
 
 ## Issues
 Issues in `CryptoCaddy/web-app` are the primary means by which bug reports and
 general discussions are made. 
 
+## Discussions And General Help
+Go to our [slack](https://cryptocaddy.slack.com/) for the most recent project information and for more in depth discussion or help.
+
 ## Pull Requests
-__All pull requests must be submitted to the development branch prior to being merged into the master branch.__
+Pull Requests are the way in which concrete changes are made to the code and
+documentation.
 
 ### Step 1: Fork
 
@@ -113,17 +115,7 @@ $ git rebase upstream/development
 
 
 ## Code of Conduct
-Contributions to CryptoCaddy are governed by the [Contributor Covenant version 1.4](https://www.contributor-covenant.org/version/1/4/code-of-conduct.html).
-All contributors and participants agree to abide by its terms. To report
-violations, shoot out an email to cryptocaddyofficial@gmail.com
-
-The Code of Conduct is designed and intended, above all else, to help establish
-a culture within the project that allows anyone and everyone who wants to
-contribute to feel safe doing so.
-
-Open, diverse, and inclusive communities live and die on the basis of trust.
-Contributors can disagree with one another so long as they are done in good
-faith and everyone is working towards a common goal.
+CryptoCaddy [Code of Conduct](https://github.com/CryptoCaddy/web-app/blob/master/.github/CODE_OF_CONDUCT.md).
 
 ## Acknowledgement
 The [Gitcoin contributing file](https://github.com/gitcoinco/web/blob/master/docs/CONTRIBUTING.md) was used as a template for this file.

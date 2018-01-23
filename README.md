@@ -12,7 +12,7 @@ This web-app repository is divided into 3 main components: web-services (Java/My
 
 ## Getting Started
 
-These instructions will get CryptoCaddy up and running on your local machine for development and testing purposes. Please view the READMEs within this project's subfolders for more specific development instructions.
+These instructions will get CryptoCaddy up and running via docker on your local machine for development and testing purposes. Please view the READMEs within this project's subfolders for more specific development instructions or to run and develop each component individually without docker.
 
 ### Prerequisites
 
@@ -31,7 +31,7 @@ Clone the repo
 git clone https://github.com/CryptoCaddy/web-app.git
 ```
 
-Set the following environment variables in terminal (arbitrary values are fine for testing)
+Export the following environment variables in terminal (arbitrary values are fine for testing)
 
 ```
 MYSQL_DATABASE
@@ -63,7 +63,7 @@ When the following line appears the server has started. Feel free to use CTRL-C 
 2018-01-16 04:23:33.392  INFO 36 --- [           main] c.c.services.auditing.Application        : Started Application in 49.511 seconds (JVM running for 55.378)
 ```
 
-CryptoCaddy will now be running on your local machine, you can access it at the ip given by the following command
+CryptoCaddy will now be running on your local machine. You can access it in your browser at localhost or by the ip given by the following command
 ```
 docker-machine ip
 ```
@@ -98,7 +98,7 @@ docker-compose down -v
 
 ## Contributing
 
-Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/CryptoCaddy/web-app/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
