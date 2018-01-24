@@ -5,23 +5,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>services</artifactId>
-    <name>services</name>
-    <packaging>pom</packaging>
+    <artifactId>rest-config</artifactId>
+    <name>rest-config</name>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>com.cryptocaddy</groupId>
-        <artifactId>web-services</artifactId>
+        <artifactId>libraries</artifactId>
         <version>1.0</version>
+        <relativePath>../</relativePath>
     </parent>
 
-    <modules>
-        <module>auditing</module>
-        <module>config-server</module>
-    </modules>
+    <properties>
+        <swagger.version>2.6.1</swagger.version>
+    </properties>
 
     <dependencies>
-        <dependency>
+    	<dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger.version}</version>
@@ -31,29 +31,7 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>log4j-over-slf4j</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-    </dependencies>
+	</dependencies>
 
     <build>
         <plugins>
@@ -69,4 +47,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

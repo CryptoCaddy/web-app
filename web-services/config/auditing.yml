@@ -6,12 +6,12 @@ info:
     version: ${project.version}
 logging:
   level:
-    .: info
-    org.springframework: info
+    .: debug
+    org.springframework: debug
 spring:
   cloud:
     config:
-      enabled: false
+      enabled: true
 security:
   basic:
     enabled: false

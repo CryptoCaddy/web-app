@@ -5,10 +5,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>auditing</artifactId>
-    <name>auditing</name>
+    <artifactId>config-server</artifactId>
+    <name>config-server</name>
     <packaging>jar</packaging>
-    <description>Auditing REST APIs for CryptoCaddy</description>
+    <description>Central place to manage external properties for services across all environments</description>
 
     <parent>
         <groupId>com.cryptocaddy</groupId>
@@ -18,24 +18,13 @@
     </parent>
 
     <properties>
-        <start-class>com.cryptocaddy.services.auditing.Application</start-class>
+        <start-class>com.cryptocaddy.services.config-server.Application</start-class>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>fiat-client</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>xchange-data</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>rest-config</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
     </dependencies>
 
