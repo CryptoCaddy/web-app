@@ -5,6 +5,8 @@ import java.util.List;
 public class FiatExchange {
     private List<FiatCoin> fiatCoins;
 
+    public FiatExchange() {}
+
     public FiatExchange(List<FiatCoin> fiatCoins) {
         this.fiatCoins = fiatCoins;
     }

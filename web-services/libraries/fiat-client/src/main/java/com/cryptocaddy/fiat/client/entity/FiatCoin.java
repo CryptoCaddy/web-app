@@ -4,9 +4,13 @@ public class FiatCoin {
     private String exchange;
     private String crypto_currency;
     private String fiat_currency;
+    //TODO: change timestamp and value to more appropriate datatypes
     private String timestamp;
     private String value;
 
+    public FiatCoin() {}
+
+    //TODO: change timestamp and value to proper data types
     public FiatCoin(String exchange, String crypto_currency, String fiat_currency, String timestamp, String value) {
         this.exchange = exchange;
         this.crypto_currency = crypto_currency;

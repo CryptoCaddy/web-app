@@ -37,10 +37,11 @@ public class FiatEngineService implements IFiatEngineService {
             return new ArrayList<>();
         }
         
-        // TODO: 1/23/2018 - check this logic
+        //create and return the list of FiatCoins
         return coins.stream()
                 .map(coin -> new FiatCoin(exchangeName,
                         coin.getCurrencyCode(),
+                        // TODO: this next line is wrong - this needs to be the fiat code to convert to (i.e. USD or EUR etc)
                         coin.getBackingCurrency().getCurrencyCode(),
                         new Date().toString(),
                         coin.getAvailable().toString()))

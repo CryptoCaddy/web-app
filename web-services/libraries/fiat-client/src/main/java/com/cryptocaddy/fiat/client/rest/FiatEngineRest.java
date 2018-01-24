@@ -35,12 +35,14 @@ public class FiatEngineRest implements IFiatEngineRest {
 
         try {
             String requestUrl = String.join(Constant.DELIMITER, baseUrl, "convert/");
-            return (FiatExchange) restTemplateWrapper.exchange(requestUrl, HttpMethod.POST, httpEntity, FiatExchange.class);
+            return (FiatExchange)restTemplateWrapper.exchange(requestUrl, HttpMethod.POST, httpEntity, FiatExchange.class);
         } catch (Exception e) {
             LOGGER.error("FiatEngine rest service exchange failed: ", e);
         }
 
         return null;
     }
+
+
 
 }
