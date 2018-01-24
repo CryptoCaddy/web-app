@@ -34,10 +34,8 @@ public class ExchangeWalletsService {
         ExchangeController controller = ExchangeControllerBuilder.createExchangeController(exchangeName, exchangeKey, exchangeSecret, exchangePass);
         List<Coin> coinList = controller != null ? controller.getAllCoins() : new ArrayList<>();
 
-        // Convert crypto value via Fiat Engine - need to write a method to take List<Coin> and return List<FiatCoin> !!
-        List<FiatCoin> fiatCoins = new ArrayList<>();
-        fiatCoins.add(new FiatCoin("Binance", "VEN", "BTC", new Date().toString(), "100"));
-        List<FiatCoin> fiatCoinList = fiatEngineService.convertValues(fiatCoins);
+        // Convert crypto value via Fiat Engine
+        List<FiatCoin> fiatCoinList = fiatEngineService.convertValues(coinList, exchangeName);
 
         return Builder.build(AuditReport.class)
                 .with(auditReport -> auditReport.setCoins(coinList))
