@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Nick Fields
@@ -32,14 +33,18 @@ public class FiatEngineService implements IFiatEngineService {
     }
 
     private List<FiatCoin> convertToFiatCoins(List<Coin> coins, String exchangeName) {
-        List<FiatCoin> fiatCoins = new ArrayList<>();
-
-        // TODO: 1/23/2018 - implement this logic to go from list of coins to the list of fiat coins needed
-        //coins.forEach(coin -> coin.get);
-
-        fiatCoins.add(new FiatCoin("Binance", "VEN", "BTC", new Date().toString(), "100"));
-
-        return fiatCoins;
+        if (coins == null || exchangeName == null) {
+            return new ArrayList<>();
+        }
+        
+        // TODO: 1/23/2018 - check this logic
+        return coins.stream()
+                .map(coin -> new FiatCoin(exchangeName,
+                        coin.getCurrencyCode(),
+                        coin.getBackingCurrency().getCurrencyCode(),
+                        new Date().toString(),
+                        coin.getAvailable().toString()))
+                .collect(Collectors.toList());
     }
 
 }
