@@ -7,10 +7,10 @@
     "start": "ng serve --sm --ec --proxy-config proxy.conf.js",
     "lint": "ng lint",
     "jest": "jest --config jest.config.json src/",
-    "test": "npm run jest -- --runInBand",
-    "tdd": "npm run jest -- --watch",
+    "test": "yarn jest -- --runInBand",
+    "tdd": "yarn jest -- --watch",
     "e2e": "ng e2e",
-    "build": "ng build --prod --aot"
+    "build": "ng build --prod --aot --build-optimizer"
   },
   "private": true,
   "dependencies": {
