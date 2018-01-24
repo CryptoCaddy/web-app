@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request
-app = Flask(__name__)
+from flask import Flask
+from flask_restful import Api
+from resources import Price
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+app = Flask(__name__)
+api = Api(app)
+
+
+api.add_resource(Price, '/<exchange>/<crypto_currency>/<fiat_currency>/<timestamp>')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run()
