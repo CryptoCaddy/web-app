@@ -1,8 +1,6 @@
 package com.cryptocaddy.fiat.client.rest;
 
-import com.cryptocaddy.fiat.client.entity.FiatResult;
-
-import java.util.Date;
+import com.cryptocaddy.fiat.client.entity.FiatExchange;
 
 /**
  * Created by Nick Fields
@@ -10,6 +8,6 @@ import java.util.Date;
  */
 public interface IFiatEngineRest {
 
-    FiatResult lookupFiatValue(String exchange, String cryptoCurrency, String fiatCurrency, Date date);
+    FiatExchange lookupFiatValue(FiatExchange fiatExchange);
 
 }

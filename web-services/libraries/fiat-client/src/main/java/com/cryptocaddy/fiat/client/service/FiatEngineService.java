@@ -1,12 +1,12 @@
 package com.cryptocaddy.fiat.client.service;
 
-import com.cryptocaddy.fiat.client.entity.FiatResult;
+import com.cryptocaddy.fiat.client.entity.FiatCoin;
+import com.cryptocaddy.fiat.client.entity.FiatExchange;
 import com.cryptocaddy.fiat.client.rest.IFiatEngineRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Nick Fields
@@ -22,9 +22,9 @@ public class FiatEngineService implements IFiatEngineService {
     }
 
     @Override
-    public BigDecimal convertValues(String exchange, String cryptoCurrency, String fiatCurrency, Date date) {
-        FiatResult fiatResult = fiatEngineRest.lookupFiatValue(exchange, cryptoCurrency, fiatCurrency, date);
-        return fiatResult != null ? new BigDecimal(fiatResult.getValue()) : BigDecimal.ZERO;
+    public List<FiatCoin> convertValues(List<FiatCoin> fiatCoins) {
+        FiatExchange fiatExchange = fiatEngineRest.lookupFiatValue(new FiatExchange(fiatCoins));
+        return fiatExchange != null ? fiatExchange.getFiatCoins() : null;
     }
 
 }

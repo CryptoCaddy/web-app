@@ -1,13 +1,13 @@
 package com.cryptocaddy.fiat.client.entity;
 
-public class FiatResult {
+public class FiatCoin {
     private String exchange;
     private String crypto_currency;
     private String fiat_currency;
     private String timestamp;
     private String value;
 
-    public FiatResult(String exchange, String crypto_currency, String fiat_currency, String timestamp, String value) {
+    public FiatCoin(String exchange, String crypto_currency, String fiat_currency, String timestamp, String value) {
         this.exchange = exchange;
         this.crypto_currency = crypto_currency;
         this.fiat_currency = fiat_currency;

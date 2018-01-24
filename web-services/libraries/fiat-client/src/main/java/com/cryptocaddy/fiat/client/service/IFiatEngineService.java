@@ -1,7 +1,8 @@
 package com.cryptocaddy.fiat.client.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import com.cryptocaddy.fiat.client.entity.FiatCoin;
+
+import java.util.List;
 
 /**
  * Created by Nick Fields
@@ -9,6 +10,6 @@ import java.util.Date;
  */
 public interface IFiatEngineService {
 
-    BigDecimal convertValues(String exchange, String cryptoCurrency, String fiatCurrency, Date date);
+    List<FiatCoin> convertValues(List<FiatCoin> fiatCoins);
 
 }
