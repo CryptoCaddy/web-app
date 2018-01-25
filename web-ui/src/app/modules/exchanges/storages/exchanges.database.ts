@@ -7,13 +7,14 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { Exchange, isExchange } from '../models/exchange.model';
 import { ExchangesApiService } from '../services/exchanges-api.service';
+import { loadFromStorage } from 'app/modules/shared/utils/database.util';
 
 export class ExchangesDatabase {
 
   /** Subject that broadcasts to the {@link data$} stream. */
   private _data$: BehaviorSubject<Exchange[]> = new BehaviorSubject([ ]);
 
-  /** Subject that emits when the data in the database changes. */
+  /** Stream that emits when the data in the database changes. */
   public data$: Observable<Exchange[]> = this._data$.asObservable();
 
   /** the the current state of the database data */
@@ -24,7 +25,8 @@ export class ExchangesDatabase {
    */
   constructor(private exchangesApi: ExchangesApiService) {
 
-    this.loadFromStorage();
+    const storedData = loadFromStorage(sessionStorage, this.constructor.name, isExchange);
+    this._data$.next(storedData);
 
     // store exchange information in local storage on every update
     this.data$.subscribe((data) => {
@@ -52,7 +54,7 @@ export class ExchangesDatabase {
 
     return this.exchangesApi.checkCredentials(exchange).pipe(
       tap(() => this._data$.next(data)),
-      tap((type) => Logger.logChange(this.constructor.name, 'add', data)),
+      tap((type) => Logger.logGroup(this.constructor.name, 'add', data)),
     );
   }
 
@@ -75,7 +77,7 @@ export class ExchangesDatabase {
           ...this.data.slice(result + 1),
         ];
         this._data$.next(data);
-        Logger.logChange(this.constructor.name, 'update', data);
+        Logger.logGroup(this.constructor.name, 'update', data);
       }),
     );
   }
@@ -94,32 +96,9 @@ export class ExchangesDatabase {
 
     // @TODO real request - for now only delay for demonstration
     return this.exchangesApi.removeCredentials(exchange).pipe(
-      tap(() => Logger.logChange(this.constructor.name, 'drop', data)),
+      tap(() => Logger.logGroup(this.constructor.name, 'drop', data)),
       tap(() => this._data$.next(data)),
     );
-  }
-
-  /** try to load data saved in users storage */
-  private loadFromStorage(): void {
-    let storedData: Exchange[];
-
-    const storedString = sessionStorage.getItem(this.constructor.name);
-    if (!storedString) {
-      return;
-    }
-
-    try {
-      storedData = JSON.parse(storedString);
-    } catch (e) { }
-
-    if (!storedData || !(storedData instanceof Array)) {
-      return;
-    }
-
-    storedData = storedData.filter((item) => isExchange(item));
-
-    this._data$.next(storedData);
-    Logger.logChange(this.constructor.name, 'loadFromStorage', storedData);
   }
 
   /** merge data retrieved from remote with possibly available data from storage*/
@@ -128,14 +107,14 @@ export class ExchangesDatabase {
     // if theres was no data in the users storage, just commit the servers data
     if (!this._data$.value || !this._data$.value.length) {
       this._data$.next(remoteData);
-      Logger.logChange(this.constructor.name, 'init', remoteData);
+      Logger.logGroup(this.constructor.name, 'init', remoteData);
       return;
     }
 
     // otherwise add missing data to the users data
     const data = this.mergeData(this._data$.value, remoteData);
     this._data$.next(data);
-    Logger.logChange(this.constructor.name, 'init', data);
+    Logger.logGroup(this.constructor.name, 'init', data);
     return;
   }
 

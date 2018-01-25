@@ -16,6 +16,10 @@
 }
 
 .cdy-sidebar {
+  &.cdy-empty {
+    display: none;
+  }
+
   width: 25%;
   margin-right: 1rem;
 }

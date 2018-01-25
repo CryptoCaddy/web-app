@@ -36,7 +36,7 @@ export class ExchangeWalletsDatabase  {
       ...this.data,
       wallet,
     ];
-    Logger.logChange(this.constructor.name, 'add', data);
+    Logger.logGroup(this.constructor.name, 'add', data);
     this._data$.next(data);
   }
 

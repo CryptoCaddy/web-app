@@ -2,12 +2,17 @@ import { environment } from 'environments/environment';
 
 export class Logger {
 
-  public static logChange(groupName: string, action: string, data: any) {
+  public static logGroup(
+    groupName: string,
+    action: string,
+    data: any,
+    type: 'info'|'warn'|'error' = 'info',
+  ) {
 
-    // Don't log in production or when testing
+    // Don't sign in production or when testing
     if (!environment.production && !window['__isJest']) {
       console.groupCollapsed(`${groupName}::${action}`);
-      console.info(data);
+      console[type](data);
       console.groupEnd();
     }
 

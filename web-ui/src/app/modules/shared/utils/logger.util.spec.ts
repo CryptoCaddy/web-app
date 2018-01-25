@@ -26,24 +26,24 @@ describe('LoggerUtil', () => {
       window.console.info = jest.fn();
       window.console.groupEnd = jest.fn();
 
-      expect(() => Logger.logChange('Jest', 'test', { })).not.toThrowError();
+      expect(() => Logger.logGroup('Jest', 'test', { })).not.toThrowError();
       expect(window.console.groupCollapsed).toHaveBeenCalledWith('Jest::test');
       expect(window.console.info).toHaveBeenCalledWith({ });
       expect(window.console.groupEnd).toHaveBeenCalled();
     });
 
-    it('should not log in jest environment', () => {
+    it('should not sign in jest environment', () => {
       window.console.groupCollapsed = jest.fn();
       window.console.info = jest.fn();
       window.console.groupEnd = jest.fn();
 
-      expect(() => Logger.logChange('Jest', 'test', { })).not.toThrowError();
+      expect(() => Logger.logGroup('Jest', 'test', { })).not.toThrowError();
       expect(window.console.groupCollapsed).not.toHaveBeenCalled();
       expect(window.console.info).not.toHaveBeenCalled();
       expect(window.console.groupEnd).not.toHaveBeenCalled();
     });
 
-    it('should not log in production', () => {
+    it('should not sign in production', () => {
       window['__isJest'] = false;
       environment.production = true;
 
@@ -51,7 +51,7 @@ describe('LoggerUtil', () => {
       window.console.info = jest.fn();
       window.console.groupEnd = jest.fn();
 
-      expect(() => Logger.logChange('Jest', 'test', { })).not.toThrowError();
+      expect(() => Logger.logGroup('Jest', 'test', { })).not.toThrowError();
       expect(window.console.groupCollapsed).not.toHaveBeenCalled();
       expect(window.console.info).not.toHaveBeenCalled();
       expect(window.console.groupEnd).not.toHaveBeenCalled();

@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FirebaseError } from 'firebase/app';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+
+import { AuthService } from '../../services/auth.service';
+
+interface FormValue {
+  email: string;
+  password: string;
+  passwordRepeat: string;
+}
 
 @Component({
-  selector: 'cdy-login',
-  templateUrl: './login.page.html',
-  styleUrls: [ './login.page.scss' ],
+  selector: 'cdy-auth-register-form',
+  templateUrl: './auth-register-form.component.html',
+  styleUrls: [ './auth-register-form.component.scss' ],
 })
-export class LoginPage implements OnInit {
+export class AuthRegisterFormComponent implements OnInit {
 
   /**
    * The login form object.
@@ -15,10 +25,7 @@ export class LoginPage implements OnInit {
    */
   public form: FormGroup;
 
-  /**
-   * Creates an instance of LoginComponent.
-   */
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   /** @inheritDoc */
   public ngOnInit(): void {
@@ -30,7 +37,7 @@ export class LoginPage implements OnInit {
    *
    * @returns {void}
    */
-  public onFormSubmit(): void {
+  public onFormSubmit(formValue: FormValue): void {
 
     // If the form is invalid, enable displaying errors for invalid form controls.
     if (!this.form.valid) {
@@ -38,7 +45,8 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    console.info('TBI: Login');
+    this.auth.signUp(formValue.email, formValue.password)
+      .subscribe(null, (err) => this.setFormError(err));
   }
 
   /**
@@ -47,7 +55,7 @@ export class LoginPage implements OnInit {
    * @param {FormControl} control The form control to check for errors.
    * @returns {string} The error message to display.
    */
-  public getErrorMessage(control: FormControl): string {
+  public getErrorMessage(control: AbstractControl): string {
     if (control.hasError('required')) {
       return 'This field is mandatory.';
     }
@@ -63,7 +71,7 @@ export class LoginPage implements OnInit {
    */
   private initForm(): void {
     this.form = new FormGroup({
-      'username': new FormControl(
+      'email': new FormControl(
         undefined,
         [ Validators.required ],
       ),
@@ -71,7 +79,16 @@ export class LoginPage implements OnInit {
         undefined,
         [ Validators.required ],
       ),
+      'passwordRepeat': new FormControl(
+        undefined,
+        [ Validators.required ],
+      ),
     });
+  }
+
+  /** set a global error on the form */
+  private setFormError(err: FirebaseError) {
+    this.form.setErrors({ generic: err.message });
   }
 
 }

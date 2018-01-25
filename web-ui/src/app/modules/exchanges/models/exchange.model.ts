@@ -22,9 +22,9 @@ export function isExchange(o: Exchange): o is Exchange {
     (typeof o === 'object') &&
 
     // required
-    (o.exchangeName != null && (typeof o.exchangeName === 'string')) &&
-    (o.exchangeKey != null && (typeof o.exchangeKey === 'string')) &&
-    (o.exchangeSecret != null && (typeof o.exchangeSecret === 'string')) &&
+    typeof o.exchangeName === 'string' &&
+    typeof o.exchangeKey === 'string' &&
+    typeof o.exchangeSecret === 'string' &&
 
     // optional
     (o.exchangePass == null || typeof o.exchangePass === 'string');

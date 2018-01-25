@@ -2,15 +2,36 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'environments/environment';
 
+import { authRoutes } from './modules/auth/auth-routes';
+import { AuthGuard } from './modules/auth/guards/auth.guard';
+import { NoAuthGuard } from './modules/auth/guards/no-auth.guard';
 import { FourOhFourComponent } from './modules/core/components/four-oh-four/four-oh-four.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'auth', loadChildren: 'app/modules/auth/auth.module#AuthModule' },
-  { path: 'home', loadChildren: 'app/modules/home/home.module#HomeModule' },
-  { path: 'reports', loadChildren: 'app/modules/reports/reports.module#ReportsModule' },
-  { path: 'exchanges', loadChildren: 'app/modules/exchanges/exchanges.module#ExchangesModule' },
-  { path: '**', component: FourOhFourComponent },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'auth',
+  }, {
+    path: 'auth',
+    canActivate: [ NoAuthGuard ],
+    children: authRoutes,
+  }, {
+    path: 'home',
+    canActivate: [ AuthGuard ],
+    loadChildren: 'app/modules/home/home.module#HomeModule',
+  }, {
+    path: 'reports',
+    canActivate: [ AuthGuard ],
+    loadChildren: 'app/modules/reports/reports.module#ReportsModule',
+  }, {
+    path: 'exchanges',
+    canActivate: [ AuthGuard ],
+    loadChildren: 'app/modules/exchanges/exchanges.module#ExchangesModule',
+  }, {
+    path: '**',
+    component: FourOhFourComponent,
+  },
 ];
 
 @NgModule({

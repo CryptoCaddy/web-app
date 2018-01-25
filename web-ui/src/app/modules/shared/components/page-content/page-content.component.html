@@ -2,7 +2,7 @@
   <ng-content select="[cdy-header]"></ng-content>
 </div>
 
-<div class="cdy-sidebar">
+<div #sidebar class="cdy-sidebar" [class.cdy-empty]="!sidebar.children.length">
   <ng-content select="[cdy-sidebar]"></ng-content>
 </div>
 

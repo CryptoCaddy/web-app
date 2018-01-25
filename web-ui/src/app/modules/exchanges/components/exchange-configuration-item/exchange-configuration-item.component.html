@@ -39,11 +39,12 @@
 
     <button
       type="submit"
+      *ngIf="!exchange.isStored"
       mat-button mat-raised-button [color]="'primary'"
       [disabled]="deletePending"
     >
       <cdy-button-content [loading]="savePending" [spinnerColor]="'white'">
-        {{ exchange.isStored ? 'Update' : 'Save' }}
+        Save
       </cdy-button-content>
     </button>
   </mat-action-row>
