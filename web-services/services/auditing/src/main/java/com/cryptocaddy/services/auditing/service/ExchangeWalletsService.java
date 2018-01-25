@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -31,7 +32,11 @@ public class ExchangeWalletsService {
         String exchangeSecret = exchange.getExchangeSecret();
         String exchangePass = exchange.getExchangePass();
 
-        ExchangeController controller = ExchangeControllerBuilder.createExchangeController(exchangeName, exchangeKey, exchangeSecret, exchangePass);
+        //TODO: this map actually needs to be passed from front end not created here.
+        HashMap<String, String> params = new HashMap<>();
+        params.put("passphrase", exchangePass);
+
+        ExchangeController controller = ExchangeControllerBuilder.createExchangeController(exchangeName, exchangeKey, exchangeSecret, params);
         List<Coin> coinList = controller != null ? controller.getAllCoins() : new ArrayList<>();
 
         // Convert crypto value via Fiat Engine

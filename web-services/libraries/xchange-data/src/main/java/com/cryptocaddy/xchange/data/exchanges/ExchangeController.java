@@ -4,6 +4,8 @@ import com.cryptocaddy.xchange.data.model.Coin;
 import com.cryptocaddy.xchange.data.model.Transaction;
 import com.cryptocaddy.xchange.data.model.TransactionHistory;
 import org.knowm.xchange.Exchange;
+import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.dto.account.AccountInfo;
 import org.knowm.xchange.dto.account.Balance;
@@ -24,15 +26,77 @@ import java.util.*;
  * Date: 1/11/2018
  */
 public abstract class ExchangeController {
+    protected String xchangeClassName;
     protected String accountKey;
     protected String accountSecret;
+    protected HashMap<String, String> additionalParameters;
 
-    public ExchangeController(String key, String secret){
-        accountKey = key;
-        accountSecret = secret;
+
+
+
+    /**
+     * Additional parameters on top of key and secret that are required to get user exchange data. Will often be empty.
+     * @return list of names of required parameters other than key and secret
+     */
+    public List<String> requiredAdditionalParameters(){
+        return new ArrayList<>();
     }
 
-    protected abstract Exchange getExchange();
+    public ExchangeController(String key, String secret, HashMap<String, String>additionalParameters){
+        accountKey = key;
+        accountSecret = secret;
+        this.additionalParameters = additionalParameters;
+    }
+
+    /**
+     * Constructor to create an ExchangeController. Must call from subclass.
+     * @param xchangeClassName subclasses call this base constructor with this variable set correctly
+     * @param key api key
+     * @param secret api secret
+     * @param additionalParameters mapping of additional parameters that exchanges specifically require.
+     */
+    /*
+    protected ExchangeController(String xchangeClassName, String key, String secret, HashMap<String, String>additionalParameters){
+        this.xchangeClassName = xchangeClassName;
+        accountKey = key;
+        accountSecret = secret;
+        this.additionalParameters = additionalParameters;
+    }*/
+
+    /**
+     * Override this in subclasses for exchanges that need more data than just account key and secret for api calls
+     * @return exchange specification used to create the exchange.
+     */
+    protected ExchangeSpecification getXchangeSpecification(){
+        ExchangeSpecification specification = new ExchangeSpecification(xchangeClassName);
+        specification.setApiKey(accountKey);
+        specification.setSecretKey(accountSecret);
+
+        //for each parameter that we need in addition to key and secret, ensure we were provided a value, and assign it.
+        if (additionalParameters != null){
+            for (String parameterKey : requiredAdditionalParameters()) {
+                String parameterValue = additionalParameters.get(parameterKey);
+                if (parameterValue == null){
+                    System.out.println(parameterKey + "was not specified for exchange specification: " + xchangeClassName);
+                    parameterValue = "";
+                }
+
+                specification.setExchangeSpecificParametersItem(parameterKey, parameterValue);
+            }
+        }
+
+
+        return specification;
+    }
+
+    /**
+     * Get the object used to actually call the APIs for each exchange
+     * @return
+     */
+    public Exchange getExchange(){
+        return ExchangeFactory.INSTANCE.createExchange(getXchangeSpecification());
+    }
+    //protected abstract Exchange getExchange();
 
 
     //nullable return type

@@ -4,6 +4,7 @@ import com.cryptocaddy.fiat.client.entity.FiatCoin;
 import com.cryptocaddy.fiat.client.entity.FiatExchange;
 import com.cryptocaddy.fiat.client.rest.IFiatEngineRest;
 import com.cryptocaddy.xchange.data.model.Coin;
+import com.cryptocaddy.xchange.data.model.TransactionHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,5 +48,22 @@ public class FiatEngineService implements IFiatEngineService {
                         coin.getAvailable().toString()))
                 .collect(Collectors.toList());
     }
+
+    /*
+    private List<FiatCoin> requestCoinValueConversions(TransactionHistory txHistory) {
+        if (txHistory == null) {
+            return new ArrayList<>();
+        }
+
+        //create and return the list of FiatCoins
+        return coins.stream()
+                .map(coin -> new FiatCoin(exchangeName,
+                        coin.getCurrencyCode(),
+                        // TODO: this next line is wrong - this needs to be the fiat code to convert to (i.e. USD or EUR etc)
+                        coin.getBackingCurrency().getCurrencyCode(),
+                        new Date().toString(),
+                        coin.getAvailable().toString()))
+                .collect(Collectors.toList());
+    }*/
 
 }

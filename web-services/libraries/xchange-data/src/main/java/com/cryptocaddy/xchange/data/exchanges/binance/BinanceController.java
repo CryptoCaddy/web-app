@@ -7,22 +7,27 @@ import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.binance.BinanceExchange;
 
+import java.util.HashMap;
+
 /**
  * Created by Jon Waggoner
  * Date: 1/11/2018
  */
 public class BinanceController extends ExchangeController {
 
-    public BinanceController(String key, String secret) {
-        super(key, secret);
+
+    public BinanceController(String key, String secret, HashMap<String, String> additionalParameters){
+        super(key, secret, additionalParameters);
+        this.xchangeClassName = BinanceExchange.class.getName();
     }
 
+    /*
     protected Exchange getExchange(){
         ExchangeSpecification specification = new ExchangeSpecification(BinanceExchange.class.getName());
         specification.setApiKey(accountKey);
         specification.setSecretKey(accountSecret);
         return ExchangeFactory.INSTANCE.createExchange(specification);
-    }
+    }*/
 
     //TODO: override inherited function to get trades. Binance wants different info than the rest so we cant fall back on default implementation.
     //nullable return type
