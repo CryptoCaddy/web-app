@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class FiatEngineRest implements IFiatEngineRest {
     @Override
     @SuppressWarnings("unchecked")
     public FiatExchange lookupFiatValue(FiatExchange fiatExchange) {
-        HttpEntity<FiatExchange> httpEntity = new HttpEntity<>(fiatExchange);
+        HttpEntity<FiatExchange> httpEntity = new HttpEntity<>(fiatExchange, getHttpHeaders());
 
         try {
             String requestUrl = String.join(Constant.DELIMITER, baseUrl, "convert/");
@@ -43,6 +44,10 @@ public class FiatEngineRest implements IFiatEngineRest {
         return null;
     }
 
-
+    private HttpHeaders getHttpHeaders() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(Constant.CONTENT_TYPE, Constant.APPLICATION_JSON);
+        return httpHeaders;
+    }
 
 }
