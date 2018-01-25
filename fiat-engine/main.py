@@ -1,6 +1,7 @@
-from flask import Flask, request
+from flask import Flask, jsonify, request
 import random
-from flask_jsonpify import jsonify
+from FiatCoin import FiatCoin
+from FiatExchange import FiatExchange
 
 app = Flask(__name__)
 
@@ -8,21 +9,18 @@ app = Flask(__name__)
 @app.route('/api/convert/', methods=['POST'])
 def request_conversions():
 
-    conversions = []
+    fiatCoins = []
 
     if request.is_json:
         the_request = request.get_json()
         conversion_requests = the_request['fiatCoins']
         for conversion_request in conversion_requests:
             conversion = convert(conversion_request)
-            conversions.append(conversion)
+            fiatCoin = FiatCoin(conversion_request['exchange'], conversion['crypto_currency'], conversion['fiat_currency'], conversion['timestamp'], conversion['value'])
+            fiatCoins.append(fiatCoin)
 
-    print (conversions)
-    conversions = {'fiatCoins': conversions}
-
-    response = jsonify(conversions)
-    return response
-
+    fiatExchange = FiatExchange(fiatCoins)
+    return jsonify(fiatExchange)
 
 def convert(conversion_request):
     value = random.randint(1, 100)
