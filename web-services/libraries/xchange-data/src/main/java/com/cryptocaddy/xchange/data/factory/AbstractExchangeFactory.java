@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public abstract class AbstractExchangeFactory implements ApplicationContextAware {
+public class AbstractExchangeFactory implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractExchangeFactory.class);
