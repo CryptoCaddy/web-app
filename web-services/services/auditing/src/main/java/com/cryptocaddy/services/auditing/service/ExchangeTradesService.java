@@ -3,6 +3,7 @@ package com.cryptocaddy.services.auditing.service;
 import com.cryptocaddy.fiat.client.service.IFiatEngineService;
 import com.cryptocaddy.xchange.data.exchanges.ExchangeController;
 import com.cryptocaddy.xchange.data.exchanges.ExchangeType;
+import com.cryptocaddy.xchange.data.exchanges.IExchangeController;
 import com.cryptocaddy.xchange.data.factory.AbstractExchangeFactory;
 import com.cryptocaddy.xchange.data.model.Coin;
 import com.cryptocaddy.xchange.data.model.TransactionHistory;
@@ -35,7 +36,7 @@ public class ExchangeTradesService {
         HashMap<String, String> params = new HashMap<>();
         params.put("passphrase", exchangePass);
 
-        ExchangeController controller = abstractExchangeFactory.getExchangeController(ExchangeType.valueOf(exchangeName.toUpperCase()));
+        IExchangeController controller = abstractExchangeFactory.getExchangeController(ExchangeType.valueOf(exchangeName.toUpperCase()));
         List<Coin> coinList = controller != null ? controller.getAllCoins(exchangeName, exchangePass, exchangeSecret, params) : new ArrayList<>();
         TransactionHistory txHistory = controller.getTransactionHistory(exchangeName, exchangeKey, exchangeSecret, params);
 
