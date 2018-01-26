@@ -1,10 +1,6 @@
-package com.cryptocaddy.xchange.data.exchanges.coinbase;
+package com.cryptocaddy.xchange.data.exchanges;
 
-import com.cryptocaddy.xchange.data.exchanges.ExchangeController;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.ExchangeSpecification;
-import org.knowm.xchange.coinbase.CoinbaseExchange;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
@@ -12,17 +8,13 @@ import java.util.HashMap;
  * Created by Jon Waggoner
  * Date: 1/11/2018
  */
+@Component
 public class CoinbaseController extends ExchangeController {
 
 /*
     public CoinbaseController(String key, String secret) {
         super(key, secret);
     }*/
-
-    public CoinbaseController(String key, String secret, HashMap<String, String> additionalParameters){
-        super(key, secret, additionalParameters);
-        this.xchangeClassName = CoinbaseController.class.getName();
-    }
 
     /*
     protected Exchange getExchange(){

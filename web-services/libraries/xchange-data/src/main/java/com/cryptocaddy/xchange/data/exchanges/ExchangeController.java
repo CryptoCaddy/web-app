@@ -25,59 +25,25 @@ import java.util.*;
  * Created by Jon Waggoner
  * Date: 1/11/2018
  */
-public abstract class ExchangeController {
-    protected String xchangeClassName;
-    protected String accountKey;
-    protected String accountSecret;
-    protected HashMap<String, String> additionalParameters;
-
-
-
-
-    /**
-     * Additional parameters on top of key and secret that are required to get user exchange data. Will often be empty.
-     * @return list of names of required parameters other than key and secret
-     */
-    public List<String> requiredAdditionalParameters(){
-        return new ArrayList<>();
-    }
-
-    public ExchangeController(String key, String secret, HashMap<String, String>additionalParameters){
-        accountKey = key;
-        accountSecret = secret;
-        this.additionalParameters = additionalParameters;
-    }
-
-    /**
-     * Constructor to create an ExchangeController. Must call from subclass.
-     * @param xchangeClassName subclasses call this base constructor with this variable set correctly
-     * @param key api key
-     * @param secret api secret
-     * @param additionalParameters mapping of additional parameters that exchanges specifically require.
-     */
-    /*
-    protected ExchangeController(String xchangeClassName, String key, String secret, HashMap<String, String>additionalParameters){
-        this.xchangeClassName = xchangeClassName;
-        accountKey = key;
-        accountSecret = secret;
-        this.additionalParameters = additionalParameters;
-    }*/
-
+public abstract class ExchangeController implements IExchangeController {
     /**
      * Override this in subclasses for exchanges that need more data than just account key and secret for api calls
      * @return exchange specification used to create the exchange.
      */
-    protected ExchangeSpecification getXchangeSpecification(){
-        ExchangeSpecification specification = new ExchangeSpecification(xchangeClassName);
-        specification.setApiKey(accountKey);
-        specification.setSecretKey(accountSecret);
+    @Override
+    public ExchangeSpecification getXchangeSpecification(String exchangeName, String exchangeKey, String exchangeSecret,
+                                                         HashMap<String, String> params){
+
+        ExchangeSpecification specification = new ExchangeSpecification(this.getClass().getName());
+        specification.setApiKey(exchangeKey);
+        specification.setSecretKey(exchangeSecret);
 
         //for each parameter that we need in addition to key and secret, ensure we were provided a value, and assign it.
-        if (additionalParameters != null){
-            for (String parameterKey : requiredAdditionalParameters()) {
-                String parameterValue = additionalParameters.get(parameterKey);
+        if (params != null){
+            for (String parameterKey : params.keySet()) {
+                String parameterValue = params.get(parameterKey);
                 if (parameterValue == null){
-                    System.out.println(parameterKey + "was not specified for exchange specification: " + xchangeClassName);
+                    System.out.println(parameterKey + "was not specified for exchange specification: " + exchangeName);
                     parameterValue = "";
                 }
 
@@ -91,17 +57,23 @@ public abstract class ExchangeController {
 
     /**
      * Get the object used to actually call the APIs for each exchange
-     * @return
+     * @return -
      */
-    public Exchange getExchange(){
-        return ExchangeFactory.INSTANCE.createExchange(getXchangeSpecification());
+    @Override
+    public Exchange getExchange(String exchangeName, String exchangeKey, String exchangeSecret,
+                                HashMap<String, String> params){
+
+        return ExchangeFactory.INSTANCE.createExchange(getXchangeSpecification(exchangeName, exchangeKey, exchangeSecret, params));
     }
     //protected abstract Exchange getExchange();
 
 
     //nullable return type
-    public AccountInfo getAccountInfo() {
-        AccountService accountService = getExchange().getAccountService();
+    @Override
+    public AccountInfo getAccountInfo(String exchangeName, String exchangeKey, String exchangeSecret,
+                                      HashMap<String, String> params) {
+
+        AccountService accountService = getExchange(exchangeName, exchangeKey, exchangeSecret, params).getAccountService();
 
         AccountInfo accountInfo = null;
 
@@ -117,10 +89,13 @@ public abstract class ExchangeController {
     }
 
     //returns a list of all coins in the exchange with balance data
-    public List<Coin> getAllCoins(){
+    @Override
+    public List<Coin> getAllCoins(String exchangeName, String exchangeKey, String exchangeSecret,
+                                  HashMap<String, String> params){
+
         List<Coin> coinList = new ArrayList<>();
 
-        AccountInfo accountInfo = getAccountInfo();
+        AccountInfo accountInfo = getAccountInfo(exchangeName, exchangeKey, exchangeSecret, params);
         if(accountInfo == null){
             return coinList;
         }
@@ -154,15 +129,18 @@ public abstract class ExchangeController {
 
 
     //nullable return type
-    public TransactionHistory getTransactionHistory(){
+    @Override
+    public TransactionHistory getTransactionHistory(String exchangeName, String exchangeKey, String exchangeSecret,
+                                                    HashMap<String, String> params){
+
         TransactionHistory txHistory = null;
 
-        Exchange exchange = getExchange();
+        Exchange exchange = getExchange(exchangeName, exchangeKey, exchangeSecret, params);
         TradeService tradeService = exchange.getTradeService();
         //TODO: set end date to end of tax year in params before getting trades or accept start / end dates
-        TradeHistoryParams params = new TradeHistoryParamsAll();
+        TradeHistoryParams tradeHistoryParams = new TradeHistoryParamsAll();
         try {
-            UserTrades tradeHistory = tradeService.getTradeHistory(params);
+            UserTrades tradeHistory = tradeService.getTradeHistory(tradeHistoryParams);
             //TODO: place in #if debug preprocessor or equivalent
             System.out.println(tradeHistory.toString());
 
