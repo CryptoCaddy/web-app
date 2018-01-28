@@ -6,17 +6,15 @@ import com.cryptocaddy.xchange.data.model.Coin;
 import java.io.Serializable;
 import java.util.List;
 
-public class AuditReport implements Serializable {
+public class AuditReport implements Serializable{
     List<Coin> coins;
-    List<FiatCoin> fiatCoins;
 
     public AuditReport() {
 
     }
 
-    public AuditReport(List<Coin> coins, List<FiatCoin> fiatCoins) {
+    public AuditReport(List<Coin> coins) {
         this.coins = coins;
-        this.fiatCoins = fiatCoins;
     }
 
     public List<Coin> getCoins() {
@@ -27,11 +25,4 @@ public class AuditReport implements Serializable {
         this.coins = coins;
     }
 
-    public List<FiatCoin> getFiatCoins() {
-        return fiatCoins;
-    }
-
-    public void setFiatCoins(List<FiatCoin> fiatCoins) {
-        this.fiatCoins = fiatCoins;
-    }
 }

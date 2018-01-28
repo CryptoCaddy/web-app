@@ -37,8 +37,8 @@ public class ExchangeTradesService {
         params.put("passphrase", exchangePass);
 
         IExchangeController controller = abstractExchangeFactory.getExchangeController(ExchangeType.valueOf(exchangeName.toUpperCase()));
-        List<Coin> coinList = controller != null ? controller.getAllCoins(exchangeName, exchangePass, exchangeSecret, params) : new ArrayList<>();
-        TransactionHistory txHistory = controller.getTransactionHistory(exchangeName, exchangeKey, exchangeSecret, params);
+        List<Coin> coinList = controller != null ? controller.getAllCoins(exchangePass, exchangeSecret, params) : new ArrayList<>();
+        TransactionHistory txHistory = controller.getTransactionHistory(exchangeKey, exchangeSecret, params);
 
         // Convert crypto value via Fiat Engine
         //List<FiatCoin> fiatCoinList = this.fiatEngineService.convertValues(txHistory, exchangeName);

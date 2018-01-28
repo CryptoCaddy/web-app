@@ -11,13 +11,10 @@ import java.util.HashMap;
  */
 @Component
 public class BittrexController extends ExchangeController {
-    /*
-    protected Exchange getExchange(){
-        ExchangeSpecification specification = new ExchangeSpecification(BittrexExchange.class.getName());
-        specification.setApiKey(accountKey);
-        specification.setSecretKey(accountSecret);
-        return ExchangeFactory.INSTANCE.createExchange(specification);
-    }*/
+
+    protected String getWrappedXchangeName(){
+        return BittrexExchange.class.getName();
+    }
 
 
 }

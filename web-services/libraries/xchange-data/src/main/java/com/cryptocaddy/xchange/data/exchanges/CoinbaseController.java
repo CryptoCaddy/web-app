@@ -1,5 +1,6 @@
 package com.cryptocaddy.xchange.data.exchanges;
 
+import org.knowm.xchange.coinbase.CoinbaseExchange;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -11,18 +12,9 @@ import java.util.HashMap;
 @Component
 public class CoinbaseController extends ExchangeController {
 
-/*
-    public CoinbaseController(String key, String secret) {
-        super(key, secret);
-    }*/
-
-    /*
-    protected Exchange getExchange(){
-        ExchangeSpecification specification = new ExchangeSpecification(CoinbaseExchange.class.getName());
-        specification.setApiKey(accountKey);
-        specification.setSecretKey(accountSecret);
-        return ExchangeFactory.INSTANCE.createExchange(specification);
-    }*/
+    protected String getWrappedXchangeName(){
+        return CoinbaseExchange.class.getName();
+    }
 
 
 }

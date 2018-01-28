@@ -43,7 +43,7 @@ public class FiatEngineService implements IFiatEngineService {
                 .map(coin -> new FiatCoin(exchangeName,
                         coin.getCurrencyCode(),
                         // TODO: this next line is wrong - this needs to be the fiat code to convert to (i.e. USD or EUR etc)
-                        coin.getBackingCurrency().getCurrencyCode(),
+                        "USD",
                         new Date().toString(),
                         coin.getAvailable().toString()))
                 .collect(Collectors.toList());
