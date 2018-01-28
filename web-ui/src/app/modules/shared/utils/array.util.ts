@@ -9,9 +9,12 @@ import { TrackByFunction } from '@angular/core';
  */
 export function trackTypeBy<T>() {
   return (property: keyof T): TrackByFunction<T> => {
-    return (index: number, item: T) => {
-      const prop = item[property];
-      return prop || index;
+    return (_index: number, item: T) => {
+      if (!(property in item)) {
+        throw new ReferenceError(`Error in trackTypeBy: property "${property}" does not exist in item ${JSON.stringify(item)}`);
+      }
+
+      return item[property];
     };
   };
 }

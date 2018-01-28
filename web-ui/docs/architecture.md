@@ -7,121 +7,120 @@
 ```
 /src
 ├── /app
-│   ├── module.ts (AppModule)                             # [TS-0]
+│   ├── app.module.ts (AppModule)                         # [TS-0]
 │   ├── app.page.html
 │   ├── app.page.scss
 │   ├── app.page.spec.ts
 │   ├── app.page.ts
-│   ├── routing.module.ts
+│   ├── app-routing.module.ts
 │   ├── /modules
 │   │   ├── /core (CoreModule)                            # [TS-1]
-│   │   │   ├── module.ts
+│   │   │   ├── core.module.ts
 │   │   │   ├── /components                               # [TS-6]
 │   │   │   │   ├── /footer (FooterComponent)
-│   │   │   │   │   └── component.html
-│   │   │   │   │   └── component.scss
-│   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   └── component.ts
+│   │   │   │   │   └── footer.component.html
+│   │   │   │   │   └── footer.component.scss
+│   │   │   │   │   └── footer.component.spec.ts
+│   │   │   │   │   └── footer.component.ts
 │   │   │   │   ├── /navbar (NavbarComponent)
-│   │   │   │   │   └── component.html
-│   │   │   │   │   └── component.scss
-│   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   └── component.ts
+│   │   │   │   │   └── navbar.component.html
+│   │   │   │   │   └── navbar.component.scss
+│   │   │   │   │   └── navbar.component.spec.ts
+│   │   │   │   │   └── navbar.component.ts
 │   │   │   ├── /pages                                    # [TS-5]
 │   │   │   │   ├── /home (HomePage)
-│   │   │   │   │   └── page.html
-│   │   │   │   │   └── page.scss
-│   │   │   │   │   └── page.spec.ts
-│   │   │   │   │   └── page.ts
+│   │   │   │   │   └── home.page.html
+│   │   │   │   │   └── home.page.scss
+│   │   │   │   │   └── home.page.spec.ts
+│   │   │   │   │   └── home.page.ts
 │   │   │   │   ├── /about (AboutPage)
-│   │   │   │   │   └── page.html
-│   │   │   │   │   └── page.scss
-│   │   │   │   │   └── page.spec.ts
-│   │   │   │   │   └── page.ts
+│   │   │   │   │   └── about.page.html
+│   │   │   │   │   └── about.page.scss
+│   │   │   │   │   └── about.page.spec.ts
+│   │   │   │   │   └── about.page.ts
 │   │   ├── /shared (SharedModule)                        # [TS-2]
-│   │   │   ├── module.ts
+│   │   │   ├── shared.module.ts
 │   │   │   ├── /components                               # [TS-6]
 │   │   │   │   ├── /button (ButtonComponent)
-│   │   │   │   │   └── component.html
-│   │   │   │   │   └── component.scss
-│   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   └── component.ts
+│   │   │   │   │   └── button.component.html
+│   │   │   │   │   └── button.component.scss
+│   │   │   │   │   └── button.component.spec.ts
+│   │   │   │   │   └── button.component.ts
 │   │   │   │   ├── /page-content (PageContentComponent)
-│   │   │   │   │   └── component.html
-│   │   │   │   │   └── component.scss
-│   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   └── component.ts
+│   │   │   │   │   └── page-contentcomponent.html
+│   │   │   │   │   └── page-contentcomponent.scss
+│   │   │   │   │   └── page-contentcomponent.spec.ts
+│   │   │   │   │   └── page-contentcomponent.ts
 │   │   │   ├── /models                                   # [TS-8]
-│   │   │   │   ├── api-error.spec.ts
-│   │   │   │   ├── api-error.ts (ApiError)
+│   │   │   │   ├── api-error.model.spec.ts
+│   │   │   │   ├── api-error.model.ts (ApiError)
 │   │   │   ├── /utils                                    # [TS-4]
-│   │   │   │   ├── array.{spec.ts,ts}
-│   │   │   │   ├── http.{spec.ts,ts}
+│   │   │   │   ├── array.util.spec.ts
+│   │   │   │   ├── array.util.ts
+│   │   │   │   ├── http.util.spec.ts
+│   │   │   │   ├── http.util.ts
 │   │   ├── /auth                                         # [TS-3]
-│   │   │   ├── module.ts
-│   │   │   ├── routing.module.ts
+│   │   │   ├── auth.module.ts
+│   │   │   ├── auth-routing.module.ts
 │   │   │   ├── /components                               # [TS-6]
-│   │   │   │   ├── /login (AuthLoginComponent)
-│   │   │   │   │   └── component.html
-│   │   │   │   │   └── component.scss
-│   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   └── component.ts
+│   │   │   │   ├── /auth-login (AuthLoginComponent)
+│   │   │   │   │   └── auth-login.component.html
+│   │   │   │   │   └── auth-login.component.scss
+│   │   │   │   │   └── auth-login.component.spec.ts
+│   │   │   │   │   └── auth-login.component.ts
 │   │   │   ├── /pages                                    # [TS-5]
-│   │   │   │   ├── /login (AuthLoginPage)
-│   │   │   │   │   └── page.html
-│   │   │   │   │   └── page.scss
-│   │   │   │   │   └── page.spec.ts
-│   │   │   │   │   └── page.ts
+│   │   │   │   ├── /auth-login (AuthLoginPage)
+│   │   │   │   │   └── auth-login.page.html
+│   │   │   │   │   └── auth-login.page.scss
+│   │   │   │   │   └── auth-login.page.spec.ts
+│   │   │   │   │   └── auth-login.page.ts
 │   │   │   ├── /services (AuthService)                   # [TS-7]
-│   │   │   │   ├── auth.spec.ts
-│   │   │   │   ├── auth.ts
+│   │   │   │   ├── auth.service.spec.ts
+│   │   │   │   ├── auth.service.ts
 │   │   ├── /exchange                                     # [TS-3]
-│   │   │   ├── module.ts
-│   │   │   ├── routing.module.ts
-│   │   │   ├── /components                               # [TS-6]
-│   │   │   │   ├── /config (ExchangeConfigComponent)     # [TS-6a]
-│   │   │   │   │   └── component.html
-│   │   │   │   │   └── component.scss
-│   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   └── component.ts
-│   │   │   │   │   ├── /list (ExchangeConfigListComponent)
-│   │   │   │   │   │   └── component.html
-│   │   │   │   │   │   └── component.scss
-│   │   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   │   └── component.ts
-│   │   │   │   ├── /wallet (ExchangeWalletComponent)     # [TS-6a]
-│   │   │   │   │   └── component.html
-│   │   │   │   │   └── component.scss
-│   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   └── component.ts
-│   │   │   │   │   ├── /list (ExchangeWalletListComponent)
-│   │   │   │   │   │   └── component.html
-│   │   │   │   │   │   └── component.scss
-│   │   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   │   └── component.ts
-│   │   │   │   │   ├── /table (ExchangeWalletTableComponent)
-│   │   │   │   │   │   └── component.html
-│   │   │   │   │   │   └── component.scss
-│   │   │   │   │   │   └── component.spec.ts
-│   │   │   │   │   │   └── component.ts
+│   │   │   ├── exchange-module.ts
+│   │   │   ├── exchange-routing.module.ts
+│   │   │   ├── /components                                   # [TS-6]
+│   │   │   │   ├── /exchange-config (ExchangeConfigComponent)
+│   │   │   │   │   └── exchange-config.component.html
+│   │   │   │   │   └── exchange-config.component.scss
+│   │   │   │   │   └── exchange-config.component.spec.ts
+│   │   │   │   │   └── exchange-config.component.ts
+│   │   │   │   ├── /exchange-config-list (ExchangeConfigListComponent)
+│   │   │   │   │   └── exchange-config-list.component.html
+│   │   │   │   │   └── exchange-config-list.component.scss
+│   │   │   │   │   └── exchange-config-list.component.spec.ts
+│   │   │   │   │   └── exchange-config-list.component.ts
+│   │   │   │   ├── /exchange-wallet (ExchangeWalletComponent)
+│   │   │   │   │   └── exchange-wallet.component.html
+│   │   │   │   │   └── exchange-wallet.component.scss
+│   │   │   │   │   └── exchange-wallet.component.spec.ts
+│   │   │   │   │   └── exchange-wallet.component.ts
+│   │   │   │   ├── /exchange-wallet-list (ExchangeWalletListComponent)
+│   │   │   │   │   └── exchange-wallet-list.component.html
+│   │   │   │   │   └── exchange-wallet-list.component.scss
+│   │   │   │   │   └── exchange-wallet-list.component.spec.ts
+│   │   │   │   │   └── exchange-wallet-list.component.ts
+│   │   │   │   ├── /exchange-wallet-table (ExchangeWalletTableComponent)
+│   │   │   │   │   └── exchange-wallet-table.component.html
+│   │   │   │   │   └── exchange-wallet-table.component.scss
+│   │   │   │   │   └── exchange-wallet-table.component.spec.ts
+│   │   │   │   │   └── exchange-wallet-table.component.ts
 │   │   │   ├── /data-sources                             # [TS-11]
-│   │   │   │   ├── /exchanges
-│   │   │   │   │   └── data-source.spec.ts
-│   │   │   │   │   └── data-source.ts
+│   │   │   │   └── exchanges.data-source.spec.ts
+│   │   │   │   └── exchanges.data-source.ts
 │   │   │   ├── /pages                                    # [TS-5]
-│   │   │   │   ├── /overview (ExchangesOverviewPage)
-│   │   │   │   │   └── page.html
-│   │   │   │   │   └── page.scss
-│   │   │   │   │   └── page.spec.ts
-│   │   │   │   │   └── page.ts
+│   │   │   │   ├── /exchanges-overview (ExchangesOverviewPage)
+│   │   │   │   │   └── exchanges-overview.page.html
+│   │   │   │   │   └── exchanges-overview.page.scss
+│   │   │   │   │   └── exchanges-overview.page.spec.ts
+│   │   │   │   │   └── exchanges-overview.page.ts
 │   │   │   ├── /services                                 # [TS-9]
-│   │   │   │   ├── /overview (ExchangeApiService)
-│   │   │   │   │   └── service.spec.ts
-│   │   │   │   │   └── service.ts
-│   │   │   ├── /storage                                  # [TS-10]
-│   │   │   │   ├── /exchanges
-│   │   │   │   │   └── database.ts
-│   │   │   │   │   └── provider.ts
+│   │   │   │   └── exchange-api.service.spec.ts
+│   │   │   │   └── exchange-api.service.ts (ExchangeApiService)
+│   │   │   ├── /storages                                 # [TS-10]
+│   │   │   │   └── exchange.database.ts
+│   │   │   │   └── exchange.provider.ts
 ├── /assets
 ├── /environments
 │   ├── environment.prod.ts

@@ -1,0 +1,21 @@
+<mat-toolbar *ngIf="user$ | async; let user" role="header" [color]="'primary'">
+  <a mat-button [routerLink]="[ '/home' ]">Home</a>
+  <a mat-button [routerLink]="[ '/reports' ]">Reports</a>
+  <a mat-button [routerLink]="[ '/exchanges' ]">Exchanges</a>
+  <span class="cdy-spacer"></span>
+
+  <button mat-button [matMenuTriggerFor]="accountMenu">
+    <mat-icon>account_circle</mat-icon> {{ user.email }}
+  </button>
+  <mat-menu
+    #accountMenu="matMenu"
+    [overlapTrigger]="false"
+    [yPosition]="'below'"
+    [xPosition]="'before'"
+  >
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Sign out</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
