@@ -13,49 +13,22 @@ import java.util.List;
 @Component
 public class GdaxController extends ExchangeController {
 
-    /*
-
-    private String accountPass; //gdax specific
-
-    public GdaxController(String key, String secret, String pass) {
-        super(key, secret);
-        accountPass = pass;
+    protected String getWrappedXchangeName(){
+        return GDAXExchange.class.getName();
     }
-
-    protected Exchange getExchange(){
-        ExchangeSpecification specification = new ExchangeSpecification(GDAXExchange.class.getName());
-        specification.setApiKey(accountKey);
-        specification.setSecretKey(accountSecret);
-        specification.setExchangeSpecificParametersItem("passphrase", accountPass);
-        return ExchangeFactory.INSTANCE.createExchange(specification);
-    }
-
-    */
-
-
-
-    //private String accountPass; //gdax specific
-
 
     /**
      * Additional parameters on top of key and secret that are required to get user exchange data.
      * GDAX requires a password.
      * @return list of names of required parameters other than key and secret
      */
-//    public List<String> requiredAdditionalParameters(){
-//        List<String> parameters = super.requiredAdditionalParameters();
-//        parameters.add("passphrase");
-//        return parameters;
-//    }
+    @Override
+    public List<String> requiredAdditionalParameters(){
+        List<String> parameters = super.requiredAdditionalParameters();
+        parameters.add("passphrase");
+        return parameters;
+    }
 
-/*
-    protected Exchange getExchange(){
-        ExchangeSpecification specification = new ExchangeSpecification(GDAXExchange.class.getName());
-        specification.setApiKey(accountKey);
-        specification.setSecretKey(accountSecret);
-        specification.setExchangeSpecificParametersItem("passphrase", accountPass);
-        return ExchangeFactory.INSTANCE.createExchange(specification);
-    }*/
 
 
 

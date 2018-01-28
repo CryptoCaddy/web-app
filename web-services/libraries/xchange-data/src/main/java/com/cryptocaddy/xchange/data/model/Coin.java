@@ -10,8 +10,8 @@ import java.math.BigDecimal;
  * Date: 1/11/2018
  */
 public class Coin {
-    private Currency backingCurrency;
-    private Balance backingBalance;
+    //private Currency backingCurrency;
+    //private Balance backingBalance;
 
     private String symbol;
     private String currencyCode;
@@ -34,25 +34,25 @@ public class Coin {
         withdrawing = balance.getWithdrawing();
         depositing = balance.getDepositing();
 
-        backingCurrency = currency;
-        backingBalance = balance;
+//        backingCurrency = currency;
+//        backingBalance = balance;
     }
 
-    public Currency getBackingCurrency() {
-        return backingCurrency;
-    }
-
-    public void setBackingCurrency(Currency backingCurrency) {
-        this.backingCurrency = backingCurrency;
-    }
-
-    public Balance getBackingBalance() {
-        return backingBalance;
-    }
-
-    public void setBackingBalance(Balance backingBalance) {
-        this.backingBalance = backingBalance;
-    }
+//    public Currency getBackingCurrency() {
+//        return backingCurrency;
+//    }
+//
+//    public void setBackingCurrency(Currency backingCurrency) {
+//        this.backingCurrency = backingCurrency;
+//    }
+//
+//    public Balance getBackingBalance() {
+//        return backingBalance;
+//    }
+//
+//    public void setBackingBalance(Balance backingBalance) {
+//        this.backingBalance = backingBalance;
+//    }
 
     public String getSymbol() {
         return symbol;

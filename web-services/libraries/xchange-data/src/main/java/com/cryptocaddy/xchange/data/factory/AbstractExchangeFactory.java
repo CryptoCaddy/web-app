@@ -29,6 +29,7 @@ public class AbstractExchangeFactory implements ApplicationContextAware {
                     exchangeController = applicationContext.getBean(BittrexController.class);
                     break;
                 default:
+                    //TODO: this should not return base class since it is abstract and not usable by itself
                     exchangeController = applicationContext.getBean(ExchangeController.class);
                     break;
             }

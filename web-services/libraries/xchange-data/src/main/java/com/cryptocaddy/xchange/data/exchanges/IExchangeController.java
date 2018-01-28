@@ -11,19 +11,19 @@ import java.util.List;
 
 public interface IExchangeController {
 
-    ExchangeSpecification getXchangeSpecification(String exchangeName, String exchangeKey, String exchangeSecret,
+    ExchangeSpecification getXchangeSpecification(String exchangeKey, String exchangeSecret,
                                                   HashMap<String, String> params);
 
-    Exchange getExchange(String exchangeName, String exchangeKey, String exchangeSecret,
+    Exchange getExchange(String exchangeKey, String exchangeSecret,
                          HashMap<String, String> params);
 
-    AccountInfo getAccountInfo(String exchangeName, String exchangeKey, String exchangeSecret,
+    AccountInfo getAccountInfo(String exchangeKey, String exchangeSecret,
                                HashMap<String, String> params);
 
-    List<Coin> getAllCoins(String exchangeName, String exchangeKey, String exchangeSecret,
+    List<Coin> getAllCoins(String exchangeKey, String exchangeSecret,
                            HashMap<String, String> params);
 
-    TransactionHistory getTransactionHistory(String exchangeName, String exchangeKey, String exchangeSecret,
+    TransactionHistory getTransactionHistory(String exchangeKey, String exchangeSecret,
                                              HashMap<String, String> params);
 
 
