@@ -9,6 +9,7 @@ import com.cryptocaddy.services.auditing.validation.CreateAccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ public class CreateAccountApiController extends AbstractRestHandler implements C
 
 
     @Override
-    public ResponseEntity<Result> createAccountPost(CreateAccountRequestBody createAccountRequestBody) {
+    public ResponseEntity<Result> createAccountPost(@RequestBody CreateAccountRequestBody createAccountRequestBody) {
 
         CreateAccountValidator createAccountValidator = new CreateAccountValidator();
         if (!createAccountValidator.test(createAccountRequestBody)) {
