@@ -27,10 +27,12 @@ public class AddExchangesApiApiController extends AbstractRestHandler implements
     @Override
     public ResponseEntity<Result> addExchanges(AddExchangesRequestBody addExchangesRequestBody) {
 
+
         AddExchangesValidator addExchangesValidator = new AddExchangesValidator();
+        /*
         if (!addExchangesValidator.test(addExchangesRequestBody)) {
             return new ResponseEntity<>(new Result("Failed"), HttpStatus.BAD_REQUEST);
-        }
+        }*/
 
         Result result = addExchangesService.addExchanges(addExchangesRequestBody);
 

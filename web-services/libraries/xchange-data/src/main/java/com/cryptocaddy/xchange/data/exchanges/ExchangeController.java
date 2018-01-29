@@ -1,8 +1,6 @@
 package com.cryptocaddy.xchange.data.exchanges;
 
-import com.cryptocaddy.xchange.data.model.Coin;
-import com.cryptocaddy.xchange.data.model.Transaction;
-import com.cryptocaddy.xchange.data.model.TransactionHistory;
+import com.cryptocaddy.xchange.data.model.*;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -34,8 +32,12 @@ public abstract class ExchangeController implements IExchangeController {
 
     protected abstract String getWrappedXchangeName();
 
-    public List<String> requiredAdditionalParameters(){
-        List<String> requiredParameters = new ArrayList<>();
+    /**
+     * List of pairs of parameters and corresponding descriptions that are uniquely required by exchanges that extend this class.
+     * @return
+     */
+    public ParameterList<String, String> requiredAdditionalParameters(){
+        ParameterList<String, String> requiredParameters = new ParameterList<>();
         return requiredParameters;
     }
 
@@ -73,20 +75,20 @@ public abstract class ExchangeController implements IExchangeController {
      * @return -
      */
     @Override
-    public Exchange getExchange(String exchangeKey, String exchangeSecret,
-                                HashMap<String, String> params){
+    public Exchange getXchangeExchange(String exchangeKey, String exchangeSecret,
+                                       HashMap<String, String> params){
 
         return ExchangeFactory.INSTANCE.createExchange(getXchangeSpecification(exchangeKey, exchangeSecret, params));
     }
-    //protected abstract Exchange getExchange();
+    //protected abstract Exchange getXchangeExchange();
 
 
     //nullable return type
     @Override
-    public AccountInfo getAccountInfo(String exchangeKey, String exchangeSecret,
-                                      HashMap<String, String> params) {
+    public AccountInfo getXchangeAccountInfo(String exchangeKey, String exchangeSecret,
+                                             HashMap<String, String> params) {
 
-        AccountService accountService = getExchange(exchangeKey, exchangeSecret, params).getAccountService();
+        AccountService accountService = getXchangeExchange(exchangeKey, exchangeSecret, params).getAccountService();
 
         AccountInfo accountInfo = null;
 
@@ -108,7 +110,7 @@ public abstract class ExchangeController implements IExchangeController {
 
         List<Coin> coinList = new ArrayList<>();
 
-        AccountInfo accountInfo = getAccountInfo(exchangeKey, exchangeSecret, params);
+        AccountInfo accountInfo = getXchangeAccountInfo(exchangeKey, exchangeSecret, params);
         if(accountInfo == null){
             return coinList;
         }
@@ -148,7 +150,7 @@ public abstract class ExchangeController implements IExchangeController {
 
         TransactionHistory txHistory = null;
 
-        Exchange exchange = getExchange(exchangeKey, exchangeSecret, params);
+        Exchange exchange = getXchangeExchange(exchangeKey, exchangeSecret, params);
         TradeService tradeService = exchange.getTradeService();
         //TODO: set end date to end of tax year in params before getting trades or accept start / end dates
         TradeHistoryParams tradeHistoryParams = new TradeHistoryParamsAll();

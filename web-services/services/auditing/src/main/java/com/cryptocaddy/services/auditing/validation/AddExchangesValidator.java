@@ -20,11 +20,4 @@ public class AddExchangesValidator extends GenericValidator<AddExchangesRequestB
         super(VALIDATORS);
     }
 
-    @SuppressWarnings("unused")
-    private static boolean notBlank(String value) {
-        if (isBlank(value)) {
-            throw new IllegalArgumentException("Required path parameter may not be null or empty!");
-        }
-        return true;
-    }
 }

@@ -37,6 +37,8 @@
             <artifactId>rest-config</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+
     </dependencies>
 
     <build>

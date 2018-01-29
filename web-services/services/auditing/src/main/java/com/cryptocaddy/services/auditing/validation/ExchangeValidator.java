@@ -22,11 +22,4 @@ public class ExchangeValidator extends GenericValidator<Exchange> {
         super(VALIDATORS);
     }
 
-    @SuppressWarnings("unused")
-    private static boolean notBlank(String value) {
-        if (isBlank(value)) {
-            throw new IllegalArgumentException("Required exchange name, api key and api secret parameter may not be null or empty!");
-        }
-        return true;
-    }
 }

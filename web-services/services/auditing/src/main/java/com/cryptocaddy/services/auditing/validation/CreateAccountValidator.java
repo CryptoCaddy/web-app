@@ -13,18 +13,12 @@ public class CreateAccountValidator extends GenericValidator<CreateAccountReques
     private static final List<Predicate<CreateAccountRequestBody>> VALIDATORS = new LinkedList<>();
 
     static {
-        VALIDATORS.add(createAccountRequestBody -> notBlank(createAccountRequestBody.getUserName()));
+        VALIDATORS.add(createAccountRequestBody -> notBlank(createAccountRequestBody.getEmail()));
     }
 
     public CreateAccountValidator() {
         super(VALIDATORS);
     }
 
-    @SuppressWarnings("unused")
-    private static boolean notBlank(String value) {
-        if (isBlank(value)) {
-            throw new IllegalArgumentException("Required path parameter may not be null or empty!");
-        }
-        return true;
-    }
+
 }
