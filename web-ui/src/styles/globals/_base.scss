@@ -1,0 +1,17 @@
+@import 'vars/dimensions';
+
+body {
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: $navbar-height;
+  background: #fafafa;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}

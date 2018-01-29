@@ -18,5 +18,9 @@ export function getHttpErrorMessage(err: HttpErrorResponse) {
   }
 
   // error is a custom api error
-  return (err.error as ApiError).message;
+  if (typeof err.error === 'object' && typeof err.error.message === 'string') {
+    return (err.error as ApiError).message;
+  }
+
+  return `An unknown error occurred: ${err.statusText}`;
 }

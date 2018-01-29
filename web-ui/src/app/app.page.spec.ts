@@ -23,12 +23,6 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'cdy'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('cdy');
-  }));
-
   it('should render a navigation a footer', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();

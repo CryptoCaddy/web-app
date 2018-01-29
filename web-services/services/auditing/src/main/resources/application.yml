@@ -1,3 +1,9 @@
+info:
+  build:
+    artifact: ${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
 logging:
   level:
     .: info
@@ -17,17 +23,22 @@ springfox:
     swagger:
       v2:
         path: "/api-docs"
-info:
-  build:
-    artifact: ${project.artifactId}
-    name: ${project.name}
-    description: ${project.description}
-    version: ${project.version}
 server:
   contextPath: "/api"
-mysql:
-  database: testdb
-  user: nick
-  password: test
-  root:
-    password: test
+fiat:
+  engine:
+    base:
+      url: http://localhost:7001/api/
+binance:
+  binancekey:
+  binancesecret:
+bittrex:
+  bittrexkey:
+  bittrexsecret:
+coinbase:
+  coinbasekey:
+  coinbasesecret:
+gdax:
+  gdaxkey:
+  gdaxsecret:
+  gdaxpass:

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: config-server
+management:
+  security:
+    enabled: false

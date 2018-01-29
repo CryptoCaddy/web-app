@@ -1,5 +1,5 @@
 
-<img src='https://github.com/CryptoCaddy/web-app/blob/development/web-ui/src/assets/img/caddy-cropped.png'/>
+<img src='https://github.com/CryptoCaddy/web-app/blob/master/web-ui/src/assets/img/caddy-cropped.png'/>
 
 CryptoCaddy is a platform designed to automate the complicated process of generating gain/loss documents for tax purposes and live portfolio tracking based on exchange API keys, blockchain explorers and csv uploads. The web-app is the central component to the project and will be at the core of any peripheral mobile or desktop applications that become a part of the CryptoCaddy platform. 
 
@@ -64,7 +64,7 @@ When the following line appears the server has started. Feel free to use CTRL-C 
 2018-01-16 04:23:33.392  INFO 36 --- [           main] c.c.services.auditing.Application        : Started Application in 49.511 seconds (JVM running for 55.378)
 ```
 
-CryptoCaddy will now be running on your local machine. You can access it in your browser at localhost or by the ip given by the following command
+CryptoCaddy will now be running on your local machine. You can access it in your browser at the ip given by the following command
 ```
 docker-machine ip
 ```

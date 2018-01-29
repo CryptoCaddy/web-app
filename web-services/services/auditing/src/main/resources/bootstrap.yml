@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: auditing
+management:
+  security:
+    enabled: false

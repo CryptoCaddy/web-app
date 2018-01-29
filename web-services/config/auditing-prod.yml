@@ -1,0 +1,9 @@
+logging:
+  level:
+    .: info
+    org.springframework: info
+spring:
+  profiles: profile
+  cloud:
+    config:
+      enabled: true

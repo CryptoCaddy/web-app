@@ -16,3 +16,16 @@ export function computeExchangeFields(exchange: Exchange): Exchange {
     } as Partial<Exchange>,
   );
 }
+
+export function isExchange(o: Exchange): o is Exchange {
+  return o != null &&
+    (typeof o === 'object') &&
+
+    // required
+    typeof o.exchangeName === 'string' &&
+    typeof o.exchangeKey === 'string' &&
+    typeof o.exchangeSecret === 'string' &&
+
+    // optional
+    (o.exchangePass == null || typeof o.exchangePass === 'string');
+}
