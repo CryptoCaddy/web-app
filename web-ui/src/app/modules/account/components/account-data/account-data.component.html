@@ -1,0 +1,11 @@
+<form [formGroup]="form" (submit)="onFormSubmit(form.value)">
+  <mat-form-field class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'email'"
+      type="email"
+      placeholder="Email"
+      autocomplete="email"
+    >
+    <mat-error *ngIf="getErrorMessage(form.get('email')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
+</form>

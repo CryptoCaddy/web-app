@@ -4,6 +4,7 @@ import { FirebaseError } from 'firebase/app';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 
 import { AuthService } from '../../services/auth.service';
+import { getErrorMessage } from 'app/modules/shared/utils/form.util';
 
 interface FormValue {
   email: string;
@@ -24,6 +25,8 @@ export class AuthRegisterFormComponent implements OnInit {
    * @type {FormGroup}
    */
   public form: FormGroup;
+
+  public getErrorMessage = getErrorMessage;
 
   constructor(private auth: AuthService) { }
 
@@ -47,20 +50,6 @@ export class AuthRegisterFormComponent implements OnInit {
 
     this.auth.signUp(formValue.email, formValue.password)
       .subscribe(null, (err) => this.setFormError(err));
-  }
-
-  /**
-   * Get a error massge to be displayed the given form control.
-   *
-   * @param {FormControl} control The form control to check for errors.
-   * @returns {string} The error message to display.
-   */
-  public getErrorMessage(control: AbstractControl): string {
-    if (control.hasError('required')) {
-      return 'This field is mandatory.';
-    }
-
-    return '';
   }
 
   /**

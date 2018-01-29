@@ -1,0 +1,50 @@
+<form [formGroup]="form" (submit)="onFormSubmit(form.value)">
+
+  <!-- Fiat Currency -->
+  <mat-form-field class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'fiat'"
+      [matAutocomplete]="fiatAc"
+      aria-label="Fiat Currency"
+      placeholder="Fiat Currency"
+      autocomplete="fiat"
+    >
+    <mat-autocomplete #fiatAc="matAutocomplete" [displayWith]="selectOptionDisplayFn">
+      <mat-option *ngFor="let fiat of filteredFiats$ | async" [value]="fiat">
+        <small>{{ fiat.label }}</small>
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="getErrorMessage(form.get('fiat')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
+
+
+  <!-- Timezone -->
+  <mat-form-field class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'timezone'"
+      [matAutocomplete]="timezoneAC"
+      aria-label="Timezone"
+      placeholder="Timezone"
+      autocomplete="off"
+    >
+    <mat-autocomplete #timezoneAC="matAutocomplete" [displayWith]="selectOptionDisplayFn">
+      <mat-option *ngFor="let timezone of filteredTimezones$ | async" [value]="timezone">
+        <small>{{ timezone.label }}</small>
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="getErrorMessage(form.get('timezone')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
+
+  <mat-action-row>
+    <button type="submit" mat-button mat-raised-button [color]="'primary'">
+      <cdy-button-content [loading]="formPending" [spinnerColor]="'white'">
+        Save
+      </cdy-button-content>
+    </button>
+  </mat-action-row>
+
+  <mat-action-row class="cdy-errors" *ngIf="form.errors">
+    <mat-error *ngIf="getErrorMessage(form); let errMsg">{{ errMsg }}</mat-error>
+  </mat-action-row>
+
+</form>

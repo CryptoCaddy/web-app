@@ -13,8 +13,11 @@
     [yPosition]="'below'"
     [xPosition]="'before'"
   >
+    <a mat-menu-item [routerLink]="[ '/', 'account', 'overview' ]">
+      <span>Account</span>
+    </a>
+    <mat-divider></mat-divider>
     <button mat-menu-item (click)="onLogout()">
-      <mat-icon>exit_to_app</mat-icon>
       <span>Sign out</span>
     </button>
   </mat-menu>

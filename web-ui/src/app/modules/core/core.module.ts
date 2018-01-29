@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { MatIconModule, MatMenuModule } from '@angular/material';
+import { MatDividerModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { AppConfigService } from 'app/modules/shared/services/app-config.service';
 import { SharedModule } from 'app/modules/shared/module';
+import { AppConfigService } from 'app/modules/shared/services/app-config.service';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
@@ -19,6 +19,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 @NgModule({
   imports: [
     CommonModule,
+    MatDividerModule,
     MatIconModule,
     MatMenuModule,
     SharedModule,

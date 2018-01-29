@@ -17,6 +17,10 @@ const routes: Routes = [
     canActivate: [ NoAuthGuard ],
     children: authRoutes,
   }, {
+    path: 'account',
+    canActivate: [ AuthGuard ],
+    loadChildren: 'app/modules/account/account.module#AccountModule',
+  }, {
     path: 'home',
     canActivate: [ AuthGuard ],
     loadChildren: 'app/modules/home/home.module#HomeModule',
