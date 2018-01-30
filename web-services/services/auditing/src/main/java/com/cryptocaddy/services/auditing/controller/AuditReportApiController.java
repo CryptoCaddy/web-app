@@ -9,6 +9,7 @@ import com.cryptocaddy.services.auditing.validation.AuditReportValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,7 +26,7 @@ public class AuditReportApiController extends AbstractRestHandler implements Aud
     }
 
     @Override
-    public ResponseEntity<AuditReport> auditReportGet(AuditReportAttributes auditReportAttributes) {
+    public ResponseEntity<AuditReport> auditReportGet(@ModelAttribute AuditReportAttributes auditReportAttributes) {
 
         AuditReportValidator auditReportValidator = new AuditReportValidator();
         if (!auditReportValidator.test(auditReportAttributes)) {

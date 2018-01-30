@@ -9,6 +9,7 @@ import com.cryptocaddy.services.auditing.validation.AddExchangesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,7 +26,7 @@ public class AddExchangesApiApiController extends AbstractRestHandler implements
     }
 
     @Override
-    public ResponseEntity<Result> addExchanges(AddExchangesRequestBody addExchangesRequestBody) {
+    public ResponseEntity<Result> addExchanges(@RequestBody AddExchangesRequestBody addExchangesRequestBody) {
 
         AddExchangesValidator addExchangesValidator = new AddExchangesValidator();
         if (!addExchangesValidator.test(addExchangesRequestBody)) {
