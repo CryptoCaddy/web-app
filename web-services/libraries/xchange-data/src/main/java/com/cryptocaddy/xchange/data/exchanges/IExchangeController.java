@@ -12,26 +12,21 @@ import java.util.List;
 
 public interface IExchangeController {
 
-    ExchangeSpecification getXchangeSpecification(String exchangeKey, String exchangeSecret,
-                                                  HashMap<String, String> params);
+    ExchangeSpecification getXchangeSpecification(HashMap<String, String> params);
 
-    Exchange getXchangeExchange(String exchangeKey, String exchangeSecret,
-                                HashMap<String, String> params);
+    Exchange getXchangeExchange(HashMap<String, String> params);
 
-    AccountInfo getXchangeAccountInfo(String exchangeKey, String exchangeSecret,
-                                      HashMap<String, String> params);
+    AccountInfo getXchangeAccountInfo(HashMap<String, String> params);
 
-    List<Coin> getAllCoins(String exchangeKey, String exchangeSecret,
-                           HashMap<String, String> params);
+    List<Coin> getAllCoins(HashMap<String, String> params);
 
-    TransactionHistory getTransactionHistory(String exchangeKey, String exchangeSecret,
-                                             HashMap<String, String> params);
+    TransactionHistory getTransactionHistory(HashMap<String, String> params);
 
     /**
      * List of pairs of parameters and corresponding descriptions that are uniquely required by exchanges.
      * @return
      */
-    ParameterList<String, String> requiredAdditionalParameters();
+    ParameterList<String, String> requiredParameters();
 
 
 }

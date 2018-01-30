@@ -20,7 +20,7 @@ public class BinanceController extends ExchangeController {
     //TODO: override inherited function to get trades. Binance wants different info than the rest so we cant fall back on default implementation.
     //nullable return type
     @Override
-    public TransactionHistory getTransactionHistory(String key, String secret, HashMap<String, String> additionalParameters){
+    public TransactionHistory getTransactionHistory(HashMap<String, String> additionalParameters){
         TransactionHistory txHistory = null;
 
         System.out.println("Binance trade history not yet implemented. Needs specific trade pairs in request unlike other exchanges.");

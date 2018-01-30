@@ -25,19 +25,28 @@ import java.util.*;
  */
 public abstract class ExchangeController implements IExchangeController {
 
+    public static final String API_KEY_PARAM = "api key";
+    public static final String API_SECRET_PARAM = "api secret";
+
     protected String wrappedXchangeName;
     public ExchangeController(){
         wrappedXchangeName = getWrappedXchangeName();
     }
 
+    /**
+     * Every class that extends this base class needs to implement this to return the corresponding Xchange exchange class name that is being wrapped.
+     * @return
+     */
     protected abstract String getWrappedXchangeName();
 
     /**
-     * List of pairs of parameters and corresponding descriptions that are uniquely required by exchanges that extend this class.
+     * List of pairs of parameters and corresponding descriptions that are uniquely required by each exchange.
      * @return
      */
-    public ParameterList<String, String> requiredAdditionalParameters(){
+    public ParameterList<String, String> requiredParameters(){
         ParameterList<String, String> requiredParameters = new ParameterList<>();
+        requiredParameters.add(API_KEY_PARAM, "The api key used to access user specific exchange data");
+        requiredParameters.add(API_SECRET_PARAM, "The api secret used to access user specific exchange data");
         return requiredParameters;
     }
 
@@ -46,16 +55,25 @@ public abstract class ExchangeController implements IExchangeController {
      * @return exchange specification used to create the exchange.
      */
     @Override
-    public ExchangeSpecification getXchangeSpecification(String exchangeKey, String exchangeSecret,
-                                                         HashMap<String, String> params){
+    public ExchangeSpecification getXchangeSpecification(HashMap<String, String> params){
 
         ExchangeSpecification specification = new ExchangeSpecification(this.wrappedXchangeName);
-        specification.setApiKey(exchangeKey);
-        specification.setSecretKey(exchangeSecret);
+        if (params == null)
+            return specification;
+
+        if (params.containsKey(API_KEY_PARAM))
+            specification.setApiKey(params.get(API_KEY_PARAM));
+        if (params.containsKey(API_SECRET_PARAM))
+            specification.setSecretKey(params.get(API_SECRET_PARAM));
 
         //for each parameter that we need in addition to key and secret, ensure we were provided a value, and assign it.
-        if (params != null && requiredAdditionalParameters().size() > 0){
+        if (params != null && requiredParameters().size() > 0){
             for (String parameterKey : params.keySet()) {
+
+                //If true continue because we just manually assigned these values
+                if (parameterKey.equalsIgnoreCase(API_KEY_PARAM) || parameterKey.equalsIgnoreCase(API_SECRET_PARAM))
+                    continue;
+
                 String parameterValue = params.get(parameterKey);
                 if (parameterValue == null){
                     System.out.println(parameterKey + "was not specified for exchange specification: " + wrappedXchangeName);
@@ -75,20 +93,18 @@ public abstract class ExchangeController implements IExchangeController {
      * @return -
      */
     @Override
-    public Exchange getXchangeExchange(String exchangeKey, String exchangeSecret,
-                                       HashMap<String, String> params){
+    public Exchange getXchangeExchange(HashMap<String, String> params){
 
-        return ExchangeFactory.INSTANCE.createExchange(getXchangeSpecification(exchangeKey, exchangeSecret, params));
+        return ExchangeFactory.INSTANCE.createExchange(getXchangeSpecification(params));
     }
     //protected abstract Exchange getXchangeExchange();
 
 
     //nullable return type
     @Override
-    public AccountInfo getXchangeAccountInfo(String exchangeKey, String exchangeSecret,
-                                             HashMap<String, String> params) {
+    public AccountInfo getXchangeAccountInfo(HashMap<String, String> params) {
 
-        AccountService accountService = getXchangeExchange(exchangeKey, exchangeSecret, params).getAccountService();
+        AccountService accountService = getXchangeExchange(params).getAccountService();
 
         AccountInfo accountInfo = null;
 
@@ -105,12 +121,11 @@ public abstract class ExchangeController implements IExchangeController {
 
     //returns a list of all coins in the exchange with balance data
     @Override
-    public List<Coin> getAllCoins(String exchangeKey, String exchangeSecret,
-                                  HashMap<String, String> params){
+    public List<Coin> getAllCoins(HashMap<String, String> params){
 
         List<Coin> coinList = new ArrayList<>();
 
-        AccountInfo accountInfo = getXchangeAccountInfo(exchangeKey, exchangeSecret, params);
+        AccountInfo accountInfo = getXchangeAccountInfo(params);
         if(accountInfo == null){
             return coinList;
         }
@@ -145,12 +160,11 @@ public abstract class ExchangeController implements IExchangeController {
 
     //nullable return type
     @Override
-    public TransactionHistory getTransactionHistory(String exchangeKey, String exchangeSecret,
-                                                    HashMap<String, String> params){
+    public TransactionHistory getTransactionHistory(HashMap<String, String> params){
 
         TransactionHistory txHistory = null;
 
-        Exchange exchange = getXchangeExchange(exchangeKey, exchangeSecret, params);
+        Exchange exchange = getXchangeExchange(params);
         TradeService tradeService = exchange.getTradeService();
         //TODO: set end date to end of tax year in params before getting trades or accept start / end dates
         TradeHistoryParams tradeHistoryParams = new TradeHistoryParamsAll();

@@ -1,7 +1,7 @@
 package com.cryptocaddy.services.auditing.api;
 
 import com.cryptocaddy.services.auditing.model.Result;
-import com.cryptocaddy.services.auditing.model.attributes.CreateAccountRequestBody;
+import com.cryptocaddy.services.auditing.model.request.RequestCreateAccount;
 import com.cryptocaddy.services.common.model.RestErrorInfo;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public interface CreateAccountApi {
     @RequestMapping(value = "/createAccount",
             produces = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<Result> createAccountPost(@RequestBody CreateAccountRequestBody createAccountRequestBody);
+    ResponseEntity<Result> createAccountPost(@RequestBody RequestCreateAccount requestCreateAccount);
 
 
 }

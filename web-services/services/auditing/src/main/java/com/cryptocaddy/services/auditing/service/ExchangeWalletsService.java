@@ -41,7 +41,7 @@ public class ExchangeWalletsService {
 
 
         IExchangeController controller = abstractExchangeFactory.getExchangeController(ExchangeType.valueOf(exchangeName.toUpperCase()));
-        List<Coin> coinList = controller != null ? controller.getAllCoins(exchangeKey, exchangeSecret, params) : new ArrayList<>();
+        List<Coin> coinList = controller != null ? controller.getAllCoins(params) : new ArrayList<>();
 
         // Convert crypto value via Fiat Engine
         //List<FiatCoin> fiatCoinList = fiatEngineService.convertValues(coinList, exchangeName);

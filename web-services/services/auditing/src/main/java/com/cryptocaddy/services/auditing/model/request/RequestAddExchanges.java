@@ -1,22 +1,24 @@
-package com.cryptocaddy.services.auditing.model.attributes;
+package com.cryptocaddy.services.auditing.model.request;
+
+import com.cryptocaddy.services.auditing.model.attributes.Exchange;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement
-public class AddExchangesRequestBody {
+public class RequestAddExchanges {
     private String username;
     private String password;
     private List<Exchange> exchangeList = new ArrayList<>();
 
-    public AddExchangesRequestBody(String username, String password, List<Exchange> exchangeList) {
+    public RequestAddExchanges(String username, String password, List<Exchange> exchangeList) {
         this.username = username;
         this.password = password;
         this.exchangeList = exchangeList;
     }
 
-    public AddExchangesRequestBody() {
+    public RequestAddExchanges() {
     }
 
     public String getUsername() {

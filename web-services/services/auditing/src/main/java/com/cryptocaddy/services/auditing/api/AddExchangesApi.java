@@ -1,7 +1,7 @@
 package com.cryptocaddy.services.auditing.api;
 
 import com.cryptocaddy.services.auditing.model.Result;
-import com.cryptocaddy.services.auditing.model.attributes.AddExchangesRequestBody;
+import com.cryptocaddy.services.auditing.model.request.RequestAddExchanges;
 import com.cryptocaddy.services.common.model.RestErrorInfo;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,6 @@ public interface AddExchangesApi {
     @RequestMapping(value = "/addExchanges",
             produces = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<Result> addExchanges(@RequestBody AddExchangesRequestBody addExchangesRequestBody);
+    ResponseEntity<Result> addExchanges(@RequestBody RequestAddExchanges requestAddExchanges);
 
 }

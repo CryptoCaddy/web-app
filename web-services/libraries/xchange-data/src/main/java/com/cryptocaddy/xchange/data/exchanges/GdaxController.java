@@ -21,8 +21,8 @@ public class GdaxController extends ExchangeController {
      * @return list of names of required parameters other than key and secret
      */
     @Override
-    public ParameterList<String, String> requiredAdditionalParameters(){
-        ParameterList<String, String> parameters = super.requiredAdditionalParameters();
+    public ParameterList<String, String> requiredParameters(){
+        ParameterList<String, String> parameters = super.requiredParameters();
         parameters.add("passphrase", "The password associated with the api key and secret.");
         return parameters;
     }

@@ -1,16 +1,16 @@
-package com.cryptocaddy.services.auditing.model.attributes;
+package com.cryptocaddy.services.auditing.model.request;
 
-public class CreateAccountRequestBody {
+public class RequestCreateAccount {
 
     private String email;
     private String token;
 
-    public CreateAccountRequestBody(String email, String token) {
+    public RequestCreateAccount(String email, String token) {
         this.email = email;
         this.token = token;
     }
 
-    public CreateAccountRequestBody() {
+    public RequestCreateAccount() {
     }
 
     public String getEmail() {
