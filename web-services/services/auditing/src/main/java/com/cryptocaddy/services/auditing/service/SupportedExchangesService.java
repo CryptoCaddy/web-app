@@ -25,7 +25,7 @@ public class SupportedExchangesService {
         for (ExchangeType exchange : ExchangeType.values()) {
             IExchangeController controller = abstractExchangeFactory.getExchangeController(exchange);
             String exchangeName = exchange.name();
-            ParameterList<String, String> exchangeParameters = controller.requiredParameters();
+            ParameterList exchangeParameters = controller.requiredParameters();
             supportedExchangesResponse.addSupportedExchange(exchangeName, exchangeParameters);
         }
 

@@ -1,6 +1,7 @@
 package com.cryptocaddy.xchange.data.exchanges;
 
 import com.cryptocaddy.xchange.data.model.*;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -43,10 +44,10 @@ public abstract class ExchangeController implements IExchangeController {
      * List of pairs of parameters and corresponding descriptions that are uniquely required by each exchange.
      * @return
      */
-    public ParameterList<String, String> requiredParameters(){
-        ParameterList<String, String> requiredParameters = new ParameterList<>();
-        requiredParameters.add(API_KEY_PARAM, "The api key used to access user specific exchange data");
-        requiredParameters.add(API_SECRET_PARAM, "The api secret used to access user specific exchange data");
+    public ParameterList requiredParameters(){
+        ParameterList requiredParameters = new ParameterList();
+        requiredParameters.add(API_KEY_PARAM, JsonFormatTypes.STRING);
+        requiredParameters.add(API_SECRET_PARAM, JsonFormatTypes.STRING);
         return requiredParameters;
     }
 

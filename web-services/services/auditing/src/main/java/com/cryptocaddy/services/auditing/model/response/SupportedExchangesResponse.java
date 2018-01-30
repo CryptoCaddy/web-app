@@ -6,17 +6,17 @@ import java.util.*;
 
 public class SupportedExchangesResponse {
 
-    private Map<String, ParameterList<String, String>> exchangeToParameterMap;
+    private Map<String, ParameterList> exchangeToParameterMap;
 
     public SupportedExchangesResponse() {
         exchangeToParameterMap = new HashMap<>();
     }
 
-    public Map<String, ParameterList<String, String>> getExchangeToParameterMap() {
+    public Map<String, ParameterList> getExchangeToParameterMap() {
         return exchangeToParameterMap;
     }
 
-    public void addSupportedExchange(String exchangeName, ParameterList<String, String> requiredParameters){
+    public void addSupportedExchange(String exchangeName, ParameterList requiredParameters){
         exchangeToParameterMap.put(exchangeName, requiredParameters);
     }
 

@@ -26,7 +26,7 @@ public interface IExchangeController {
      * List of pairs of parameters and corresponding descriptions that are uniquely required by exchanges.
      * @return
      */
-    ParameterList<String, String> requiredParameters();
+    ParameterList requiredParameters();
 
 
 }
