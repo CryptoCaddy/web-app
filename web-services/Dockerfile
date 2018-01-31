@@ -7,3 +7,7 @@ RUN apt-get update && apt-get install -y maven
 #create our source code folder in the docker container
 RUN mkdir /code
 WORKDIR /code
+
+COPY . .
+#Do final work for deployment to the cloud, this adds the debugger to the
+#container if the enviroment flag CADDYDEPOLYMENT is set

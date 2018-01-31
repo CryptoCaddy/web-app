@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: fiat-engine
+  labels:
+    app: fiat-engine
+spec:
+  replicas: 1 #Initally set to 1 replica, this is overriden durning deployment
+  selector:
+    matchLabels:
+      app: fiat-engine
+  template:
+    metadata:
+      labels:
+        editor: vscode
+        app: fiat-engine
+    spec:
+      containers:
+      - name: fiat-engine
+        image: fiat-engine:development
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name:  fiat-engine
+          containerPort:  7001
+      
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  fiat-engine
+spec:
+  selector:
+    app:  fiat-engine
+  type:  NodePort
+  ports:
+  - name:  fiat-engine
+    port:  7001
+    targetPort:  7001

@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-ui
+  labels:
+    app: web-ui
+spec:
+  replicas: 1 #Initally set to 1 replica, this is overriden durning deployment
+  selector:
+    matchLabels:
+      app: web-ui
+  template:
+    metadata:
+      labels:
+        editor: vscode
+        app: web-ui
+    spec:
+      containers:
+      - name: web-ui
+        image: web-ui:development
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name:  web-ui
+          containerPort:  80
+      
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  web-ui
+spec:
+  selector:
+    app:  web-ui
+  type:  NodePort
+  ports:
+  - name:  web-ui
+    port:  80
+    targetPort:  80

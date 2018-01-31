@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-services
+  labels:
+    app: web-services
+spec:
+  replicas: 1 #Initally set to 1 replica, this is overriden durning deployment
+  selector:
+    matchLabels:
+      app: web-services
+  template:
+    metadata:
+      labels:
+        editor: vscode
+        app: web-services
+    spec:
+      containers:
+      - name: web-services
+        image: web-services:development
+        command: ["/bin/sh"]
+        args: ["-c","mvn package && java -jar services/auditing/target/auditing-1.0.jar"]
+        imagePullPolicy: IfNotPresent
+        env: #setup the secrets for the database access
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: MYSQL_PASSWORD
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: MYSQL_ROOT_PASSWORD
+      
+        ports:
+        - name:  web-services
+          containerPort:  8080
+      
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  web-services
+spec:
+  selector:
+    app:  web-services
+  type:  NodePort
+  ports:
+  - name:  web-services
+    port:  8080
+    targetPort:  8080
