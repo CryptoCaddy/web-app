@@ -1,0 +1,35 @@
+version: '3'
+services:
+  web:
+    volumes:
+      - web-services-maven:/root/.m2:rw
+    environment:
+      - MYSQL_HOST="mysql"
+    depends_on:
+      - mysql
+
+  fiat:
+    environment:
+      - MYSQL_HOST="mysql"
+    depends_on:
+      - mysql
+
+  mysql:
+    restart: always
+    image: mysql:latest
+    volumes:
+      - data_sql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    healthcheck:
+      test: mysqladmin ping -p$MYSQL_ROOT_PASSWORD
+      interval: 20s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  data_sql:
+  web-services-maven:
