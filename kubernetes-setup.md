@@ -21,7 +21,7 @@ Please view the readmes within this project's subfolders for more specific devel
 Docker 18.01+
 Minikube 0.24.1+ https://github.com/kubernetes/minikube
 kubectl
-VirtualBox or Hyper-V (other minikube supported virtualization software should workd)
+VirtualBox or Hyper-V (other minikube supported virtualization software should work)
 ```
 If running windows ensure that the location minikube and kubectl is added to PATH
 
@@ -80,7 +80,7 @@ docker tag web-ui localhost:80/web-ui
 Create and deploy the kubernetes services and deployments
 ```
 kubectl create -f mysql/mysql-kubernetes.yaml 
-kubectl create -f fiat-enginefiat-engine-kubernetes.yaml 
+kubectl create -f fiat-engine/fiat-engine-kubernetes.yaml 
 kubectl create -f web-services/web-services-kubernetes.yaml 
 kubectl create -f web-ui/web-ui-kubernetes.yaml 
 ```
@@ -96,6 +96,7 @@ This should report that all pods are running.
 To get the local ip addresses for the services:
 ```
 minikube service web-ui --url
+minikube service fiat-engine --url
 minikube service web-services --url
 minikube service mysql --url
 ```
