@@ -17,6 +17,8 @@ services:
   mysql:
     restart: always
     image: mysql:latest
+    ports:
+      - "3306:3306"
     volumes:
       - data_sql:/var/lib/mysql
     environment:

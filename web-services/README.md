@@ -47,8 +47,8 @@ Currently only available when service is running locally and can be found at loc
 To debug a running spring docker container use the following commands in place of the previously provided commands.
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.debug.yml build
-docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.debug.yml build
+docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.debug.yml up -d
 ```
 
 A JVM debugging port will now be available at port `50505` at the docker machine's ip.
