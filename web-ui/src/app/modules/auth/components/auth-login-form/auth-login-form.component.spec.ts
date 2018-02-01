@@ -2,14 +2,26 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthLoginFormComponent } from './auth-login-form.component';
+import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
+import { of } from 'rxjs/observable/of';
+
+class AuthServiceMock {
+  signIn: Observable<any> = _throw(`${this.constructor.name}#signIn: Property not mocked`);
+}
 
 describe('AuthLoginFormComponent', () => {
   let component: AuthLoginFormComponent;
   let fixture: ComponentFixture<AuthLoginFormComponent>;
+  let auth: AuthService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AuthLoginFormComponent ],
+      providers: [
+        { provide: AuthService, useClass: AuthServiceMock },
+      ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })
     .compileComponents();
@@ -18,10 +30,69 @@ describe('AuthLoginFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AuthLoginFormComponent);
     component = fixture.componentInstance;
+    auth = TestBed.get(AuthService);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('when submitting the form', () => {
+    it('should only try to login when the form is valid', () => {
+      const signInSpy = spyOn(auth, 'signIn').and.returnValue(of({ }));
+
+      // No values
+      expect(component.form.valid).toEqual(false);
+      component.submit();
+      expect(auth.signIn).not.toHaveBeenCalled();
+
+      // email only
+      signInSpy.calls.reset();
+      component.form.get('email').setValue('foo@bar');
+      expect(component.form.valid).toEqual(false);
+      component.submit();
+      expect(auth.signIn).not.toHaveBeenCalled();
+
+      // All values provided
+      signInSpy.calls.reset();
+      component.form.get('password').setValue('Passw0rd');
+      expect(component.form.valid).toEqual(true);
+      component.submit();
+      expect(auth.signIn).toHaveBeenCalled();
+
+      // password only
+      signInSpy.calls.reset();
+      component.form.get('email').setValue('');
+      expect(component.form.valid).toEqual(false);
+      component.submit();
+      expect(auth.signIn).not.toHaveBeenCalled();
+    });
+
+    it('should successfully login with valid credentials', () => {
+      const signInSpy = spyOn(auth, 'signIn').and.returnValue(of({ }));
+      component.form.get('email').setValue('foo@bar');
+      component.form.get('password').setValue('Passw0rd');
+      expect(component.form.valid).toEqual(true);
+      component.submit();
+      expect(auth.signIn).toHaveBeenCalledWith('foo@bar', 'Passw0rd');
+      expect(component.form.errors).toBeFalsy();
+
+      signInSpy.calls.reset();
+      component.form.get('password').setValue('');
+      component.submit();
+      expect(auth.signIn).not.toHaveBeenCalledWith();
+    });
+
+    it('should fail with invalid credentials', () => {
+      const signInSpy = spyOn(auth, 'signIn').and.returnValue(_throw({ message: 'Invalid credentials.' }));
+      component.form.get('email').setValue('foo@bar');
+      component.form.get('password').setValue('Passw0rd');
+      expect(component.form.valid).toEqual(true);
+      component.submit();
+      expect(auth.signIn).toHaveBeenCalledWith('foo@bar', 'Passw0rd');
+      expect(component.form.errors).toBeTruthy();
+      expect(component.form.errors).toEqual({ auth: { message: 'Invalid credentials.' } });
+    });
   });
 });

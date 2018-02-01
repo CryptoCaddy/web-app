@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+@import 'globals/theme';
+
+.cdy-snackbar-info {
+  .mat-simple-snackbar-action {
+    color: mat-color($cdy-app-accent, A400);
+  }
+}

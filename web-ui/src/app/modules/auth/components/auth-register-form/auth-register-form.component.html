@@ -1,48 +1,38 @@
-<form [formGroup]="form" (submit)="onFormSubmit(form.value)">
-  <mat-card>
+<form [formGroup]="form" (submit)="submit()">
+  <mat-form-field #formField class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'email'"
+      type="email"
+      placeholder="Your email address"
+      autocomplete="email"
+    >
+    <mat-error *ngIf="getErrorMessage(form.get('email')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
 
-    <mat-card-content>
+  <mat-form-field #formField class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'password'"
+      type="password"
+      placeholder="Create a password"
+      autocomplete="off"
+    >
+    <mat-error *ngIf="getErrorMessage(form.get('password')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
 
-      <img src="/assets/img/crypto-caddy-logo.png" alt="Crypto Caddy Logo">
+  <mat-form-field #formField class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'passwordRepeat'"
+      type="password"
+      placeholder="Confirm you password"
+      autocomplete="off"
+    >
+    <mat-error *ngIf="getErrorMessage(form.get('passwordRepeat')); let errorMessage">{{ errorMessage }}</mat-error>
+  </mat-form-field>
 
-      <mat-form-field class="cdyg-full-width">
-        <input matInput
-          [formControlName]="'email'"
-          type="email"
-          placeholder="Email"
-          autocomplete="email"
-        >
-        <mat-error *ngIf="getErrorMessage(form.get('email')); let errMsg">{{ errMsg }}</mat-error>
-      </mat-form-field>
+  <!-- Hidden button allows submitting by pressing enter -->
+  <button type="submit" hidden></button>
 
-      <mat-form-field class="cdyg-full-width">
-        <input matInput
-          [formControlName]="'password'"
-          type="password"
-          placeholder="Password"
-          autocomplete="off"
-        >
-        <mat-error *ngIf="getErrorMessage(form.get('password')); let errMsg">{{ errMsg }}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="cdyg-full-width">
-        <input matInput
-          [formControlName]="'passwordRepeat'"
-          type="password"
-          placeholder="Repeat password"
-          autocomplete="off"
-        >
-        <mat-error *ngIf="getErrorMessage(form.get('passwordRepeat')); let errorMessage">{{ errorMessage }}</mat-error>
-      </mat-form-field>
-
-      <div *ngIf="form.errors">
-        <mat-error *ngIf="form.getError('generic'); let errMsg">{{ errMsg }}</mat-error>
-      </div>
-
-      <div class="cdyg-form-buttons">
-        <button type="submit" mat-raised-button color="primary">Register</button>
-      </div>
-    </mat-card-content>
-
-  </mat-card>
+  <div *ngIf="form.errors">
+    <mat-error *ngIf="form.getError('generic'); let errMsg">{{ errMsg }}</mat-error>
+  </div>
 </form>

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BaseFormComponent } from 'app/modules/shared/components/base-form/base-form.component';
 import { FirebaseError } from 'firebase/app';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { finalize } from 'rxjs/operators';
 
 import { AuthService } from '../../services/auth.service';
-import { getErrorMessage } from 'app/modules/shared/utils/form.util';
 
 interface FormValue {
   email: string;
@@ -17,48 +17,31 @@ interface FormValue {
   templateUrl: './auth-register-form.component.html',
   styleUrls: [ './auth-register-form.component.scss' ],
 })
-export class AuthRegisterFormComponent implements OnInit {
+export class AuthRegisterFormComponent extends BaseFormComponent {
 
-  /**
-   * The login form object.
-   *
-   * @type {FormGroup}
-   */
-  public form: FormGroup;
-
-  public getErrorMessage = getErrorMessage;
-
-  constructor(private auth: AuthService) { }
-
-  /** @inheritDoc */
-  public ngOnInit(): void {
-    this.initForm();
+  constructor(private auth: AuthService) {
+    super();
   }
 
-  /**
-   * Callback when submitting the login form.
-   *
-   * @returns {void}
-   */
-  public onFormSubmit(formValue: FormValue): void {
-
-    // If the form is invalid, enable displaying errors for invalid form controls.
-    if (!this.form.valid) {
-      this.form.updateValueAndValidity();
+  /** @memberof BaseFormComponent */
+  public submit(): void {
+    if (!this.canSubmit()) {
       return;
     }
 
+    const formValue = this.form.value;
+
+    this.pending.next(true);
     this.auth.signUp(formValue.email, formValue.password)
-      .subscribe(null, (err) => this.setFormError(err));
+      .pipe(finalize(() => this.pending.next(false)))
+      .subscribe(
+        () => this.completed.next(true),
+        (err) => this.setFormError(err),
+      );
   }
 
-  /**
-   * Initialize the form.
-   *
-   * @private
-   * @returns {void}
-   */
-  private initForm(): void {
+  /** @memberof BaseFormComponent */
+  protected initForm(): void {
     this.form = new FormGroup({
       'email': new FormControl(
         undefined,

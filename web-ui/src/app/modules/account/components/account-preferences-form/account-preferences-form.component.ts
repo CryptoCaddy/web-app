@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { AuthUser } from 'app/modules/auth/models/auth-user.model';
 import { AuthService } from 'app/modules/auth/services/auth.service';
+import { BaseFormComponent } from 'app/modules/shared/components/base-form/base-form.component';
 import { SelectOption } from 'app/modules/shared/models/select-option.model';
-import { getErrorMessage } from 'app/modules/shared/utils/form.util';
 import { SelectOptionUtil } from 'app/modules/shared/utils/select-option.util';
 import { TimezoneValidators } from 'app/modules/shared/validators/timezone.validators';
 import * as moment from 'moment-timezone';
@@ -20,20 +19,14 @@ interface FormValue {
 }
 
 @Component({
-  selector: 'cdy-account-preferences',
-  templateUrl: './account-preferences.component.html',
-  styleUrls: [ './account-preferences.component.scss' ],
+  selector: 'cdy-account-preferences-form',
+  templateUrl: './account-preferences-form.component.html',
+  styleUrls: [ './account-preferences-form.component.scss' ],
 })
-export class AccountPreferencesComponent implements OnInit {
-
-  /** The reactive form used in the template. */
-  public form: FormGroup;
+export class AccountPreferencesFormComponent extends BaseFormComponent implements OnInit {
 
   /** The authenticated user's object. */
   public user: AuthUser;
-
-  /** Generic error message retriever. */
-  public getErrorMessage = getErrorMessage;
 
   /** Stream of filtered timezones to display. */
   public filteredTimezones$: Observable<SelectOption<string>[]>;
@@ -44,9 +37,7 @@ export class AccountPreferencesComponent implements OnInit {
   /** Determine displayed label of autocompletes. */
   public selectOptionDisplayFn = SelectOptionUtil.getLabel;
 
-  /** Whether a form subission request is pending. */
-  public formPending = false;
-
+  // @TODO get list from backend
   /** Complete list of available fiats. */
   private fiats: SelectOption<string>[] =
     <SelectOption<string>[]> R.compose(
@@ -64,6 +55,7 @@ export class AccountPreferencesComponent implements OnInit {
       { value: 'NDZ', label: 'New Zealand dollar - NZD (NZ$)' },
     ]);
 
+  // @TODO get list from backend
   /** Complete list of available timezones. */
   private timezones: SelectOption<string>[] =
     <SelectOption<string>[]> R.compose(
@@ -74,39 +66,37 @@ export class AccountPreferencesComponent implements OnInit {
   constructor(
     private account: AccountService,
     private auth: AuthService,
-    private snackBar: MatSnackBar,
-  ) { }
+  ) {
+    super();
+  }
 
   /** @memberof OnInit */
   public ngOnInit() {
+    super.ngOnInit();
 
     // Update the form values as soon as the user changes.
     this.auth.user$.subscribe((user) => this.updateUser(user));
-
-    this.initForm();
   }
 
   /** Callback when submitting the form. */
-  public onFormSubmit(formValue: FormValue): void {
-
-    // If the form is invalid, enable displaying errors for invalid form controls.
-    if (!this.form.valid) {
-      this.form.updateValueAndValidity();
+  public submit(): void {
+    if (!this.canSubmit()) {
       return;
     }
 
-    this.formPending = true;
+    const formValue: FormValue = this.form.value;
 
+    this.pending.next(true);
     // @TODO implement saving
     this.account.updateAccount()
-      .pipe(finalize(() => this.formPending = false))
+      .pipe(finalize(() => this.pending.next(false)))
       .subscribe(() => {
-        this.snackBar.open('Preferences saved.', null, { duration: 3000 });
+        this.completed.next(true);
       });
   }
 
   /** Initialize the form. */
-  private initForm(): void {
+  protected initForm(): void {
     this.form = new FormGroup({
       fiat: new FormControl(
         this.user && this.user.fiat,

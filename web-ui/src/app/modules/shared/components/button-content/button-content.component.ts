@@ -1,5 +1,7 @@
 import { Component, Input, HostBinding } from '@angular/core';
 
+export type SpinnerColor = 'primary'|'accent'|'warn'|'white';
+
 @Component({
   selector: 'cdy-button-content',
   templateUrl: './button-content.component.html',
@@ -11,7 +13,7 @@ export class ButtonContentComponent {
   public loading: boolean;
 
   @Input()
-  public spinnerColor: string;
+  public spinnerColor: SpinnerColor = 'primary';
 
   @Input()
   public spinnerMode: 'determinate'|'indeterminate' = 'indeterminate';

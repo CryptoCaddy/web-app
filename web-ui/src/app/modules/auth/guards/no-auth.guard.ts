@@ -12,17 +12,8 @@ export class NoAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   public canActivate(): Observable<boolean> {
-    return this.authService.user$
-      .pipe(
-        map((user) => user == null),
-        tap((allowed: boolean) => !allowed ? this.reroute() : null),
-      );
-  }
-
-  private reroute() {
-    const target = '/home';
-    Logger.logGroup(this.constructor.name, 'reroute', target, 'info');
-    this.router.navigateByUrl(target);
+    return this.authService.loggedIn$
+      .pipe(map((loggedIn) => !loggedIn));
   }
 
 }

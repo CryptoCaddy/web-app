@@ -1,7 +1,7 @@
-<form [formGroup]="form" (submit)="onFormSubmit(form.value)">
+<form [formGroup]="form" (submit)="submit()">
 
   <!-- Fiat Currency -->
-  <mat-form-field class="cdyg-full-width">
+  <mat-form-field #formField class="cdyg-full-width">
     <input matInput
       [formControlName]="'fiat'"
       [matAutocomplete]="fiatAc"
@@ -9,6 +9,9 @@
       placeholder="Fiat Currency"
       autocomplete="fiat"
     >
+    <button type="button" mat-button matSuffix mat-icon-button>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
     <mat-autocomplete #fiatAc="matAutocomplete" [displayWith]="selectOptionDisplayFn">
       <mat-option *ngFor="let fiat of filteredFiats$ | async" [value]="fiat">
         <small>{{ fiat.label }}</small>
@@ -17,9 +20,8 @@
     <mat-error *ngIf="getErrorMessage(form.get('fiat')); let errMsg">{{ errMsg }}</mat-error>
   </mat-form-field>
 
-
   <!-- Timezone -->
-  <mat-form-field class="cdyg-full-width">
+  <mat-form-field #formField class="cdyg-full-width">
     <input matInput
       [formControlName]="'timezone'"
       [matAutocomplete]="timezoneAC"
@@ -27,6 +29,9 @@
       placeholder="Timezone"
       autocomplete="off"
     >
+    <button mat-button matSuffix mat-icon-button>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
     <mat-autocomplete #timezoneAC="matAutocomplete" [displayWith]="selectOptionDisplayFn">
       <mat-option *ngFor="let timezone of filteredTimezones$ | async" [value]="timezone">
         <small>{{ timezone.label }}</small>
@@ -35,13 +40,8 @@
     <mat-error *ngIf="getErrorMessage(form.get('timezone')); let errMsg">{{ errMsg }}</mat-error>
   </mat-form-field>
 
-  <mat-action-row>
-    <button type="submit" mat-button mat-raised-button [color]="'primary'">
-      <cdy-button-content [loading]="formPending" [spinnerColor]="'white'">
-        Save
-      </cdy-button-content>
-    </button>
-  </mat-action-row>
+    <!-- Hidden button allows submitting by pressing enter -->
+  <button type="submit" hidden></button>
 
   <mat-action-row class="cdy-errors" *ngIf="form.errors">
     <mat-error *ngIf="getErrorMessage(form); let errMsg">{{ errMsg }}</mat-error>

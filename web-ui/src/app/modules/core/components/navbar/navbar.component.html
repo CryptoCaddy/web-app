@@ -1,24 +1,34 @@
-<mat-toolbar *ngIf="user$ | async; let user" role="header" [color]="'primary'">
-  <a mat-button [routerLink]="[ '/home' ]">Home</a>
-  <a mat-button [routerLink]="[ '/reports' ]">Reports</a>
-  <a mat-button [routerLink]="[ '/exchanges' ]">Exchanges</a>
-  <span class="cdy-spacer"></span>
+<mat-toolbar role="header" [color]="'primary'">
+  <a class="cdy-brand" mat-button [routerLink]="[ '/home' ]">
+    Crypto Caddy
+  </a>
+  <ng-container *ngIf="(loggedIn$ | async) && (user$ | async); let user; else notLoggedIn">
+    <a mat-button [routerLink]="[ '/reports' ]">Reports</a>
+    <a mat-button [routerLink]="[ '/exchanges' ]">Exchanges</a>
+    <span class="cdyg-spacer"></span>
 
-  <button mat-button [matMenuTriggerFor]="accountMenu">
-    <mat-icon>account_circle</mat-icon> {{ user.email }}
-  </button>
-  <mat-menu
-    #accountMenu="matMenu"
-    [overlapTrigger]="false"
-    [yPosition]="'below'"
-    [xPosition]="'before'"
-  >
-    <a mat-menu-item [routerLink]="[ '/', 'account', 'overview' ]">
-      <span>Account</span>
-    </a>
-    <mat-divider></mat-divider>
-    <button mat-menu-item (click)="onLogout()">
-      <span>Sign out</span>
+    <button mat-button [matMenuTriggerFor]="accountMenu">
+      <mat-icon>account_circle</mat-icon> {{ user.email }}
     </button>
-  </mat-menu>
+    <mat-menu
+      #accountMenu="matMenu"
+      [overlapTrigger]="false"
+      [yPosition]="'below'"
+      [xPosition]="'before'"
+    >
+      <a mat-menu-item [routerLink]="[ '/', 'account', 'overview' ]">
+        <span>Account</span>
+      </a>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="onLogout()">
+        <span>Sign out</span>
+      </button>
+    </mat-menu>
+  </ng-container>
 </mat-toolbar>
+
+<ng-template #notLoggedIn>
+  <span class="cdyg-spacer"></span>
+  <a mat-button [routerLink]="[ '/auth/register' ]">Sign up</a>
+  <a mat-button mat-raised-button [color]="'accent'" [routerLink]="[ '/auth/login' ]">Sign in</a>
+</ng-template>

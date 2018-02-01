@@ -1,7 +1,13 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs/observable/of';
 
 import { ExchangeWalletListComponent } from './exchange-wallet-list.component';
-import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { DataSource } from '@angular/cdk/table';
+import { ExchangesDataSource } from '../../data-sources/exchanges.data-source';
+
+const supportedExchangesDb = { data$: of([ ]) };
+const exchangesDb = { data$: of([ ]) };
 
 describe('ExchangeWalletListComponent', () => {
   let component: ExchangeWalletListComponent;
@@ -18,6 +24,8 @@ describe('ExchangeWalletListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExchangeWalletListComponent);
     component = fixture.componentInstance;
+
+    component.dataSource = new ExchangesDataSource(<any>supportedExchangesDb, <any>exchangesDb);
     fixture.detectChanges();
   });
 
