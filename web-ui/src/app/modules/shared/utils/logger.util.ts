@@ -5,14 +5,14 @@ export class Logger {
   public static logGroup(
     groupName: string,
     action: string,
-    data: any,
+    data?: any,
     type: 'info'|'warn'|'error' = 'info',
   ) {
 
     // Don't sign in production or when testing
     if (!environment.production && !window['__isJest']) {
       console.groupCollapsed(`${groupName}::${action}`);
-      console[type](data);
+      if (data) { console[type](data); }
       console.groupEnd();
     }
 

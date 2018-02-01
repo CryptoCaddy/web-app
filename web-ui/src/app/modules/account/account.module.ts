@@ -15,7 +15,8 @@ import { AccountRoutingModule } from './account-routing.module';
 import { AccountDataComponent } from './components/account-data/account-data.component';
 import { AccountPreferencesFormComponent } from './components/account-preferences-form/account-preferences-form.component';
 import { AccountOverviewPage } from './pages/account-overview/account-overview.page';
-import { AccountService } from './services/account.service';
+import { AccountApiService } from './services/account-api.service';
+import { AccountProvider } from './storage/account-provider.service';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { AccountService } from './services/account.service';
     AccountPreferencesFormComponent,
   ],
   providers: [
-    AccountService,
+    AccountApiService,
+    AccountProvider,
   ],
   exports: [
     AccountPreferencesFormComponent,

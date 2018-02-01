@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthUser } from 'app/modules/auth/models/auth-user.model';
-import { AuthService } from 'app/modules/auth/services/auth.service';
 import { BaseFormComponent } from 'app/modules/shared/components/base-form/base-form.component';
 import { SelectOption } from 'app/modules/shared/models/select-option.model';
 import { SelectOptionUtil } from 'app/modules/shared/utils/select-option.util';
@@ -11,11 +9,15 @@ import * as R from 'ramda';
 import { Observable } from 'rxjs/observable';
 import { finalize, map, startWith } from 'rxjs/operators';
 
-import { AccountService } from '../../services/account.service';
+import { Account } from '../../models/account.model';
+import { AccountProvider } from '../../storage/account-provider.service';
+import { AuthService } from '../../../auth/services/auth.service';
+import { AuthUser } from '../../../auth/models/auth-user.model';
+import { Logger } from '../../../shared/utils/logger.util';
 
 interface FormValue {
-  fiat: string;
-  rtimezone: string;
+  fiat: SelectOption<string>;
+  timezone: SelectOption<string>;
 }
 
 @Component({
@@ -25,8 +27,9 @@ interface FormValue {
 })
 export class AccountPreferencesFormComponent extends BaseFormComponent implements OnInit {
 
-  /** The authenticated user's object. */
-  public user: AuthUser;
+  /** The account object. */
+  public account: Account;
+  private user: AuthUser;
 
   /** Stream of filtered timezones to display. */
   public filteredTimezones$: Observable<SelectOption<string>[]>;
@@ -64,7 +67,7 @@ export class AccountPreferencesFormComponent extends BaseFormComponent implement
     )(moment.tz.names());
 
   constructor(
-    private account: AccountService,
+    private accountProvider: AccountProvider,
     private auth: AuthService,
   ) {
     super();
@@ -74,8 +77,10 @@ export class AccountPreferencesFormComponent extends BaseFormComponent implement
   public ngOnInit() {
     super.ngOnInit();
 
-    // Update the form values as soon as the user changes.
-    this.auth.user$.subscribe((user) => this.updateUser(user));
+    // Update the form values as soon as the account changes.
+    // @TODO: logic for objects instead of array of objects
+    this.accountProvider.data$.subscribe((account) => this.syncAccount(account[0]));
+    this.auth.user$.subscribe((user) => this.user = user);
   }
 
   /** Callback when submitting the form. */
@@ -87,8 +92,12 @@ export class AccountPreferencesFormComponent extends BaseFormComponent implement
     const formValue: FormValue = this.form.value;
 
     this.pending.next(true);
-    // @TODO implement saving
-    this.account.updateAccount()
+
+    this.accountProvider.update({
+      email: this.user.email,
+      fiat: formValue.fiat.value,
+      timezone: formValue.timezone.value,
+    })
       .pipe(finalize(() => this.pending.next(false)))
       .subscribe(() => {
         this.completed.next(true);
@@ -99,11 +108,11 @@ export class AccountPreferencesFormComponent extends BaseFormComponent implement
   protected initForm(): void {
     this.form = new FormGroup({
       fiat: new FormControl(
-        this.user && this.user.fiat,
+        this.account && this.account.fiat,
         [ Validators.required ],
       ),
       timezone: new FormControl(
-        this.user && this.user.timezone,
+        this.account && this.account.timezone,
         [ Validators.required, TimezoneValidators.exists ],
       ),
     });
@@ -121,13 +130,20 @@ export class AccountPreferencesFormComponent extends BaseFormComponent implement
       );
   }
 
-  /** Update the user's form values. */
-  private updateUser(user: AuthUser): void {
-    this.user = user;
+  /** Update the account form values. */
+  private syncAccount(account: Account): void {
+    this.account = account;
 
     if (this.form) {
-      this.form.get('fiat').setValue(user ? user.fiat : null);
-      this.form.get('timezone').setValue(user ? user.timezone : null);
+      Logger.logGroup(this.constructor.name, 'syncAccount', account);
+
+      if (account && account.fiat) {
+        this.form.get('fiat').setValue(R.find(R.propEq('value', account.fiat))(this.fiats));
+      }
+
+      if (account && account.timezone) {
+        this.form.get('timezone').setValue(R.find(R.propEq('value', account.timezone))(this.timezones));
+      }
     }
   }
 

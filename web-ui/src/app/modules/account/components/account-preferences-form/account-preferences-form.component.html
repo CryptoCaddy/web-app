@@ -9,7 +9,7 @@
       placeholder="Fiat Currency"
       autocomplete="fiat"
     >
-    <button type="button" mat-button matSuffix mat-icon-button>
+    <button type="button" mat-button matSuffix mat-icon-button tabindex="-1">
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
     <mat-autocomplete #fiatAc="matAutocomplete" [displayWith]="selectOptionDisplayFn">
@@ -29,7 +29,7 @@
       placeholder="Timezone"
       autocomplete="off"
     >
-    <button mat-button matSuffix mat-icon-button>
+    <button mat-button matSuffix mat-icon-button tabindex="-1">
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
     <mat-autocomplete #timezoneAC="matAutocomplete" [displayWith]="selectOptionDisplayFn">
