@@ -4,13 +4,13 @@ services:
     volumes:
       - web-services-maven:/root/.m2:rw
     environment:
-      - MYSQL_HOST="mysql"
+      - MYSQL_HOST=mysql
     depends_on:
       - mysql
 
   fiat:
     environment:
-      - MYSQL_HOST="mysql"
+      - MYSQL_HOST=mysql
     depends_on:
       - mysql
 
