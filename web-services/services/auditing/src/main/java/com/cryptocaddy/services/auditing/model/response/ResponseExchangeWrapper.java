@@ -6,14 +6,18 @@ import com.cryptocaddy.xchange.data.model.TransactionHistory;
 
 import java.util.List;
 
-public class ExchangeWrapperResponse {
+public class ResponseExchangeWrapper {
 
     private String exchangeName;
     private TransactionHistory txHistory;
     private List<Coin> exchangeCoins;
 
-    public ExchangeWrapperResponse(ExchangeType exchangeType){
+    public ResponseExchangeWrapper(ExchangeType exchangeType){
         exchangeName = exchangeType.name();
+    }
+
+    public ResponseExchangeWrapper(String exchangeName){
+        this.exchangeName = exchangeName;
     }
 
     public List<Coin> getExchangeCoins() {

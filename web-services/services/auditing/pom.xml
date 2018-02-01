@@ -8,7 +8,7 @@
     <artifactId>auditing</artifactId>
     <name>auditing</name>
     <packaging>jar</packaging>
-    <type>Auditing REST APIs for CryptoCaddy</type>
+
 
     <parent>
         <groupId>com.cryptocaddy</groupId>

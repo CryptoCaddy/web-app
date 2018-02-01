@@ -36,6 +36,7 @@
             <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-bittrex</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

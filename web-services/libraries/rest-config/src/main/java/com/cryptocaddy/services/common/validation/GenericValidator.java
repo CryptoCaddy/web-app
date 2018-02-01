@@ -1,10 +1,8 @@
 package com.cryptocaddy.services.common.validation;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
+import com.cryptocaddy.services.common.authentication.JWTAuthenticator;
+import com.cryptocaddy.services.common.exception.UserAuthenticationException;
 
-import java.io.FileInputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -36,8 +34,13 @@ public class GenericValidator<T> implements Predicate<T> {
      * @return
      */
     protected static boolean isAuthorized(String token) {
-        
-        //TODO: actually implement
-        return true;
+
+        if (JWTAuthenticator.isAuthorized(token))
+            return true;
+
+        return false;
+
     }
+
+
 }

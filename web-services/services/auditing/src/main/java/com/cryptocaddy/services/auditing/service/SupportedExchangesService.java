@@ -1,6 +1,6 @@
 package com.cryptocaddy.services.auditing.service;
 
-import com.cryptocaddy.services.auditing.model.response.SupportedExchangesResponse;
+import com.cryptocaddy.services.auditing.model.response.ResponseSupportedExchanges;
 import com.cryptocaddy.xchange.data.exchanges.ExchangeType;
 import com.cryptocaddy.xchange.data.exchanges.IExchangeController;
 import com.cryptocaddy.xchange.data.factory.AbstractExchangeFactory;
@@ -19,17 +19,17 @@ public class SupportedExchangesService {
         this.abstractExchangeFactory = abstractExchangeFactory;
     }
 
-    public SupportedExchangesResponse getSupportedExchanges() {
+    public ResponseSupportedExchanges getSupportedExchanges() {
 
-        SupportedExchangesResponse supportedExchangesResponse = new SupportedExchangesResponse();
+        ResponseSupportedExchanges responseSupportedExchanges = new ResponseSupportedExchanges();
         for (ExchangeType exchange : ExchangeType.values()) {
             IExchangeController controller = abstractExchangeFactory.getExchangeController(exchange);
             String exchangeName = exchange.name();
             ParameterList exchangeParameters = controller.requiredParameters();
-            supportedExchangesResponse.addSupportedExchange(exchangeName, exchangeParameters);
+            responseSupportedExchanges.addSupportedExchange(exchangeName, exchangeParameters);
         }
 
-        return supportedExchangesResponse;
+        return responseSupportedExchanges;
 
     }
 

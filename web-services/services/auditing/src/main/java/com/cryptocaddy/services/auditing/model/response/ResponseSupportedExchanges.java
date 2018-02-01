@@ -4,11 +4,11 @@ import com.cryptocaddy.xchange.data.model.ParameterList;
 
 import java.util.*;
 
-public class SupportedExchangesResponse {
+public class ResponseSupportedExchanges {
 
     private Map<String, ParameterList> exchangeToParameterMap;
 
-    public SupportedExchangesResponse() {
+    public ResponseSupportedExchanges() {
         exchangeToParameterMap = new HashMap<>();
     }
 

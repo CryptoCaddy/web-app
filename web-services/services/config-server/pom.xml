@@ -8,7 +8,7 @@
     <artifactId>config-server</artifactId>
     <name>config-server</name>
     <packaging>jar</packaging>
-    <type>Central place to manage external properties for services across all environments</type>
+
 
     <parent>
         <groupId>com.cryptocaddy</groupId>

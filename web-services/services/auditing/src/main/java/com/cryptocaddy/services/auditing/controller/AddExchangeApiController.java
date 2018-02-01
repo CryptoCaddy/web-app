@@ -4,9 +4,11 @@ import com.cryptocaddy.services.auditing.api.AbstractRestHandler;
 import com.cryptocaddy.services.auditing.api.AddExchangeApi;
 import com.cryptocaddy.services.auditing.model.Result;
 import com.cryptocaddy.services.auditing.model.request.RequestAddExchange;
-import com.cryptocaddy.services.auditing.model.response.ExchangeWrapperResponse;
+import com.cryptocaddy.services.auditing.model.response.ResponseExchangeWrapper;
 import com.cryptocaddy.services.auditing.service.AddExchangeService;
 import com.cryptocaddy.services.auditing.validation.AddExchangeValidator;
+import com.cryptocaddy.services.common.authentication.JWTAuthenticator;
+import com.cryptocaddy.services.common.authentication.JWTBody;
 import com.cryptocaddy.xchange.data.exchanges.ExchangeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,20 +28,20 @@ public class AddExchangeApiController extends AbstractRestHandler implements Add
     }
 
     @Override
-    public ResponseEntity<ExchangeWrapperResponse> addExchange(@RequestHeader(value="Authorization") String authorization, @RequestBody RequestAddExchange requestAddExchange){
+    public ResponseEntity<ResponseExchangeWrapper> addExchange(@RequestHeader(value="Authorization") String authorization, @RequestBody RequestAddExchange requestAddExchange){
 
-
+        //TODO: we need to finish implementing this validator.
+        /*
         AddExchangeValidator addExchangeValidator = new AddExchangeValidator();
-        /*if (!addExchangeValidator.test(requestAddExchange)) {
-            return new ResponseEntity<>(new Result("Failed"), HttpStatus.BAD_REQUEST);
+        if (!addExchangeValidator.test(requestAddExchange)) {
+            return new ResponseEntity<>(new ResponseExchangeWrapper(), HttpStatus.BAD_REQUEST);
         }*/
 
+        JWTBody jwtBody = JWTAuthenticator.getBodyFromToken(authorization);
 
-        ExchangeWrapperResponse exchangeWrapperResponse = new ExchangeWrapperResponse(ExchangeType.valueOf(requestAddExchange.getExchangeName().toUpperCase()));
+        ResponseExchangeWrapper response = addExchangeService.addExchange(jwtBody, requestAddExchange);
 
-        //Result result = addExchangeService.addExchange(requestAddExchange);
-
-        return new ResponseEntity<>(exchangeWrapperResponse, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

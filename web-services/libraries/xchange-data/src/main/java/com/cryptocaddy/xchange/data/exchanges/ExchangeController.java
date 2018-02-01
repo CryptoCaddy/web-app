@@ -54,9 +54,10 @@ public abstract class ExchangeController implements IExchangeController {
     /**
      * Override this in subclasses for exchanges that need more data than just account key and secret for api calls
      * @return exchange specification used to create the exchange.
+     * @param params
      */
     @Override
-    public ExchangeSpecification getXchangeSpecification(HashMap<String, String> params){
+    public ExchangeSpecification getXchangeSpecification(Map<String, String> params){
 
         ExchangeSpecification specification = new ExchangeSpecification(this.wrappedXchangeName);
         if (params == null)
@@ -68,7 +69,7 @@ public abstract class ExchangeController implements IExchangeController {
             specification.setSecretKey(params.get(API_SECRET_PARAM));
 
         //for each parameter that we need in addition to key and secret, ensure we were provided a value, and assign it.
-        if (params != null && requiredParameters().size() > 0){
+        if (params != null){
             for (String parameterKey : params.keySet()) {
 
                 //If true continue because we just manually assigned these values
@@ -92,18 +93,22 @@ public abstract class ExchangeController implements IExchangeController {
     /**
      * Get the object used to actually call the APIs for each exchange
      * @return -
+     * @param params
      */
     @Override
-    public Exchange getXchangeExchange(HashMap<String, String> params){
+    public Exchange getXchangeExchange(Map<String, String> params){
 
         return ExchangeFactory.INSTANCE.createExchange(getXchangeSpecification(params));
     }
-    //protected abstract Exchange getXchangeExchange();
 
 
-    //nullable return type
+    /**
+     * Used to get user specific account info
+     * @param params
+     * @return
+     */
     @Override
-    public AccountInfo getXchangeAccountInfo(HashMap<String, String> params) {
+    public AccountInfo getXchangeAccountInfo(Map<String, String> params) {
 
         AccountService accountService = getXchangeExchange(params).getAccountService();
 
@@ -120,9 +125,13 @@ public abstract class ExchangeController implements IExchangeController {
         return accountInfo;
     }
 
-    //returns a list of all coins in the exchange with balance data
+    /**
+     * Get all of the coin wallets associated with the user on the exchange
+     * @param params
+     * @return
+     */
     @Override
-    public List<Coin> getAllCoins(HashMap<String, String> params){
+    public List<Coin> getAllCoins(Map<String, String> params){
 
         List<Coin> coinList = new ArrayList<>();
 
@@ -159,9 +168,13 @@ public abstract class ExchangeController implements IExchangeController {
     }
 
 
-    //nullable return type
+    /**
+     * Get the trade history associated with the user on the exchange
+     * @param params
+     * @return
+     */
     @Override
-    public TransactionHistory getTransactionHistory(HashMap<String, String> params){
+    public TransactionHistory getTransactionHistory(Map<String, String> params){
 
         TransactionHistory txHistory = null;
 
@@ -187,8 +200,9 @@ public abstract class ExchangeController implements IExchangeController {
         return txHistory;
     }
 
+
     public void getReport(){
-        /* NOT FULLY IMPLEMENTED
+        /* NOT IMPLEMENTED
         //TODO: account for actual date zones when this gets implemented for real
         LocalDateTime startDateTime = LocalDateTime.of(2017, Month.JANUARY, 1,0,0);
         ZonedDateTime startZoneDate = startDateTime.atZone(ZoneId.systemDefault());
