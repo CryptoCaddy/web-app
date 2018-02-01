@@ -12,6 +12,13 @@ spring:
   cloud:
     config:
       enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
 security:
   basic:
     enabled: false
@@ -28,7 +35,7 @@ server:
 fiat:
   engine:
     base:
-      url: http://localhost:7001/api/
+      url: http://${FIAT_HOST:"localhost"}:7001/api/
 binance:
   binancekey:
   binancesecret:
