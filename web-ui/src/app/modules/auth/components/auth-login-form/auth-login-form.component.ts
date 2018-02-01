@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BaseFormComponent } from 'app/modules/shared/components/base-form/base-form.component';
+import { BaseFormAbstractComponent } from 'app/modules/shared/components/base-form/base-form.abstract-component';
 import { finalize } from 'rxjs/operators';
 
 import { AuthService } from '../../services/auth.service';
@@ -15,7 +15,7 @@ interface FormValue {
   templateUrl: './auth-login-form.component.html',
   styleUrls: [ './auth-login-form.component.scss' ],
 })
-export class AuthLoginFormComponent extends BaseFormComponent {
+export class AuthLoginFormComponent extends BaseFormAbstractComponent {
 
   /**
    * Creates an instance of LoginComponent.
@@ -24,7 +24,7 @@ export class AuthLoginFormComponent extends BaseFormComponent {
     super();
   }
 
-  /** @memberof BaseFormComponent */
+  /** @memberof BaseFormAbstractComponent */
   public submit(): void {
     if (!this.canSubmit()) {
       return;
@@ -41,7 +41,7 @@ export class AuthLoginFormComponent extends BaseFormComponent {
       );
   }
 
-  /** @memberof BaseFormComponent */
+  /** @memberof BaseFormAbstractComponent */
   protected initForm(): void {
     this.form = new FormGroup({
       'email': new FormControl(

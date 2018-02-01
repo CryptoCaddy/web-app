@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BaseFormComponent } from 'app/modules/shared/components/base-form/base-form.component';
+import { BaseFormAbstractComponent } from 'app/modules/shared/components/base-form/base-form.abstract-component';
 import { SelectOption } from 'app/modules/shared/models/select-option.model';
 import { SelectOptionUtil } from 'app/modules/shared/utils/select-option.util';
 import { TimezoneValidators } from 'app/modules/shared/validators/timezone.validators';
@@ -9,11 +9,11 @@ import * as R from 'ramda';
 import { Observable } from 'rxjs/observable';
 import { finalize, map, startWith } from 'rxjs/operators';
 
-import { Account } from '../../models/account.model';
-import { AccountProvider } from '../../storage/account-provider.service';
-import { AuthService } from '../../../auth/services/auth.service';
 import { AuthUser } from '../../../auth/models/auth-user.model';
+import { AuthService } from '../../../auth/services/auth.service';
 import { Logger } from '../../../shared/utils/logger.util';
+import { Account } from '../../models/account.model';
+import { AccountProvider } from '../../storage/account.provider';
 
 interface FormValue {
   fiat: SelectOption<string>;
@@ -25,7 +25,7 @@ interface FormValue {
   templateUrl: './account-preferences-form.component.html',
   styleUrls: [ './account-preferences-form.component.scss' ],
 })
-export class AccountPreferencesFormComponent extends BaseFormComponent implements OnInit {
+export class AccountPreferencesFormComponent extends BaseFormAbstractComponent implements OnInit {
 
   /** The account object. */
   public account: Account;

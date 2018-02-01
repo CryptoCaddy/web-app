@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BaseFormComponent } from 'app/modules/shared/components/base-form/base-form.component';
+import { BaseFormAbstractComponent } from 'app/modules/shared/components/base-form/base-form.abstract-component';
 import { FirebaseError } from 'firebase/app';
 import { finalize } from 'rxjs/operators';
 
@@ -17,13 +17,13 @@ interface FormValue {
   templateUrl: './auth-register-form.component.html',
   styleUrls: [ './auth-register-form.component.scss' ],
 })
-export class AuthRegisterFormComponent extends BaseFormComponent {
+export class AuthRegisterFormComponent extends BaseFormAbstractComponent {
 
   constructor(private auth: AuthService) {
     super();
   }
 
-  /** @memberof BaseFormComponent */
+  /** @memberof BaseFormAbstractComponent */
   public submit(): void {
     if (!this.canSubmit()) {
       return;
@@ -40,7 +40,7 @@ export class AuthRegisterFormComponent extends BaseFormComponent {
       );
   }
 
-  /** @memberof BaseFormComponent */
+  /** @memberof BaseFormAbstractComponent */
   protected initForm(): void {
     this.form = new FormGroup({
       'email': new FormControl(

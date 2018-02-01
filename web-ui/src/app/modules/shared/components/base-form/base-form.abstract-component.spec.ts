@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { BaseFormComponent } from './base-form.component';
+import { BaseFormAbstractComponent } from './base-form.abstract-component';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-/** Mocked form component for testing {@link BaseFormComponent} */
+/** Mocked form component for testing {@link BaseFormAbstractComponent} */
 @Component({
   selector: 'cdy-mock-form',
   template: `
@@ -29,7 +29,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     </form>
   `,
 })
-class MockFormComponent extends BaseFormComponent {
+class MockFormComponent extends BaseFormAbstractComponent {
 
   public submitCalled = jest.fn();
   public submitProcessing = jest.fn();
@@ -62,7 +62,7 @@ class MockFormComponent extends BaseFormComponent {
   selector: 'cdy-invalid-form-mock',
   template: ``,
 })
-class MockInvalidFormComponent extends BaseFormComponent {
+class MockInvalidFormComponent extends BaseFormAbstractComponent {
   public submitCalled = jest.fn();
   public submitProcessing = jest.fn();
   public submitFinished = jest.fn();
@@ -71,7 +71,7 @@ class MockInvalidFormComponent extends BaseFormComponent {
   public submit(): void { }
 }
 
-describe('BaseFormComponent', () => {
+describe('BaseFormAbstractComponent', () => {
   let component: MockFormComponent|MockInvalidFormComponent;
   let fixture: ComponentFixture<MockFormComponent|MockInvalidFormComponent>;
 

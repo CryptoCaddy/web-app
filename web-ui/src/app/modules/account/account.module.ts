@@ -16,7 +16,7 @@ import { AccountDataComponent } from './components/account-data/account-data.com
 import { AccountPreferencesFormComponent } from './components/account-preferences-form/account-preferences-form.component';
 import { AccountOverviewPage } from './pages/account-overview/account-overview.page';
 import { AccountApiService } from './services/account-api.service';
-import { AccountProvider } from './storage/account-provider.service';
+import { AccountProvider } from './storage/account.provider';
 
 @NgModule({
   imports: [

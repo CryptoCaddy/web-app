@@ -5,11 +5,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { getErrorMessage } from '../../utils/form.util';
 
 @Component({
-  selector: 'cdy-base-form',
+  selector: 'cdy-abstract-form',
   template: '<div></div>',
-  styleUrls: [ './base-form.component.scss' ],
 })
-export abstract class BaseFormComponent implements OnInit {
+export abstract class BaseFormAbstractComponent implements OnInit {
 
   /** Provide getErrorMessage to templates. */
   public getErrorMessage = getErrorMessage;
