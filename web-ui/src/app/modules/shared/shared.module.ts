@@ -28,6 +28,8 @@ import { BaseFormAbstractComponent } from './components/base-form/base-form.abst
     MatToolbarModule,
   ],
   declarations: [
+    // Workaround: abstract modules must also be declared
+    // https://github.com/angular/angular/issues/13590
     <any>BaseFormAbstractComponent,
     ButtonContentComponent,
     CardHeaderToolbarComponent,

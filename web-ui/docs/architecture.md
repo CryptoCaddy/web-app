@@ -327,12 +327,12 @@ Link to [Google Drawing](https://docs.google.com/drawings/d/1F0ZDOLvGN1256oWCMG-
 [main.ts]: ../src/main.ts
 
 [AppModule]: ../src/app/module.ts
-[AppRoutingModule]: ../src/app/module.ts
+[AppRoutingModule]: ../src/app/app.module.ts
 [AppPage]: ../src/app/app.page.ts
 
-[CoreModule]: ../src/app/modules/core/module.ts
-[SharedModule]: ../src/app/modules/shared/module.ts
-[AuthModule]: ../src/app/modules/auth/module.ts
+[CoreModule]: ../src/app/modules/core/core.module.ts
+[SharedModule]: ../src/app/modules/shared/shared.module.ts
+[AuthModule]: ../src/app/modules/auth/core.module.ts
 
 [Angular_ComponentInteraction]: https://angular.io/guide/component-interaction
 [Angular_Services]: https://angular.io/tutorial/toh-pt4

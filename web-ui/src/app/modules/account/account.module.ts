@@ -9,7 +9,7 @@ import {
   MatInputModule,
   MatSnackBarModule,
 } from '@angular/material';
-import { SharedModule } from 'app/modules/shared/module';
+import { SharedModule } from 'app/modules/shared/shared.module';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountDataComponent } from './components/account-data/account-data.component';

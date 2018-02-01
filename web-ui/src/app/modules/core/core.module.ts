@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { MatDividerModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'app/modules/shared/module';
+import { SharedModule } from 'app/modules/shared/shared.module';
 import { AppConfigService } from 'app/modules/shared/services/app-config.service';
 
 import { FooterComponent } from './components/footer/footer.component';

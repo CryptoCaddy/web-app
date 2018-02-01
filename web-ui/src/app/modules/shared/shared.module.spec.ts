@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { SharedModule } from './module';
+import { SharedModule } from './shared.module';
 import { Component } from '@angular/core';
 
 @Component({
