@@ -6,7 +6,7 @@ import { SelectOptionUtil } from 'app/modules/shared/utils/select-option.util';
 import { TimezoneValidators } from 'app/modules/shared/validators/timezone.validators';
 import * as moment from 'moment-timezone';
 import * as R from 'ramda';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { finalize, map, startWith } from 'rxjs/operators';
 
 import { AuthUser } from '../../../auth/models/auth-user.model';

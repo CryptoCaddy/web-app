@@ -9,7 +9,7 @@ export class AccountProvider extends AbstractProvider<Account> {
 
   protected idProperty = 'email';
 
-  constructor(private accountApi: AccountApiService) {
+  constructor(accountApi: AccountApiService) {
     super(accountApi, localStorage, isAccount);
     this.init();
   }

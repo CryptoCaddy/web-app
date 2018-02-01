@@ -99,7 +99,7 @@ describe('AuthRegisterFormComponent', () => {
     });
 
     it('should fail when there was an error', () => {
-      const signUpSpy = spyOn(auth, 'signUp').and.returnValue(_throw({ message: 'User already exists.' }));
+      spyOn(auth, 'signUp').and.returnValue(_throw({ message: 'User already exists.' }));
 
       // All values provided
       component.form.get('email').setValue('foo@bar');

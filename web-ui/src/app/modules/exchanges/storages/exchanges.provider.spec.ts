@@ -214,8 +214,8 @@ describe('ExchangesProvider', () => {
 
 });
 
-const initDatabase = (apiMock: ExchangesApiMock, initialState?: Exchange[]) => {
+function initDatabase(apiMock: ExchangesApiMock, initialState?: Exchange[]) {
   if (initialState) {
     sessionStorage.setItem('ExchangesDatabase', JSON.stringify(initialState));
   }
-};
+}

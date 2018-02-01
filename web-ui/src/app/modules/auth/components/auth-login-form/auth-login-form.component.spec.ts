@@ -85,7 +85,7 @@ describe('AuthLoginFormComponent', () => {
     });
 
     it('should fail with invalid credentials', () => {
-      const signInSpy = spyOn(auth, 'signIn').and.returnValue(_throw({ message: 'Invalid credentials.' }));
+      spyOn(auth, 'signIn').and.returnValue(_throw({ message: 'Invalid credentials.' }));
       component.form.get('email').setValue('foo@bar');
       component.form.get('password').setValue('Passw0rd');
       expect(component.form.valid).toEqual(true);

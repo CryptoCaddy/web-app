@@ -29,7 +29,7 @@ export class AuthRegisterFormComponent extends BaseFormAbstractComponent {
       return;
     }
 
-    const formValue = this.form.value;
+    const formValue: FormValue = this.form.value;
 
     this.pending.next(true);
     this.auth.signUp(formValue.email, formValue.password)

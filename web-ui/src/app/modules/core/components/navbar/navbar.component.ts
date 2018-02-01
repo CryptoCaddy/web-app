@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthUser } from 'app/modules/auth/models/auth-user.model';
 import { AuthService } from 'app/modules/auth/services/auth.service';
 import { Observable } from 'rxjs/Observable';
@@ -12,9 +12,6 @@ export class NavbarComponent implements OnInit {
 
   public loggedIn$: Observable<boolean>;
   public user$: Observable<AuthUser>;
-
-  // @HostBinding('class.hidden')
-  // private hidden: boolean;
 
   constructor(private auth: AuthService) { }
 

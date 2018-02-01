@@ -2,9 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
 
-import { ExchangeWalletListComponent } from './exchange-wallet-list.component';
-import { DataSource } from '@angular/cdk/table';
 import { ExchangesDataSource } from '../../data-sources/exchanges.data-source';
+import { ExchangeWalletListComponent } from './exchange-wallet-list.component';
 
 const supportedExchangesDb = { data$: of([ ]) };
 const exchangesDb = { data$: of([ ]) };
