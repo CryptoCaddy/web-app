@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.0.M7</version>
+        <version>2.0.0.RC1</version>
         <relativePath/>
     </parent>
 
@@ -43,12 +43,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.maven.version>3.5.1</project.maven.version>
-        <spring.boot.version>2.0.0.M7</spring.boot.version>
+        <spring.boot.version>2.0.0.RC1</spring.boot.version>
         <swagger.version>2.6.1</swagger.version>
         <commons.lang3.version>3.5</commons.lang3.version>
         <javax.inject.version>1</javax.inject.version>
         <jaxb.api.version>2.3.0</jaxb.api.version>
-        <spring.boot.maven.plugin.version>2.0.0.M7</spring.boot.maven.plugin.version>
         <xchange.core.version>4.3.2</xchange.core.version>
         <xchange.gdax.version>4.3.2</xchange.gdax.version>
         <xchange.binance.version>4.3.2</xchange.binance.version>
@@ -61,7 +60,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.RELEASE</version>
+                <version>Finchley.M5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
