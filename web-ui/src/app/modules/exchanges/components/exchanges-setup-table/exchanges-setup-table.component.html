@@ -1,0 +1,35 @@
+<cdy-table-wrapper [loading]="loading">
+  <mat-toolbar>
+    <span>Linked Exchanges</span>
+    <span class="cdyg-spacer"></span>
+    <button type="button" mat-button mat-icon-button (click)="addExchange()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-table #table [dataSource]="dataSource" [trackBy]="trackExchangeBy('exchangeName')">
+
+    <ng-container matColumnDef="exchangeName">
+      <mat-header-cell *matHeaderCellDef>Exchange</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ getColumnValue(row, 'exchangeName') }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="exchangeKey">
+      <mat-header-cell *matHeaderCellDef>API Key</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ getColumnValue(row, 'exchangeKey') }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actionDrop">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button mat-icon-button [color]="'warn'" (click)="dropExchange(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+</cdy-table-wrapper>

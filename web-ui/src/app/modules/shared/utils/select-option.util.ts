@@ -1,5 +1,7 @@
 import { SelectOption } from 'app/modules/shared/models/select-option.model';
 import * as R from 'ramda';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 export abstract class SelectOptionUtil {
 
@@ -30,9 +32,27 @@ export abstract class SelectOptionUtil {
       return items.slice();
     }
 
-    return items.filter((timezone) => {
-      return timezone.label.toLowerCase().includes(query.toLowerCase());
+    return items.filter((item) => {
+      return item.label.toLowerCase().includes(query.toLowerCase());
     });
+  }
+
+  /** Filter select options using an stream as data source. */
+  public static filterByLabel$(
+    items$: Observable<SelectOption<string>[]>,
+    input: SelectOption<string>|string|null,
+  ): Observable<SelectOption<string>[]> {
+
+    // Get the inputted string or - if an item is selected - its label
+    const query: string = typeof input === 'string' ? input : (input && input.label || '');
+
+    if (!input) {
+      return items$;
+    }
+
+    return items$.pipe(map((items) => {
+      return items.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()));
+    }));
   }
 
 }

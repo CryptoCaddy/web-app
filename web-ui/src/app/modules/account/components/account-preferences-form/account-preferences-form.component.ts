@@ -37,9 +37,6 @@ export class AccountPreferencesFormComponent extends BaseFormAbstractComponent i
   /** Stream of filtered fiats to display. */
   public filteredFiats$: Observable<SelectOption<string>[]>;
 
-  /** Determine displayed label of autocompletes. */
-  public selectOptionDisplayFn = SelectOptionUtil.getLabel;
-
   // @TODO get list from backend
   /** Complete list of available fiats. */
   private fiats: SelectOption<string>[] =

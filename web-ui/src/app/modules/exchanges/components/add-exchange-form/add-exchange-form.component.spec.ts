@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExchangesPage } from './exchanges.page';
+import { AddExchangeFormComponent } from './add-exchange-form.component';
 
-describe('ExchangesPage', () => {
-  let component: ExchangesPage;
-  let fixture: ComponentFixture<ExchangesPage>;
+describe('AddExchangeFormComponent', () => {
+  let component: AddExchangeFormComponent;
+  let fixture: ComponentFixture<AddExchangeFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExchangesPage ],
+      declarations: [ AddExchangeFormComponent ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExchangesPage);
+    fixture = TestBed.createComponent(AddExchangeFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

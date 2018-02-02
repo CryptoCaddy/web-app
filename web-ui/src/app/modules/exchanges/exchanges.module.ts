@@ -2,18 +2,26 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatChipsModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule } from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatTableModule,
+} from '@angular/material';
 import { SharedModule } from 'app/modules/shared/shared.module';
 
-import { ExchangeConfigurationItemComponent } from './components/exchange-configuration-item/exchange-configuration-item.component';
-import { ExchangesConfigurationListComponent } from './components/exchange-configuration-list/exchange-configuration-list.component';
-import { ExchangeWalletListComponent } from './components/exchange-wallet-list/exchange-wallet-list.component';
-import { ExchangeWalletTableComponent } from './components/exchange-wallet-table/exchange-wallet-table.component';
-import { ExchangeWalletComponent } from './components/exchange-wallet/exchange-wallet.component';
+import { AddExchangeDialogComponent } from './components/add-exchange-dialog/add-exchange-dialog.component';
+import { AddExchangeFormComponent } from './components/add-exchange-form/add-exchange-form.component';
+import { ExchangesSetupTableComponent } from './components/exchanges-setup-table/exchanges-setup-table.component';
 import { ExchangesRoutingModule } from './exchanges-routing.module';
-import { ExchangesPage } from './pages/exchanges/exchanges.page';
+import { ExchangesSetupPage } from './pages/exchanges-setup/exchanges-setup.page';
 import { ExchangesApiService } from './services/exchanges-api.service';
-import { ExchangeWalletsProvider } from './storages/exchange-wallets.provider';
+import { SupportedExchangesApiService } from './services/supported-exchanges-api.service';
 import { ExchangesProvider } from './storages/exchanges.provider';
 import { SupportedExchangesProvider } from './storages/supported-exchanges.provider';
 
@@ -22,9 +30,12 @@ import { SupportedExchangesProvider } from './storages/supported-exchanges.provi
     CdkTableModule,
     CommonModule,
     ExchangesRoutingModule,
+    MatAutocompleteModule,
     MatChipsModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatSelectModule,
     MatTableModule,
@@ -32,18 +43,19 @@ import { SupportedExchangesProvider } from './storages/supported-exchanges.provi
     SharedModule,
   ],
   declarations: [
-    ExchangeConfigurationItemComponent,
-    ExchangesConfigurationListComponent,
-    ExchangesPage,
-    ExchangeWalletComponent,
-    ExchangeWalletListComponent,
-    ExchangeWalletTableComponent,
+    AddExchangeDialogComponent,
+    AddExchangeFormComponent,
+    ExchangesSetupPage,
+    ExchangesSetupTableComponent,
+  ],
+  entryComponents: [
+    AddExchangeDialogComponent,
   ],
   providers: [
-    SupportedExchangesProvider,
     ExchangesApiService,
     ExchangesProvider,
-    ExchangeWalletsProvider,
+    SupportedExchangesApiService,
+    SupportedExchangesProvider,
   ],
 })
 export class ExchangesModule { }

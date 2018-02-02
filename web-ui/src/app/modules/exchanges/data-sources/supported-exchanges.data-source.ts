@@ -1,23 +1,23 @@
 import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 import { map } from 'rxjs/operators';
 
 import { SupportedExchange } from '../models/supported-exchange.model';
-import { SupportedExchangesDatabase } from '../storages/supported-exchanges.database';
+import { SupportedExchangesProvider } from '../storages/supported-exchanges.provider';
 
 export class SupportedExchangesDataSource extends DataSource<SupportedExchange> {
 
-  constructor(private database: SupportedExchangesDatabase) {
+  constructor(private provider: SupportedExchangesProvider) {
     super();
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<SupportedExchange[]> {
-    const sources$ = merge(this.database.data$);
+    const sources$ = combineLatest(this.provider.data$);
 
     return sources$.pipe(
-      map(() => this.database.data.slice(),
+      map(([ supportedExchanges ]) => supportedExchanges.slice(),
     ));
   }
 

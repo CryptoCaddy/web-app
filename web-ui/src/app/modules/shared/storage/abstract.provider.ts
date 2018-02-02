@@ -31,17 +31,9 @@ export abstract class AbstractProvider<T> {
     storage: Storage|null,
     isType: (o) => o is T,
   ) {
-    if (!storage) {
-      return;
+    if (storage) {
+      this.initStorage(storage, isType);
     }
-
-    const storedData = loadFromStorage<T>(storage, this.constructor.name, isType);
-    this.data.next(storedData);
-
-    // store data in local storage on every update
-    this.data$.subscribe((data) => {
-      storage.setItem(this.constructor.name, JSON.stringify(data));
-    });
   }
 
   /**
@@ -59,13 +51,13 @@ export abstract class AbstractProvider<T> {
    * Store an item and sync it to the remote.
    * @returns The stored item.
    */
-  public add(item: T): Observable<T> {
-    // Update data array.
-    const data = this.data.value.slice().concat([ { ...<any>item } ]);
-
+  public add(item: Partial<T>): Observable<T> {
     return this.api.add(item).pipe(
-      tap(() => this.data.next(data)),
-      tap((type) => Logger.logGroup(this.constructor.name, 'add', data)),
+      tap((itemResponse) => {
+        const data = this.data.value.slice().concat([ { ...<any>itemResponse } ]);
+        this.data.next(data);
+        Logger.logGroup(this.constructor.name, 'add', data);
+      }),
     );
   }
 
@@ -77,16 +69,18 @@ export abstract class AbstractProvider<T> {
     const result = this.getIndex(item);
     if (typeof result === 'string') { return _throw(result); }
 
-    const data = [
-      ...this.data.value.slice(0, result),
-      { ...<any>item },
-      ...this.data.value.slice(result + 1),
-    ];
-
     return this.api.update(item).pipe(
       catchError((err) => _throw(err)),
-      tap(() => this.data.next(data)),
-      tap(() => Logger.logGroup(this.constructor.name, 'update', data)),
+      tap((responseItem) => {
+        const data = [
+          ...this.data.value.slice(0, result),
+          { ...<any>responseItem },
+          ...this.data.value.slice(result + 1),
+        ];
+
+        this.data.next(data);
+        Logger.logGroup(this.constructor.name, 'update', data);
+      }),
     );
   }
 
@@ -107,6 +101,17 @@ export abstract class AbstractProvider<T> {
       tap(() => Logger.logGroup(this.constructor.name, 'drop', data)),
       tap(() => this.data.next(data)),
     );
+  }
+
+  /** Initialize loading from and saving to storage */
+  private initStorage(storage: Storage, isType: (o) => o is T) {
+    const storedData = loadFromStorage<T>(storage, this.constructor.name, isType);
+    this.data.next(storedData);
+
+    // store data in local storage on every update
+    this.data$.subscribe((data) => {
+      storage.setItem(this.constructor.name, JSON.stringify(data));
+    });
   }
 
   /**

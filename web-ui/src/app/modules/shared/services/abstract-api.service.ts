@@ -10,7 +10,7 @@ export abstract class AbstractApiService<T> {
   public abstract list(): Observable<T[]>;
 
   /** Add an item to the remote. */
-  public abstract add(item: T): Observable<T>;
+  public abstract add(item: Partial<T>): Observable<T>;
 
   /** Update an item on the rmeote. */
   public abstract update(item: T): Observable<T>;

@@ -7,6 +7,8 @@ import { AbstractControl } from '@angular/forms';
  * @returns {string} The error message to display.
  */
 export function getErrorMessage(control: AbstractControl): string {
+  if (control.valid) { return ''; }
+
   if (control.hasError('required')) {
     return 'This field is mandatory.';
   }
@@ -15,5 +17,9 @@ export function getErrorMessage(control: AbstractControl): string {
     return control.getError('timezoneExists').message;
   }
 
-  return '';
+  if (control.hasError('array')) {
+    return control.getError('array').message;
+  }
+
+  return 'Please check your input.';
 }

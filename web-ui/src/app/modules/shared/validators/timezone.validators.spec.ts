@@ -1,6 +1,7 @@
-import { TimezoneValidators } from './timezone.validators';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+
 import { SelectOption } from '../models/select-option.model';
+import { TimezoneValidators } from './timezone.validators';
 
 describe('TimezoneValidators', () => {
   let control: FormControl;

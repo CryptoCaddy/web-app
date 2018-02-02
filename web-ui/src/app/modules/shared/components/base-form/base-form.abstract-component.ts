@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { getErrorMessage } from '../../utils/form.util';
+import { SelectOptionUtil } from '../../utils/select-option.util';
 
 @Component({
   selector: 'cdy-abstract-form',
@@ -23,6 +24,9 @@ export abstract class BaseFormAbstractComponent implements OnInit {
   protected completed = new BehaviorSubject<boolean>(false);
   /** Stream that emits when the form is successfully completed. */
   public completed$ = this.completed.asObservable();
+
+  /** Determine displayed label of autocompletes. */
+  public selectOptionDisplayFn = SelectOptionUtil.getLabel;
 
   /**
    * Query list of element refefences to form fields.
