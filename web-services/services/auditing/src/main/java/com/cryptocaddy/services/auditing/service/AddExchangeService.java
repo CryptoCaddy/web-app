@@ -35,9 +35,10 @@ public class AddExchangeService {
         IExchangeController controller = abstractExchangeFactory.getExchangeController(requestAddExchange.getExchangeName());
         List<Coin> coinList = controller != null ? controller.getAllCoins(requestAddExchange.getParameters()) : new ArrayList<>();
 
-        return Builder.build(ResponseExchangeWrapper.class)
-                .with(response -> response.setExchangeCoins(coinList))
-                .get();
+        ResponseExchangeWrapper wrapper = new ResponseExchangeWrapper(requestAddExchange.getExchangeName());
+        wrapper.setExchangeCoins(coinList);
+        return  wrapper;
+
 
     }
 
