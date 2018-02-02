@@ -1,6 +1,7 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { SharedModule } from './module';
 import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
+import { SharedModule } from './shared.module';
 
 @Component({
   template: `
@@ -32,12 +33,12 @@ describe('SharedModule', () => {
 
   it('should only export defined components', () => {
     expect(() => {
-      const fixture = TestBed.createComponent(SpecComponent);
+      TestBed.createComponent(SpecComponent);
     }).not.toThrow();
 
     expect(() => {
       TestBed.overrideComponent(SpecComponent, { set: { template: '<cdy-unknown></cdy-unknown>' } });
-      const fixture = TestBed.createComponent(SpecComponent);
+      TestBed.createComponent(SpecComponent);
     }).toThrow();
   });
 

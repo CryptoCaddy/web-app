@@ -1,4 +1,20 @@
-<cdy-page-content small="true">
-  <cdy-auth-login-form></cdy-auth-login-form>
+<cdy-page-content size="tiny">
+
+  <mat-card>
+    <mat-card-content>
+      <img class="cdy-logo" src="/assets/img/crypto-caddy-logo.png" alt="Crypto Caddy Logo">
+      <cdy-auth-login-form #loginForm></cdy-auth-login-form>
+
+      <div class="cdyg-form-buttons">
+        <button type="submit" mat-raised-button [color]="'primary'" (click)="loginForm.submit()">
+          <cdy-button-content [loading]="loginForm.pending$ | async" [spinnerColor]="'white'">
+            Sign in
+          </cdy-button-content>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
   <p>Need an account? <a [routerLink]="[ '../register' ]">Sign up.</a></p>
+
 </cdy-page-content>

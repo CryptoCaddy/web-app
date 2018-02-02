@@ -1,3 +1,54 @@
-<cdy-page-content small="true">
-  <cdy-auth-register-form></cdy-auth-register-form>
+<cdy-page-content [size]="'small'">
+
+  <mat-card>
+
+  <h1>Create your Crypto Caddy account</h1>
+
+  <mat-vertical-stepper [linear]="true" [selectedIndex]="currentStep">
+    <mat-step [completed]="stepRegister?.completed$ | async" [editable]="false">
+      <ng-template matStepLabel>Credentials</ng-template>
+
+      <cdy-auth-register-form #stepRegister></cdy-auth-register-form>
+
+      <div class="cdyg-form-buttons">
+        <button mat-button [color]="'primary'" (click)="stepRegister.submit()">
+          <cdy-button-content [loading]="stepRegister.pending$ | async">
+            Proceed
+          </cdy-button-content>
+        </button>
+      </div>
+    </mat-step>
+
+    <mat-step [completed]="stepAccountPreferences?.completed$ | async" [editable]="false">
+      <ng-template matStepLabel>Preferences</ng-template>
+
+      <cdy-account-preferences-form #stepAccountPreferences></cdy-account-preferences-form>
+
+      <div class="cdyg-form-buttons">
+        <button mat-button [color]="'primary'" (click)="stepAccountPreferences.submit()">
+          <cdy-button-content [loading]="stepAccountPreferences.pending$ | async">
+            Proceed
+          </cdy-button-content>
+        </button>
+      </div>
+    </mat-step>
+
+    <mat-step [editable]="false">
+      <ng-template matStepLabel>Done</ng-template>
+
+      <p><strong>You're ready to go!</strong></p>
+      <p>Thank you for using Crypto Caddy!</p>
+
+      <div class="cdyg-form-buttons">
+        <button mat-button [color]="'primary'" (click)="onFinished()">
+          <cdy-button-content>
+            Proceed
+          </cdy-button-content>
+        </button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+
+  </mat-card>
+
 </cdy-page-content>

@@ -6,8 +6,12 @@
   width: 90%;
   max-width: 72rem;
 
+  &.cdy-tiny {
+    max-width: 24rem;
+  }
+
   &.cdy-small {
-    max-width: 48rem;
+    max-width: 32rem;
   }
 }
 
@@ -26,5 +30,8 @@
 
 .cdy-main {
   flex: 1;
-  margin-left: 1rem;
+
+  .cdy-sidebar:not(.cdy-empty) & {
+    margin-left: 1rem;
+  }
 }

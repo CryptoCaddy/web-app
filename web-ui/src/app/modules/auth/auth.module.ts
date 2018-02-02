@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatExpansionModule, MatFormFieldModule, MatInputModule, MatStepperModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'app/modules/shared/module';
+import { AccountModule } from 'app/modules/account/account.module';
+import { SharedModule } from 'app/modules/shared/shared.module';
 
 import { AuthLoginFormComponent } from './components/auth-login-form/auth-login-form.component';
 import { AuthRegisterFormComponent } from './components/auth-register-form/auth-register-form.component';
@@ -15,11 +16,15 @@ import { AuthLoginPage } from './pages/auth-login/auth-login.page';
 import { AuthRegisterPage } from './pages/auth-register/auth-register.page';
 import { AuthService } from './services/auth.service';
 
+
 @NgModule({
   imports: [
+    AccountModule,
     CommonModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
+    MatStepperModule,
     ReactiveFormsModule,
     RouterModule,
     SharedModule,

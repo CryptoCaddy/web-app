@@ -30,3 +30,14 @@ Object.defineProperty(window, 'requestAnimationFrame', { value: function(callbac
 Object.defineProperty(window, 'cancelAnimationFrame', { value: function(id) {
   clearTimeout(id);
 }});
+
+// This fixes the "The provided animation property "transform" is not a supported CSS property for animations" error
+// https://github.com/angular/material2/issues/7101
+Object.defineProperty(document.body.style, 'transform', {
+  value: () => {
+    return {
+      enumerable: true,
+      configurable: true,
+    };
+  },
+});

@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { AuthLoginPage } from './pages/auth-login/auth-login.page';
 import { AuthRegisterPage } from './pages/auth-register/auth-register.page';

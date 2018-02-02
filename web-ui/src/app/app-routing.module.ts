@@ -11,11 +11,15 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth',
+    redirectTo: 'home',
   }, {
     path: 'auth',
     canActivate: [ NoAuthGuard ],
     children: authRoutes,
+  }, {
+    path: 'account',
+    canActivate: [ AuthGuard ],
+    loadChildren: 'app/modules/account/account.module#AccountModule',
   }, {
     path: 'home',
     canActivate: [ AuthGuard ],

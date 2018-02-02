@@ -1,4 +1,5 @@
 import { TrackByFunction } from '@angular/core';
+import { sortBy, prop } from 'ramda';
 
 /**
  * Returns a function that can be used to track by a specific property instead of writing
@@ -23,7 +24,5 @@ export function trackTypeBy<T>() {
  * Immutable sort funtion to sort a given array of objects by a specific key of the objects.
  */
 export function sortByKey<T>(objects: T[], key: keyof T): T[] {
-  return objects.slice().sort((a, b) => {
-    return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0);
-  });
+  return sortBy(prop(key))(objects);
 }
