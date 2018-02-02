@@ -1,6 +1,0 @@
-version: '3'
-services:
-  web:
-    command: "sh -c 'mvn package && java -agentlib:jdwp=transport=dt_socket,address=*:50505,suspend=n,server=y -jar services/auditing/target/auditing-1.0.jar'"
-    ports:
-      - "50505:50505"
