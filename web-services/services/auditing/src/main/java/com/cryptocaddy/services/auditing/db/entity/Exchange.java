@@ -3,14 +3,14 @@ package com.cryptocaddy.services.auditing.db.entity;
 import javax.persistence.*;
 
 @Entity
-public class User {
+public class Exchange {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String username;
+    private String name;
 
 
     public Integer getId() {
@@ -21,11 +21,11 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 }

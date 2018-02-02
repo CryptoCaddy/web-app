@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `currency`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `currency` (
-  `currency_id` int(11) NOT NULL AUTO_INCREMENT,
-  `currency_code` varchar(10) NOT NULL,
-  `currency_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`currency_id`),
-  UNIQUE KEY `currency_code_UNIQUE` (`currency_code`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(10) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `currency_code_UNIQUE` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,9 +48,9 @@ DROP TABLE IF EXISTS `exchange`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `exchange` (
-  `exchange_id` int(11) NOT NULL AUTO_INCREMENT,
-  `exchange_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`exchange_id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -71,19 +71,19 @@ DROP TABLE IF EXISTS `market`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `market` (
-  `market_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `exchange_id` int(11) NOT NULL,
   `trading_currency_id` int(11) NOT NULL,
   `base_currency_id` int(11) NOT NULL,
-  `market_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`market_id`),
-  UNIQUE KEY `market_name_exchange_idk` (`exchange_id`,`market_name`),
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `market_name_exchange_idk` (`exchange_id`,`name`),
   KEY `trading_currency_id_fk` (`trading_currency_id`),
   KEY `exchange_id_fk_idx` (`exchange_id`),
   KEY `base_currency_id_fk_idx` (`base_currency_id`),
-  CONSTRAINT `base_currency_id_fk` FOREIGN KEY (`base_currency_id`) REFERENCES `currency` (`currency_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `exchange_id_fk` FOREIGN KEY (`exchange_id`) REFERENCES `exchange` (`exchange_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `trading_currency_id_fk` FOREIGN KEY (`trading_currency_id`) REFERENCES `currency` (`currency_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `base_currency_id_fk` FOREIGN KEY (`base_currency_id`) REFERENCES `currency` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `exchange_id_fk` FOREIGN KEY (`exchange_id`) REFERENCES `exchange` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `trading_currency_id_fk` FOREIGN KEY (`trading_currency_id`) REFERENCES `currency` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -104,10 +104,9 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_username` char(45) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_jwt_UNIQUE` (`user_username`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -128,17 +127,17 @@ DROP TABLE IF EXISTS `user_exchange`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_exchange` (
-  `user_exchange_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `exchange_id` int(11) NOT NULL,
-  `user_exchange_nickname` varchar(45) DEFAULT NULL,
-  `user_exchange_apikey` varchar(128) NOT NULL,
-  `user_exchange_apisecret` varchar(128) NOT NULL,
-  PRIMARY KEY (`user_exchange_id`),
-  UNIQUE KEY `idx_user_exchange_nickname` (`user_id`,`user_exchange_nickname`),
+  `nickname` varchar(45) DEFAULT NULL,
+  `apikey` varchar(128) NOT NULL,
+  `apisecret` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_user_exchange_nickname` (`user_id`,`nickname`),
   KEY `idx_fk_user_exchange_exchange_id` (`exchange_id`),
-  CONSTRAINT `fk_user_exchange_exchange_id` FOREIGN KEY (`exchange_id`) REFERENCES `exchange` (`exchange_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_exchange_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_user_exchange_exchange_id` FOREIGN KEY (`exchange_id`) REFERENCES `exchange` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_exchange_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -160,9 +159,9 @@ DROP TABLE IF EXISTS `user_exchange_gdax`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_exchange_gdax` (
   `user_exchange_id` int(11) NOT NULL,
-  `user_exchange_gdax_paraphrase` varchar(45) NOT NULL,
+  `gdax_paraphrase` varchar(45) NOT NULL,
   PRIMARY KEY (`user_exchange_id`),
-  CONSTRAINT `user_exchange_id_fk` FOREIGN KEY (`user_exchange_id`) REFERENCES `user_exchange` (`user_exchange_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `user_exchange_id_fk` FOREIGN KEY (`user_exchange_id`) REFERENCES `user_exchange` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -184,4 +183,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-01  1:28:51
+-- Dump completed on 2018-02-02  2:03:11
