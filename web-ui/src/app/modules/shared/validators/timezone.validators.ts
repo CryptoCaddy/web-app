@@ -1,13 +1,16 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
 import * as moment from 'moment-timezone';
+import { SelectOption } from '../models/select-option.model';
 
 export class TimezoneValidators {
 
   public static exists: ValidatorFn = (formControl: FormControl) => {
     let input: string;
 
-    if (formControl.value && formControl.value.label) {
-      input = formControl.value.label;
+    if (!formControl || !formControl.value) {
+      return null;
+    } else if (formControl.value && formControl.value.label) {
+      input = (<SelectOption<string>>formControl.value).value;
     } else {
       input = formControl.value;
     }
