@@ -29,7 +29,7 @@ public class Application {
         String bypassFirebaseAuthentication = System.getenv("bypass_firebase_auth");
         if (bypassFirebaseAuthentication == null || bypassFirebaseAuthentication.toUpperCase() != "TRUE"){
             // Initialize Firebase
-            String credentialsPath = System.getenv("firebase_credential_path");
+            String credentialsPath = System.getenv("FIREBASE_CRED_PATH");
             try {
                 // [START initialize]
                 FileInputStream serviceAccount = new FileInputStream(credentialsPath);
@@ -41,8 +41,9 @@ public class Application {
                 FirebaseApp.initializeApp(options);
                 // [END initialize]
             } catch (IOException e) {
-                System.out.println("ERROR: invalid service account credentials. See README.");
+                System.out.println("ERROR: invalid service account credentials..");
                 System.out.println(e.getMessage());
+
 
                 System.exit(1);
             }
