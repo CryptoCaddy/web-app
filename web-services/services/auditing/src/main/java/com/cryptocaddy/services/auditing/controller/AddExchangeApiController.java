@@ -37,7 +37,8 @@ public class AddExchangeApiController extends AbstractRestHandler implements Add
             return new ResponseEntity<>(new ResponseExchangeWrapper(), HttpStatus.BAD_REQUEST);
         }*/
 
-        JWTBody jwtBody = JWTAuthenticator.getBodyFromToken(authorization);
+        //TODO:strip bearer from token via Spring
+        JWTBody jwtBody = null; //JWTAuthenticator.getBodyFromToken(authorization);
 
         ResponseExchangeWrapper response = addExchangeService.addExchange(jwtBody, requestAddExchange);
 
