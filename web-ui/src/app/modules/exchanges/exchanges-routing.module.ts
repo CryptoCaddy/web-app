@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ExchangesPage } from './pages/exchanges/exchanges.page';
+import { ExchangesSetupPage } from './pages/exchanges-setup/exchanges-setup.page';
 
 const routes: Routes = [
-  { path: '', component: ExchangesPage },
+  { path: 'setup', component: ExchangesSetupPage },
 ];
 
 @NgModule({

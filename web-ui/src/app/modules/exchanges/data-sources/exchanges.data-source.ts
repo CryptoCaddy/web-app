@@ -1,62 +1,31 @@
 import { DataSource } from '@angular/cdk/table';
-import { sortByKey } from 'app/modules/shared/utils/array.util';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ArrayUtil } from 'app/modules/shared/utils/array.util';
 import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 import { map } from 'rxjs/operators';
 
-import { computeExchangeFields, Exchange } from '../models/exchange.model';
-import { SupportedExchange } from '../models/supported-exchange.model';
-import { ExchangesDatabase } from '../storages/exchanges.database';
-import { SupportedExchangesDatabase } from '../storages/supported-exchanges.database';
+import { Exchange } from '../models/exchange.model';
+import { ExchangesProvider } from '../storages/exchanges.provider';
 
-export class ExchangesDataSource extends DataSource<SupportedExchange> {
+export class ExchangesDataSource extends DataSource<Exchange> {
 
-  private _enabledOnly = new BehaviorSubject<boolean>(false);
-  public get enabledOnly(): boolean { return this._enabledOnly.value; }
-  public set enabledOnly(v: boolean) { this._enabledOnly.next(v); }
-
-  constructor(
-    private supportedExchangesDb: SupportedExchangesDatabase,
-    private exchangesDb: ExchangesDatabase,
-  ) {
+  constructor(private exchangesProvider: ExchangesProvider) {
     super();
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Exchange[]> {
-    const sources$ = merge(
-      this.supportedExchangesDb.data$,
-      this.exchangesDb.data$,
-      this._enabledOnly,
+  public connect(): Observable<Exchange[]> {
+    const sources$ = combineLatest(
+      this.exchangesProvider.data$,
     );
 
     const stream$ = sources$.pipe(
-      map(() => {
-        // return only enabled exchanges here, if filter is enabled
-        if (this._enabledOnly.value) {
-          return this.exchangesDb.data;
-        }
-
-        // otherwise add missing exchanges from the SupportedExchanges database
-        return addMissingFromAvailable(this.exchangesDb.data, this.supportedExchangesDb.data);
-      }),
-      map((exchanges) => sortByKey(exchanges, 'exchangeName')),
-      map((exchanges) => exchanges.map(computeExchangeFields)),
+      map(([ exchanges ]) => ArrayUtil.sortByKey(exchanges, 'exchangeName')),
     );
 
     return stream$;
   }
 
-  disconnect() { }
+  public disconnect() { }
 
-}
-
-export function addMissingFromAvailable(present: Exchange[], available: SupportedExchange[]): Exchange[] {
-  return [
-    ...present,
-    ...available
-      .filter((a) => !present.map((p) => p.exchangeName).includes(a.exchangeName))
-      .map((a) => (<Exchange>{ ...a })),
-  ];
 }

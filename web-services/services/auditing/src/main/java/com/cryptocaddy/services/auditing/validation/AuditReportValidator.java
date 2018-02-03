@@ -20,11 +20,4 @@ public class AuditReportValidator extends GenericValidator<AuditReportAttributes
         super(VALIDATORS);
     }
 
-    @SuppressWarnings("unused")
-    private static boolean notBlank(String value) {
-        if (isBlank(value)) {
-            throw new IllegalArgumentException("Required path parameter may not be null or empty!");
-        }
-        return true;
-    }
 }

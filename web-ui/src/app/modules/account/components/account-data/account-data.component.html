@@ -1,0 +1,17 @@
+<ng-container *ngIf="user && !user.isAnonymous; else anonymousTemplate">
+  <form [formGroup]="form">
+    <mat-form-field class="cdyg-full-width">
+      <input matInput
+        [formControlName]="'email'"
+        type="email"
+        placeholder="Email"
+        autocomplete="email"
+      >
+      <mat-error *ngIf="getErrorMessage(form.get('email')); let errMsg">{{ errMsg }}</mat-error>
+    </mat-form-field>
+  </form>
+</ng-container>
+
+<ng-template #anonymousTemplate>
+  <mat-error>Anonymous account detected.</mat-error>
+</ng-template>

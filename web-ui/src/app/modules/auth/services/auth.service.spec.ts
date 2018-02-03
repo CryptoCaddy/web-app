@@ -1,11 +1,10 @@
-import { TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { CustomRouterTestingModule } from 'app/modules/test/custom-router-testing.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { AuthService } from './auth.service';
-import { _throw } from 'rxjs/observable/throw';
 
 class FireAuthMock {
   idToken = new BehaviorSubject(null);

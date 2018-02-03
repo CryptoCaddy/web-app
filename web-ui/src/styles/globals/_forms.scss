@@ -1,6 +1,4 @@
 mat-form-field {
-  margin-bottom: 1.25em;
-
   &.cdyg-full-width {
     display: block;
   }
@@ -9,9 +7,5 @@ mat-form-field {
 .cdyg-form-buttons {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
-
-  ~ mat-error {
-    margin-top: 1rem;
-  }
 }
+

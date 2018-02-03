@@ -1,4 +1,5 @@
 {
+  "preset": "jest-preset-angular",
   "globals": {
     "__isJest": true,
     "ts-jest": {
@@ -6,13 +7,9 @@
     },
     "__TRANSFORM_HTML__": true
   },
-  "preset": "jest-preset-angular",
   "setupTestFrameworkScriptFile": "<rootDir>/jest/jest.setup.ts",
   "testEnvironment": "jsdom",
   "testRegex": "\\.spec\\.(ts|js)$",
-  "testPathIgnorePatterns": [
-    "/test-backend/"
-  ],
   "collectCoverageFrom": [
     "src/app/**/*.{ts,tsx}"
   ],
@@ -21,6 +18,5 @@
     "lcovonly",
     "clover",
     "text-summary"
-  ],
-  "mapCoverage": true
+  ]
 }

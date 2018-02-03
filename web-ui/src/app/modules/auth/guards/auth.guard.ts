@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   public canActivate(): Observable<boolean> {
-    return this.authService.user$
+    return this.authService.loggedIn$
       .pipe(
         map((user) => user != null),
         tap((allowed: boolean) => !allowed ? this.reroute() : null),
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private reroute() {
-    const target = '/auth/login';
+    const target = '/account/login';
     Logger.logGroup(this.constructor.name, 'reroute', target, 'info');
     this.router.navigateByUrl(target);
   }

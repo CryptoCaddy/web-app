@@ -1,0 +1,25 @@
+@import 'vars/dimensions';
+
+:host {
+  // positioning
+  position: fixed;
+  bottom: ($footer-height / 2);
+  left: 50%;
+  transform: translate(-50%, 0);
+  justify-content: flex-end;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 72rem;
+
+  &.cdy-tiny {
+    max-width: 24rem;
+  }
+
+  &.cdy-small {
+    max-width: 32rem;
+  }
+}

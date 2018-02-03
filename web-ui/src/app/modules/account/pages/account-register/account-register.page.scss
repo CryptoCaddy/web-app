@@ -1,0 +1,19 @@
+.cdy-logo {
+  display: block;
+  margin: 0 auto;
+  width: 24rem;
+}
+
+.mat-stepper-horizontal,
+.mat-stepper-vertical {
+  background-color: initial;
+}
+
+// Ignore clicks to step header.
+:host /deep/ .mat-step-header {
+  cursor: default;
+
+  &:hover {
+    background-color: inherit;
+  }
+}

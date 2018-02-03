@@ -14,6 +14,10 @@ public class AbstractExchangeFactory implements ApplicationContextAware {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractExchangeFactory.class);
 
+    public IExchangeController getExchangeController(String exchangeName) {
+        return getExchangeController(ExchangeType.valueOf(exchangeName.toUpperCase()));
+    }
+
     public IExchangeController getExchangeController(ExchangeType exchange) {
         IExchangeController exchangeController;
 

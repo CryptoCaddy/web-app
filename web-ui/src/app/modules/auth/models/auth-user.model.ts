@@ -1,11 +1,5 @@
 export interface AuthUser {
+  isAnonymous: boolean;
+  uid: string;
   email: string;
-}
-
-export function isAuthUser(o: AuthUser): o is AuthUser {
-  return o != null &&
-
-    // required
-    typeof o.email === 'string';
-
 }

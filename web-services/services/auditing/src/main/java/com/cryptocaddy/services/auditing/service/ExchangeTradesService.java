@@ -1,7 +1,6 @@
 package com.cryptocaddy.services.auditing.service;
 
 import com.cryptocaddy.fiat.client.service.IFiatEngineService;
-import com.cryptocaddy.xchange.data.exchanges.ExchangeController;
 import com.cryptocaddy.xchange.data.exchanges.ExchangeType;
 import com.cryptocaddy.xchange.data.exchanges.IExchangeController;
 import com.cryptocaddy.xchange.data.factory.AbstractExchangeFactory;
@@ -37,8 +36,8 @@ public class ExchangeTradesService {
         params.put("passphrase", exchangePass);
 
         IExchangeController controller = abstractExchangeFactory.getExchangeController(ExchangeType.valueOf(exchangeName.toUpperCase()));
-        List<Coin> coinList = controller != null ? controller.getAllCoins(exchangePass, exchangeSecret, params) : new ArrayList<>();
-        TransactionHistory txHistory = controller.getTransactionHistory(exchangeKey, exchangeSecret, params);
+        List<Coin> coinList = controller != null ? controller.getAllCoins(params) : new ArrayList<>();
+        TransactionHistory txHistory = controller.getTransactionHistory(params);
 
         // Convert crypto value via Fiat Engine
         //List<FiatCoin> fiatCoinList = this.fiatEngineService.convertValues(txHistory, exchangeName);
