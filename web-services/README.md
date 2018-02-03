@@ -14,7 +14,12 @@ What you'll need the begin development:
 Java 9
 Apache Maven 3.5+
 IntelliJ IDEA (or other IDE that can run a Spring Boot App)
+A Firebase authentication credential (https://firebase.google.com/)
 ```
+
+### Firebase
+
+This project uses Google Firebase for authentication.  You can create an account for free or use an existing one if you have it.  Once an account created generate an admin sdk service account and download the json credentials.  Rename the file to firebase-credentials.json and place it in the web-services folder.
 
 ### Installing
 
