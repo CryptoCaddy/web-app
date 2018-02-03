@@ -13,7 +13,7 @@ export class AccountDataComponent implements OnInit {
 
   public form: FormGroup;
 
-  private user: AuthUser;
+  public user: AuthUser;
 
   public getErrorMessage = getErrorMessage;
 
