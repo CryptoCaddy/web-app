@@ -4,6 +4,7 @@ import com.cryptocaddy.services.auditing.api.AbstractRestHandler;
 import com.cryptocaddy.services.auditing.api.ExchangeWalletsApi;
 import com.cryptocaddy.services.auditing.model.AuditReport;
 import com.cryptocaddy.services.auditing.model.attributes.Exchange;
+import com.cryptocaddy.services.auditing.model.response.ResponseExchangeWrapper;
 import com.cryptocaddy.services.auditing.service.ExchangeWalletsService;
 import com.cryptocaddy.services.auditing.validation.ExchangeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,14 @@ public class ExchangeWalletsApiController extends AbstractRestHandler implements
     }
 
     @Override
-    public ResponseEntity<AuditReport> getExchangeWallets(Exchange exchange) {
+    public ResponseEntity<ResponseExchangeWrapper> getExchangeWallets(Exchange exchange) {
 
         ExchangeValidator exchangeValidator = new ExchangeValidator();
         if (!exchangeValidator.test(exchange)) {
-            return new ResponseEntity<>(new AuditReport(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseExchangeWrapper(exchange.getExchangeName()), HttpStatus.BAD_REQUEST);
         }
 
-        AuditReport result = exchangeWalletsService.getExchangeWallets(exchange);
+        ResponseExchangeWrapper result = exchangeWalletsService.getExchangeWallets(exchange);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
