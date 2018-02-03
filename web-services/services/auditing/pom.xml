@@ -8,7 +8,7 @@
     <artifactId>auditing</artifactId>
     <name>auditing</name>
     <packaging>jar</packaging>
-    <description>Auditing REST APIs for CryptoCaddy</description>
+
 
     <parent>
         <groupId>com.cryptocaddy</groupId>
@@ -37,6 +37,8 @@
             <artifactId>rest-config</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+
     </dependencies>
 
     <build>

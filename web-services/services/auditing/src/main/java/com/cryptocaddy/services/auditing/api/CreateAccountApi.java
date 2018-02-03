@@ -1,13 +1,11 @@
 package com.cryptocaddy.services.auditing.api;
 
 import com.cryptocaddy.services.auditing.model.Result;
-import com.cryptocaddy.services.auditing.model.attributes.CreateAccountRequestBody;
+import com.cryptocaddy.services.auditing.model.request.RequestCreateAccount;
 import com.cryptocaddy.services.common.model.RestErrorInfo;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Nick Fields
@@ -22,9 +20,11 @@ public interface CreateAccountApi {
             @ApiResponse(code = 400, message = "Unexpected Error", response = RestErrorInfo.class)
     })
     @SuppressWarnings("all")
+
     @RequestMapping(value = "/createAccount",
             produces = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<Result> createAccountPost(@RequestBody CreateAccountRequestBody createAccountRequestBody);
+    ResponseEntity<Result> createAccountPost(@RequestBody RequestCreateAccount requestCreateAccount);
+
 
 }

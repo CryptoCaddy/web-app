@@ -1,30 +1,25 @@
 package com.cryptocaddy.services.auditing.validation;
 
-import com.cryptocaddy.services.auditing.model.attributes.CreateAccountRequestBody;
+import com.cryptocaddy.services.auditing.model.request.RequestCreateAccount;
 import com.cryptocaddy.services.common.validation.GenericValidator;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
-public class CreateAccountValidator extends GenericValidator<CreateAccountRequestBody> {
-    private static final List<Predicate<CreateAccountRequestBody>> VALIDATORS = new LinkedList<>();
+public class CreateAccountValidator extends GenericValidator<RequestCreateAccount> {
+    private static final List<Predicate<RequestCreateAccount>> VALIDATORS = new LinkedList<>();
 
     static {
-        VALIDATORS.add(createAccountRequestBody -> notBlank(createAccountRequestBody.getUserName()));
+        VALIDATORS.add(requestCreateAccount -> notBlank(requestCreateAccount.getEmail()));
+        VALIDATORS.add(requestCreateAccount -> notBlank(requestCreateAccount.getToken()));
+
+        VALIDATORS.add(requestCreateAccount -> isAuthorized(requestCreateAccount.getToken()));
     }
 
     public CreateAccountValidator() {
         super(VALIDATORS);
     }
 
-    @SuppressWarnings("unused")
-    private static boolean notBlank(String value) {
-        if (isBlank(value)) {
-            throw new IllegalArgumentException("Required path parameter may not be null or empty!");
-        }
-        return true;
-    }
+
 }

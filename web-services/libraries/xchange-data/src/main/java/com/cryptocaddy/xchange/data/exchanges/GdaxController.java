@@ -1,10 +1,9 @@
 package com.cryptocaddy.xchange.data.exchanges;
 
+import com.cryptocaddy.xchange.data.model.ParameterList;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import org.knowm.xchange.gdax.GDAXExchange;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Jon Waggoner
@@ -23,9 +22,9 @@ public class GdaxController extends ExchangeController {
      * @return list of names of required parameters other than key and secret
      */
     @Override
-    public List<String> requiredAdditionalParameters(){
-        List<String> parameters = super.requiredAdditionalParameters();
-        parameters.add("passphrase");
+    public ParameterList requiredParameters(){
+        ParameterList parameters = super.requiredParameters();
+        parameters.add("passphrase", JsonFormatTypes.STRING);
         return parameters;
     }
 

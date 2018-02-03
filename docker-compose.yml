@@ -24,6 +24,7 @@ services:
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
+      - FIREBASE_CRED_PATH
     depends_on:
       - fiat
 

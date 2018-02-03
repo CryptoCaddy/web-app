@@ -2,7 +2,7 @@ package com.cryptocaddy.services.auditing.controller;
 
 import com.cryptocaddy.services.auditing.api.AbstractRestHandler;
 import com.cryptocaddy.services.auditing.api.SupportedExchangesApi;
-import com.cryptocaddy.services.auditing.model.Result;
+import com.cryptocaddy.services.auditing.model.response.ResponseSupportedExchanges;
 import com.cryptocaddy.services.auditing.service.SupportedExchangesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +23,9 @@ public class SupportedExchangesApiController extends AbstractRestHandler impleme
     }
 
     @Override
-    public ResponseEntity<Result> getSupportedExchanges() {
+    public ResponseEntity<ResponseSupportedExchanges> getSupportedExchanges() {
 
-        Result result = supportedExchangesService.getSupportedExchanges();
+        ResponseSupportedExchanges result = supportedExchangesService.getSupportedExchanges();
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
