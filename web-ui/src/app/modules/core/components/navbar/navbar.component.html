@@ -10,7 +10,12 @@
     <button mat-button [matMenuTriggerFor]="accountMenu">
       <mat-icon>account_circle</mat-icon>
       <span fxShow [fxShow.xs]="false">
-        {{ user.email }}
+        <ng-container *ngIf="!user.isAnonymous; else anonymousLabel">
+          {{ user.email }}
+        </ng-container>
+        <ng-template #anonymousLabel>
+          Anonymous User
+        </ng-template>
       </span>
     </button>
     <mat-menu

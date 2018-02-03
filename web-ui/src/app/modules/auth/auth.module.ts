@@ -45,5 +45,8 @@ import { AuthService } from './services/auth.service';
       multi: true,
     },
   ],
+  exports: [
+    AuthRegisterFormComponent,
+  ],
 })
 export class AuthModule { }

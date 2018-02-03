@@ -16,7 +16,7 @@ export class AccountApiService {
     // @TODO remove `AuthService` injection when replacing mock.
     // Mock data is not persisted but overwritten with firebase data on each page reload.
     return this.auth.user$.pipe(
-      map((user) => [ { email: user.email } ]),
+      map((user) => user == null ? [ ] : [ { email: user.email } ]),
       delay(500),
     );
   }

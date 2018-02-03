@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   /** Sign up on firebase and our backend. */
-   public signUp(email: string, password: string): Observable<firebase.User|null> {
+  public signUp(email: string, password: string): Observable<firebase.User|null> {
     return fromPromise(this.fireAuth.auth.createUserWithEmailAndPassword(email, password))
       .pipe(tap((firebaseUser: firebase.User) => {
 
@@ -93,6 +93,10 @@ export class AuthService {
   /** Try to sign in using the given credentials. */
   public signIn(email: string, password: string): Observable<firebase.User|null> {
     return fromPromise(this.fireAuth.auth.signInWithEmailAndPassword(email, password));
+  }
+
+  public signInAnonymously() {
+    return fromPromise(this.fireAuth.auth.signInAnonymously());
   }
 
   /** Sign out. */
