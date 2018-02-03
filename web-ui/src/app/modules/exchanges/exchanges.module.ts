@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
+  MatCardModule,
   MatChipsModule,
   MatDialogModule,
   MatExpansionModule,
@@ -31,6 +32,7 @@ import { SupportedExchangesProvider } from './storages/supported-exchanges.provi
     CommonModule,
     ExchangesRoutingModule,
     MatAutocompleteModule,
+    MatCardModule,
     MatChipsModule,
     MatDialogModule,
     MatExpansionModule,

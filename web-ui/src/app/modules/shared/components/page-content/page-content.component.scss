@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 2rem auto;
+
+  // Additional spacing on bottom for potential fab buttons
+  margin: 1rem auto 3rem;
   width: 90%;
   max-width: 72rem;
 
@@ -29,6 +31,7 @@
 }
 
 .cdy-main {
+  max-width: 100%;
   flex: 1;
 
   .cdy-sidebar:not(.cdy-empty) & {

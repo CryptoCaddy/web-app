@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ArrayUtil } from 'app/modules/shared/utils/array.util';
+import { Observable } from 'rxjs/Observable';
 import { take } from 'rxjs/operators';
 
 import { ExchangesDataSource } from '../../data-sources/exchanges.data-source';
@@ -19,9 +20,10 @@ enum EDisplayedColumns {
   templateUrl: './exchanges-setup-table.component.html',
   styleUrls: [ './exchanges-setup-table.component.scss' ],
 })
-export class ExchangesSetupTableComponent implements OnInit {
+export class ExchangesSetupTableComponent implements OnInit, OnDestroy {
 
-  public dataSource: ExchangesDataSource;
+  public exchanges$: Observable<Exchange[]>;
+  private dataSource: ExchangesDataSource;
 
   // @TODO
   public loading = false;
@@ -41,6 +43,11 @@ export class ExchangesSetupTableComponent implements OnInit {
 
   public ngOnInit() {
     this.dataSource = new ExchangesDataSource(this.exchangesProvider);
+    this.exchanges$ = this.dataSource.connect();
+  }
+
+  public ngOnDestroy() {
+    this.dataSource.disconnect();
   }
 
   public getColumnValue(row: Exchange, key: EDisplayedColumns) {

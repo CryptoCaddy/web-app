@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule, MatCardModule, MatProgressBarModule, MatProgressSpinnerModule, MatToolbarModule } from '@angular/material';
 
+import { BaseFormAbstractComponent } from './components/base-form/base-form.abstract-component';
 import { ButtonContentComponent } from './components/button-content/button-content.component';
 import { CardHeaderToolbarComponent } from './components/card-header-toolbar/card-header-toolbar.component';
 import { CardWrapperComponent } from './components/card-wrapper/card-wrapper.component';
 import { PageContentComponent } from './components/page-content/page-content.component';
 import { TableWrapperComponent } from './components/table-wrapper/table-wrapper.component';
-import { BaseFormAbstractComponent } from './components/base-form/base-form.abstract-component';
+import { PageFabContainerComponent } from './components/page-fab-container/page-fab-container.component';
 
 /**
  * The applications shared module.
@@ -35,6 +36,7 @@ import { BaseFormAbstractComponent } from './components/base-form/base-form.abst
     CardHeaderToolbarComponent,
     CardWrapperComponent,
     PageContentComponent,
+    PageFabContainerComponent,
     TableWrapperComponent,
   ],
   exports: [
@@ -49,6 +51,7 @@ import { BaseFormAbstractComponent } from './components/base-form/base-form.abst
     CardWrapperComponent,
     CardHeaderToolbarComponent,
     PageContentComponent,
+    PageFabContainerComponent,
     TableWrapperComponent,
   ],
 })

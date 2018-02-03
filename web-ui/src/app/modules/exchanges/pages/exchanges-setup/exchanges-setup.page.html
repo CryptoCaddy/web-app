@@ -1,3 +1,13 @@
 <cdy-page-content>
-  <cdy-exchanges-setup-table></cdy-exchanges-setup-table>
+  <h1>Linked Exchanges</h1>
+
+  <cdy-exchanges-setup-table #setupTable></cdy-exchanges-setup-table>
 </cdy-page-content>
+
+<cdy-page-fab-container>
+  <button
+    class="cdyg-main-fab"
+    mat-fab [color]="'primary'"
+    (click)="setupTable.addExchange()"
+  ><mat-icon>add</mat-icon></button>
+</cdy-page-fab-container>

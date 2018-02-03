@@ -1,3 +1,6 @@
+@import 'vars/dimensions';
+
 :host mat-toolbar {
+  height: $footer-height;
   font-size: 0.75rem;
 }
