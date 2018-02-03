@@ -19,6 +19,7 @@
     "@angular/common": "5.x",
     "@angular/compiler": "5.x",
     "@angular/core": "5.x",
+    "@angular/flex-layout": "2.0.0-beta.12",
     "@angular/forms": "5.x",
     "@angular/http": "5.x",
     "@angular/material": "5.x",

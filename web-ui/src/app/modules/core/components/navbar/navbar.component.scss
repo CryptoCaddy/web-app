@@ -28,3 +28,7 @@
 .cdy-brand {
   font-size: 1em;
 }
+
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+  min-width: auto;
+}
