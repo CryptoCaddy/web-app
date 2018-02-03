@@ -10,17 +10,20 @@ import { Observable } from 'rxjs/Observable';
 })
 export class NavbarComponent implements OnInit {
 
+  public loggedIn$: Observable<boolean>;
   public user$: Observable<AuthUser>;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private auth: AuthService) { }
 
   public ngOnInit() {
-    this.user$ = this.authService.user$;
+    this.loggedIn$ = this.auth.loggedIn$;
+    this.user$ = this.auth.user$;
+
+    // this.loggedIn$.subscribe((loggedIn) => this.hidden = !loggedIn);
   }
 
   public onLogout() {
-    this.authService.signOut();
+    this.auth.signOut();
   }
 
 }

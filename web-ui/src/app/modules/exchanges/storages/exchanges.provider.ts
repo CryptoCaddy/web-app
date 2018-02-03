@@ -1,42 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { AbstractProvider } from 'app/modules/shared/storage/abstract.provider';
 
-import { Exchange } from '../models/exchange.model';
+import { Exchange, isExchange } from '../models/exchange.model';
 import { ExchangesApiService } from '../services/exchanges-api.service';
-import { ExchangesDatabase } from './exchanges.database';
 
 @Injectable()
-export class ExchangesProvider {
+export class ExchangesProvider extends AbstractProvider<Exchange> {
 
-  private database: ExchangesDatabase;
+  protected idProperty = 'exchangeId';
 
-  constructor(private exchangesApi: ExchangesApiService) { }
-
-  public get(): ExchangesDatabase {
-    if (this.database) {
-      return this.database;
-    }
-
-    this.database = new ExchangesDatabase(this.exchangesApi);
-    this.database.init();
-    return this.database;
-  }
-
-  public save(exchange: Exchange): Observable<Exchange> {
-    const existingIndex = this.database.data.findIndex((e) => e.exchangeName === exchange.exchangeName);
-    return existingIndex === -1 ? this.add(exchange) : this.update(exchange);
-  }
-
-  public remove(exchange: Exchange): Observable<boolean> {
-    return this.database.drop(exchange);
-  }
-
-  private add(exchange: Exchange): Observable<Exchange> {
-    return this.database.add(exchange);
-  }
-
-  private update(exchange: Exchange): Observable<Exchange> {
-    return this.database.update(exchange);
+  constructor(exchangesApi: ExchangesApiService) {
+    super(exchangesApi, sessionStorage, isExchange);
+    this.init();
   }
 
 }

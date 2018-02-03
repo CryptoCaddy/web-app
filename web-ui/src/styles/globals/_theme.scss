@@ -3,7 +3,7 @@
 @include mat-core();
 
 $cdy-app-primary: mat-palette($mat-teal);
-$cdy-app-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+$cdy-app-accent:  mat-palette($mat-grey, A200, A100, A400);
 $cdy-app-warn:    mat-palette($mat-red);
 
 $cdy-app-theme: mat-light-theme($cdy-app-primary, $cdy-app-accent, $cdy-app-warn);

@@ -37,7 +37,7 @@ describe('AuthGuard', () => {
 
   it('should route to login if trying to access protected routes', () => {
     expect.assertions(2);
-    authService.user$ = of(null);
+    authService.loggedIn$ = of(null);
     spyOn(router, 'navigateByUrl');
 
     guard.canActivate().subscribe((result) => {
@@ -48,7 +48,7 @@ describe('AuthGuard', () => {
 
   it('should not do anything if user is authenticated', () => {
     expect.assertions(2);
-    authService.user$ = of({ } as any);
+    authService.loggedIn$ = of({ } as any);
     spyOn(router, 'navigateByUrl');
 
     guard.canActivate().subscribe((result) => {

@@ -8,6 +8,11 @@
   left: 0;
   right: 0;
   z-index: 2;
+
+  // // Reset the margin on the body element if there's no navbar
+  // &.hidden /deep/ ~ router-outlet + * {
+  //   margin-top: $navbar-height * -1;
+  // }
 }
 
 .mat-toolbar {
@@ -20,6 +25,10 @@
   width: auto;
 }
 
-.cdy-spacer {
-  flex: 1;
+.cdy-brand {
+  font-size: 1em;
+}
+
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+  min-width: auto;
 }

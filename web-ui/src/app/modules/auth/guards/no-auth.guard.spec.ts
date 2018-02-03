@@ -37,7 +37,7 @@ describe('NoAuthGuard', () => {
 
   it('should route to /home if user is authenticated', () => {
     expect.assertions(2);
-    authService.user$ = of({ } as any);
+    authService.loggedIn$ = of({ } as any);
     spyOn(router, 'navigateByUrl');
 
     guard.canActivate().subscribe((result) => {
@@ -48,7 +48,7 @@ describe('NoAuthGuard', () => {
 
   it('should not do anything if user is not authenticated', () => {
     expect.assertions(2);
-    authService.user$ = of(null);
+    authService.loggedIn$ = of(null);
     spyOn(router, 'navigateByUrl');
 
     guard.canActivate().subscribe((result) => {

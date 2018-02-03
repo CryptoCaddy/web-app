@@ -1,7 +1,8 @@
-@import "vars/dimensions";
-@import "~@angular/material/theming";
+@import 'vars/dimensions';
+@import 'globals/theme';
 
 :host {
   @include mat-elevation(1);
+  background: map-get(map-get($cdy-app-theme, background), background);
   display: block;
 }

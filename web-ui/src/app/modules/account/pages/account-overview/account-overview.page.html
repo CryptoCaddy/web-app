@@ -1,0 +1,66 @@
+<cdy-page-content [size]="'small'">
+  <h1>Account</h1>
+
+  <ng-container *ngIf="!(user$ | async)?.isAnonymous; else linkAccount">
+    <h2 class="cdy-card-pretitle">Account Data</h2>
+    <cdy-card-wrapper>
+      <mat-card>
+        <cdy-account-data #accountData></cdy-account-data>
+
+        <mat-card-actions>
+          <span class="cdyg-spacer"></span>
+          <button mat-button [color]="'primary'" (click)="accountData.submit()" [disabled]="true">
+            <cdy-button-content [loading]="accountData.pending$ | async">
+              TBI
+            </cdy-button-content>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </cdy-card-wrapper>
+  </ng-container>
+
+  <ng-template #linkAccount>
+    <h2 class="cdy-card-pretitle">Link Account</h2>
+
+    <cdy-card-wrapper>
+      <mat-card>
+        <small>
+          <p>
+            <span>You've not signed up yet for a Crypto Caddy account yet.</span>
+            <span>All your changes will be lost when you log out.</span>
+          </p>
+
+          <p>
+            <span>Create your Crypto Caddy account now!</span>
+          </p>
+        </small>
+
+        <cdy-account-register-form [linkAccount]="true" #register></cdy-account-register-form>
+
+        <mat-card-actions>
+          <span class="cdyg-spacer"></span>
+          <button mat-button [color]="'primary'" (click)="register.submit()">
+            <cdy-button-content [loading]="register.pending$ | async">
+              Sign up
+            </cdy-button-content>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </cdy-card-wrapper>
+  </ng-template>
+
+  <h2 class="cdy-card-pretitle">Preferences</h2>
+  <mat-card>
+    <cdy-account-preferences-form #accountPreferences></cdy-account-preferences-form>
+
+    <mat-card-actions>
+      <span class="cdyg-spacer"></span>
+      <button mat-button [color]="'primary'" (click)="accountPreferences.submit()">
+        <cdy-button-content [loading]="accountPreferences.pending$ | async">
+          Save
+        </cdy-button-content>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</cdy-page-content>

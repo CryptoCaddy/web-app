@@ -6,3 +6,4 @@ env/
 firebase-debug.log
 caddy-web-app-firebase-adminsdk-bp7ts-6821703cf4.json
 
+docker-compose.prod.yml
