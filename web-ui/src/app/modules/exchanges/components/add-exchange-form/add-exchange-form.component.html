@@ -1,0 +1,41 @@
+<form [formGroup]="form" (submit)="submit()">
+
+  <!-- Fiat Currency -->
+  <mat-form-field #formField class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'exchange'"
+      [matAutocomplete]="exchangeAc"
+      aria-label="Exchange"
+      placeholder="Exchange"
+      autocomplete="exchange"
+    >
+    <button type="button" mat-button matSuffix mat-icon-button tabindex="-1">
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-autocomplete #exchangeAc="matAutocomplete" [displayWith]="selectOptionDisplayFn">
+      <mat-option *ngFor="let exchange of filteredExchanges$ | async" [value]="exchange">
+        <small>{{ exchange.label }}</small>
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="getErrorMessage(form.get('exchange')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
+
+  <div [formGroupName]="'parameters'" *ngFor="let controlKey of (parameterControlNames$ | async)">
+    <mat-form-field #formField class="cdyg-full-width">
+      <input matInput
+        [formControlName]="controlKey"
+        type="text"
+        [placeholder]="controlKey"
+        autocomplete="off"
+      >
+      <mat-error *ngIf="getErrorMessage(form.get('parameters.' + controlKey)); let errMsg">{{ errMsg }}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="form.errors">
+    <mat-error *ngIf="form.getError('generic'); let errMsg">{{ errMsg }}</mat-error>
+  </div>
+
+  <!-- Hidden button allows submitting by pressing enter -->
+  <button type="submit" hidden></button>
+</form>

@@ -1,0 +1,28 @@
+<form [formGroup]="form" (submit)="submit()">
+  <mat-form-field class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'email'"
+      type="email"
+      placeholder="Email"
+      autocomplete="email"
+    >
+    <mat-error *ngIf="getErrorMessage(form.get('email')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="cdyg-full-width">
+    <input matInput
+      [formControlName]="'password'"
+      type="password"
+      placeholder="Password"
+      autocomplete="off"
+    >
+    <mat-error *ngIf="getErrorMessage(form.get('password')); let errMsg">{{ errMsg }}</mat-error>
+  </mat-form-field>
+
+  <div *ngIf="form.errors">
+    <mat-error *ngIf="form.getError('auth'); let err">{{ err.message }}</mat-error>
+  </div>
+
+  <!-- Hidden button allows submitting by pressing enter -->
+  <button type="submit" hidden></button>
+</form>

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'environments/environment';
 
-import { authRoutes } from './modules/auth/auth-routes';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
 import { NoAuthGuard } from './modules/auth/guards/no-auth.guard';
 import { FourOhFourComponent } from './modules/core/components/four-oh-four/four-oh-four.component';
@@ -11,11 +10,10 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth',
+    redirectTo: 'home',
   }, {
-    path: 'auth',
-    canActivate: [ NoAuthGuard ],
-    children: authRoutes,
+    path: 'account',
+    loadChildren: 'app/modules/account/account.module#AccountModule',
   }, {
     path: 'home',
     canActivate: [ AuthGuard ],

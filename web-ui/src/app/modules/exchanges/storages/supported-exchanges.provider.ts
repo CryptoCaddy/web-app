@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
+import { AbstractProvider } from 'app/modules/shared/storage/abstract.provider';
 
-import { ExchangesApiService } from '../services/exchanges-api.service';
-import { SupportedExchangesDatabase } from './supported-exchanges.database';
+import { isSupportedExchange, SupportedExchange } from '../models/supported-exchange.model';
+import { SupportedExchangesApiService } from '../services/supported-exchanges-api.service';
 
 @Injectable()
-export class SupportedExchangesProvider {
+export class SupportedExchangesProvider extends AbstractProvider<SupportedExchange> {
 
-  private database: SupportedExchangesDatabase;
+  protected idProperty = 'exchangeName';
 
-  constructor(private exchangesApi: ExchangesApiService) { }
-
-  public get(): SupportedExchangesDatabase {
-    if (this.database) {
-      return this.database;
-    }
-
-    this.database = new SupportedExchangesDatabase(this.exchangesApi);
-    this.database.init();
-    return this.database;
+  constructor(supportedExchangesApi: SupportedExchangesApiService) {
+    super(supportedExchangesApi, sessionStorage, isSupportedExchange);
+    this.init();
   }
 
 }

@@ -1,18 +1,12 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfigService } from 'app/modules/shared/services/app-config.service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { delay, map } from 'rxjs/operators';
 
-import { ExchangeWallet } from '../models/exchange-wallet.model';
+import { AbstractApiService } from '../../shared/services/abstract-api.service';
 import { Exchange } from '../models/exchange.model';
-import { SupportedExchange } from '../models/supported-exchange.model';
-
-export interface SupportedExchangesTO {
-  status: string;
-  results: string[];
-}
 
 export interface GetWalletPayload {
   exchangeName: string;
@@ -22,7 +16,7 @@ export interface GetWalletPayload {
 }
 
 @Injectable()
-export class ExchangesApiService {
+export class ExchangesApiService extends AbstractApiService<Exchange> {
 
   /**
    * Creates an instance of exchangesApiService.
@@ -30,53 +24,36 @@ export class ExchangesApiService {
   constructor(
     private appConfig: AppConfigService,
     private http: HttpClient,
-  ) { }
-
-  /**
-   * Retrieve available exchanges.
-   */
-  public getSupportedExchanges(): Observable<SupportedExchange[]> {
-    return this.http.get<SupportedExchangesTO>(`${this.appConfig.apiUri}/supportedExchanges`)
-      .pipe(map((res) => res.results.map((key) => ({ exchangeName: key }))));
+  ) {
+    super();
   }
 
-  /**
-   * Retrieves the stored exchanges with their configuration.
-   */
-  public getStoredExchanges(): Observable<Exchange[]> {
+  public list(): Observable<Exchange[]> {
     console.warn('TBI');
     return of([ ]);
   }
 
-  public checkCredentials(args: Exchange): Observable<Exchange> {
-    const params = new HttpParams({ fromObject: args as any });
-
-    // @TODO currently abusing getWallet request for checking credentials
-    return this.http.get<ExchangeWallet>(
-      `${this.appConfig.apiUri}/exchangeWallets`,
-      { params },
-    ).pipe(map(() => args));
+  public add(exchange: Partial<Exchange>): Observable<Exchange> {
+    return this.http.post(
+      `${this.appConfig.apiUri}/addExchange`,
+      exchange,
+    ).pipe(map(() => (<Exchange>{
+      exchangeId: Math.floor(Math.random() * 100000000),
+      ...exchange,
+    })));
   }
 
-  /** remove stored credetials for the given exchange */
-  public removeCredentials(exchange: Exchange): Observable<boolean> {
+  /** remove stored exchange. */
+  public drop(exchange: Exchange): Observable<boolean> {
     // @TODO real request - for now only delay for demonstration
     return of(true).pipe(delay(500));
   }
 
-  /**
-   * Retrieve the wallet balance from an exchange using the given credentials.
-   */
-  public getWallet(args: GetWalletPayload): Observable<ExchangeWallet> {
-    const params = new HttpParams({ fromObject: args as any });
-
-    return this.http.get<ExchangeWallet>(
-      `${this.appConfig.apiUri}/exchangeWallets`,
-      { params },
-    ).pipe(
-      // add the exchange name the the loaded wallet
-      map((wallet) => { wallet.exchangeName = args.exchangeName; return wallet; }),
-    );
+  // @TODO
+  public update(exchange: Exchange) {
+    // const params = new HttpParams({ fromObject: exchange as any });
+    // @TODO real request - for now only delay for demonstration
+    return of(exchange).pipe(delay(1000));
   }
 
 }

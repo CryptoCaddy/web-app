@@ -1,5 +1,5 @@
 import * as deepFreeze from 'deep-freeze';
-import * as ArrayUtil from './array.util';
+import { ArrayUtil } from './array.util';
 
 interface TestType {
   id: number;
