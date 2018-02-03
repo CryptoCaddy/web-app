@@ -8,7 +8,7 @@
     <mat-step [completed]="stepRegister?.completed$ | async" [editable]="false">
       <ng-template matStepLabel>Credentials</ng-template>
 
-      <cdy-auth-register-form #stepRegister></cdy-auth-register-form>
+      <cdy-account-register-form #stepRegister></cdy-account-register-form>
 
       <div class="cdyg-form-buttons">
         <button mat-button [color]="'primary'" (click)="stepRegister.submit()">

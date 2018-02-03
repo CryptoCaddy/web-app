@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AppConfigService } from 'app/modules/shared/services/app-config.service';
+import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
@@ -61,6 +62,7 @@ export class AuthService {
       this.fireAuth.authState,
       this.registrationInProgress$,
     ).subscribe(([ state, registartionInProgress ]) => {
+      console.log(state, registartionInProgress);
 
       // Don't handle auth changes as long as the user is in the signup process
       if (registartionInProgress) { return; }
@@ -95,6 +97,7 @@ export class AuthService {
     return fromPromise(this.fireAuth.auth.signInWithEmailAndPassword(email, password));
   }
 
+  /** Sign in anonymously creating a temporary account. */
   public signInAnonymously() {
     return fromPromise(this.fireAuth.auth.signInAnonymously());
   }
@@ -102,6 +105,20 @@ export class AuthService {
   /** Sign out. */
   public signOut(): Observable<any> {
     return fromPromise(this.fireAuth.auth.signOut());
+  }
+
+  /** Link new credetials with the currently logged in accoutn. */
+  public linkWithCredential(credential: firebase.auth.AuthCredential): Observable<any> {
+    // angularfire2 does not support the `linkWithCredential` method.
+    // Therefore we have to do this using the firebase sdk directly and notify angularfire2 by
+    // signing out and singing in again with the just linked credentials.
+    return fromPromise(firebase.auth().currentUser.linkWithCredential(credential))
+      .pipe(tap(async(res) => {
+        this.registrationStarted();
+        await this.fireAuth.auth.signOut();
+        await this.fireAuth.auth.signInWithCredential(credential);
+        this.registrationFinished();
+      }));
   }
 
   /** Set the registrationInProgress stream. This prevents loggedIn$ to be truthy until finished. */
@@ -126,7 +143,7 @@ export class AuthService {
 
   /** Perform actions if the user logged out. */
   private onLogout(): void {
-    this.router.navigateByUrl('/auth');
+    this.router.navigateByUrl('/account/login');
   }
 
 }

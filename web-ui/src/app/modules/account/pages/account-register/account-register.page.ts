@@ -2,21 +2,21 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import {
   AccountPreferencesFormComponent,
 } from 'app/modules/account/components/account-preferences-form/account-preferences-form.component';
+import { AuthService } from 'app/modules/auth/services/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AuthRegisterFormComponent } from '../../components/auth-register-form/auth-register-form.component';
-import { AuthService } from '../../services/auth.service';
+import { AccountRegisterFormComponent } from '../../components/account-register-form/account-register-form.component';
 
 @Component({
-  selector: 'cdy-auth-register-page',
-  templateUrl: './auth-register.page.html',
-  styleUrls: [ './auth-register.page.scss' ],
+  selector: 'cdy-account-register-page',
+  templateUrl: './account-register.page.html',
+  styleUrls: [ './account-register.page.scss' ],
 })
-export class AuthRegisterPage implements OnInit, AfterViewInit, OnDestroy {
+export class AccountRegisterPage implements OnInit, AfterViewInit, OnDestroy {
 
   /** Reference to the sign up form component. */
   @ViewChild('stepRegister')
-  public stepRegister: AuthRegisterFormComponent;
+  public stepRegister: AccountRegisterFormComponent;
 
   @ViewChild('stepAccountPreferences')
   public stepAccountPreferences: AccountPreferencesFormComponent;

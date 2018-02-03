@@ -1,22 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthLoginPage } from './auth-login.page';
+import { AccountLoginPage } from './account-login.page';
 
-describe('AuthLoginPage', () => {
-  let component: AuthLoginPage;
-  let fixture: ComponentFixture<AuthLoginPage>;
+describe('AccountLoginPage', () => {
+  let component: AccountLoginPage;
+  let fixture: ComponentFixture<AccountLoginPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthLoginPage ],
+      declarations: [ AccountLoginPage ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AuthLoginPage);
+    fixture = TestBed.createComponent(AccountLoginPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

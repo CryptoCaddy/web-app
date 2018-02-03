@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'app/modules/auth/services/auth.service';
 import { BaseFormAbstractComponent } from 'app/modules/shared/components/base-form/base-form.abstract-component';
-import { FirebaseError } from 'firebase/app';
 import { finalize } from 'rxjs/operators';
-
-import { AuthService } from '../../services/auth.service';
 
 interface FormValue {
   email: string;
   password: string;
-  passwordRepeat: string;
 }
 
 @Component({
-  selector: 'cdy-auth-register-form',
-  templateUrl: './auth-register-form.component.html',
-  styleUrls: [ './auth-register-form.component.scss' ],
+  selector: 'cdy-account-login-form',
+  templateUrl: './account-login-form.component.html',
+  styleUrls: [ './account-login-form.component.scss' ],
 })
-export class AuthRegisterFormComponent extends BaseFormAbstractComponent {
+export class AccountLoginFormComponent extends BaseFormAbstractComponent {
 
-  constructor(private auth: AuthService) {
+  /**
+   * Creates an instance of LoginComponent.
+   */
+  constructor(private authService: AuthService) {
     super();
   }
 
@@ -32,11 +32,11 @@ export class AuthRegisterFormComponent extends BaseFormAbstractComponent {
     const formValue: FormValue = this.form.value;
 
     this.pending.next(true);
-    this.auth.signUp(formValue.email, formValue.password)
+    this.authService.signIn(formValue.email, formValue.password)
       .pipe(finalize(() => this.pending.next(false)))
       .subscribe(
-        () => this.completed.next(true),
-        (err) => this.setFormError(err),
+        null,
+        (err: firebase.FirebaseError) => this.setFormErrors(err),
       );
   }
 
@@ -51,16 +51,11 @@ export class AuthRegisterFormComponent extends BaseFormAbstractComponent {
         undefined,
         [ Validators.required ],
       ),
-      'passwordRepeat': new FormControl(
-        undefined,
-        [ Validators.required ],
-      ),
     });
   }
 
-  /** set a global error on the form */
-  private setFormError(err: FirebaseError) {
-    this.form.setErrors({ generic: err.message });
+  private setFormErrors(err: firebase.FirebaseError) {
+    this.form.setErrors({ auth: err });
   }
 
 }

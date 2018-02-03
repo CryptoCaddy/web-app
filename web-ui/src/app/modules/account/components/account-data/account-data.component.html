@@ -1,4 +1,4 @@
-<ng-container *ngIf="!user.isAnonymous; else anonymousTemplate">
+<ng-container *ngIf="user && !user.isAnonymous; else anonymousTemplate">
   <form [formGroup]="form">
     <mat-form-field class="cdyg-full-width">
       <input matInput
@@ -13,5 +13,5 @@
 </ng-container>
 
 <ng-template #anonymousTemplate>
-  <cdy-auth-register-form></cdy-auth-register-form>
+  <mat-error>Anonymous account detected.</mat-error>
 </ng-template>

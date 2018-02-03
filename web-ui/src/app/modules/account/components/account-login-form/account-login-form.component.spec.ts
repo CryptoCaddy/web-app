@@ -1,24 +1,24 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AuthLoginFormComponent } from './auth-login-form.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from 'app/modules/auth/services/auth.service';
 import { Observable } from 'rxjs/Observable';
-import { _throw } from 'rxjs/observable/throw';
 import { of } from 'rxjs/observable/of';
+import { _throw } from 'rxjs/observable/throw';
+
+import { AccountLoginFormComponent } from './account-login-form.component';
 
 class AuthServiceMock {
   signIn: Observable<any> = _throw(`${this.constructor.name}#signIn: Property not mocked`);
 }
 
-describe('AuthLoginFormComponent', () => {
-  let component: AuthLoginFormComponent;
-  let fixture: ComponentFixture<AuthLoginFormComponent>;
+describe('AccountLoginFormComponent', () => {
+  let component: AccountLoginFormComponent;
+  let fixture: ComponentFixture<AccountLoginFormComponent>;
   let auth: AuthService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthLoginFormComponent ],
+      declarations: [ AccountLoginFormComponent ],
       providers: [
         { provide: AuthService, useClass: AuthServiceMock },
       ],
@@ -28,7 +28,7 @@ describe('AuthLoginFormComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AuthLoginFormComponent);
+    fixture = TestBed.createComponent(AccountLoginFormComponent);
     component = fixture.componentInstance;
     auth = TestBed.get(AuthService);
     fixture.detectChanges();

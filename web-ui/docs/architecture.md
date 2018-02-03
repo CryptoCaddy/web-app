@@ -63,17 +63,17 @@
 │   │   │   ├── auth.module.ts
 │   │   │   ├── auth-routing.module.ts
 │   │   │   ├── /components                               # [TS-6]
-│   │   │   │   ├── /auth-login (AuthLoginComponent)
-│   │   │   │   │   └── auth-login.component.html
-│   │   │   │   │   └── auth-login.component.scss
-│   │   │   │   │   └── auth-login.component.spec.ts
-│   │   │   │   │   └── auth-login.component.ts
+│   │   │   │   ├── /account-login (AuthLoginComponent)
+│   │   │   │   │   └── account-login.component.html
+│   │   │   │   │   └── account-login.component.scss
+│   │   │   │   │   └── account-login.component.spec.ts
+│   │   │   │   │   └── account-login.component.ts
 │   │   │   ├── /pages                                    # [TS-5]
-│   │   │   │   ├── /auth-login (AuthLoginPage)
-│   │   │   │   │   └── auth-login.page.html
-│   │   │   │   │   └── auth-login.page.scss
-│   │   │   │   │   └── auth-login.page.spec.ts
-│   │   │   │   │   └── auth-login.page.ts
+│   │   │   │   ├── /account-login (AccountLoginPage)
+│   │   │   │   │   └── account-login.page.html
+│   │   │   │   │   └── account-login.page.scss
+│   │   │   │   │   └── account-login.page.spec.ts
+│   │   │   │   │   └── account-login.page.ts
 │   │   │   ├── /services (AuthService)                   # [TS-7]
 │   │   │   │   ├── auth.service.spec.ts
 │   │   │   │   ├── auth.service.ts
@@ -273,7 +273,7 @@ Therefore all lazy loaded modules are defined in the [AppRoutingModule][AppRouti
 
 ### Example:
 
-The feature module `AuthModule` is lazy loaded when accessing a `/auth/*` route. Therefore, the feature modules pages like `LoginPage` or `RegisterPage` can only be mounted in this specific namespace (`/auth/login` and `/auth/register`).
+The feature module `AccountModule` is lazy loaded when accessing a `/account/*` route. Therefore, the feature modules pages like `AccountLoginPage` or `AccountRegisterPage` can only be mounted in this specific namespace (`/account/login` and `/account/register`).
 
 To be able to mount the `LoginPage` on `/login` (outside of the `/auth` namespace), it must be moved to the `CoreModule`, not the `AuthModule`.
 
@@ -332,7 +332,7 @@ Link to [Google Drawing](https://docs.google.com/drawings/d/1F0ZDOLvGN1256oWCMG-
 
 [CoreModule]: ../src/app/modules/core/core.module.ts
 [SharedModule]: ../src/app/modules/shared/shared.module.ts
-[AuthModule]: ../src/app/modules/auth/core.module.ts
+[AuthModule]: ../src/app/modules/auth/auth.module.ts
 
 [Angular_ComponentInteraction]: https://angular.io/guide/component-interaction
 [Angular_Services]: https://angular.io/tutorial/toh-pt4
