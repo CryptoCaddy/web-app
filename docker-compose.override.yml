@@ -1,0 +1,40 @@
+version: '3'
+services:
+  web:
+    command: "sh -c 'mvn package && java -agentlib:jdwp=transport=dt_socket,address=*:50505,suspend=n,server=y -jar services/auditing/target/auditing-1.0.jar'"
+    ports:
+      - "50505:50505"
+    volumes:
+      - web-services-maven:/root/.m2:rw
+    environment:
+      - MYSQL_HOST=mysql
+    depends_on:
+      - mysql
+
+  fiat:
+    environment:
+      - MYSQL_HOST=mysql
+    depends_on:
+      - mysql
+
+  mysql:
+    restart: always
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - data_sql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    healthcheck:
+      test: mysqladmin ping -p$MYSQL_ROOT_PASSWORD
+      interval: 20s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  data_sql:
+  web-services-maven:

@@ -39,6 +39,7 @@
     "@angular/cli": "1.6.x",
     "@angular/compiler-cli": "5.x",
     "@angular/language-service": "5.x",
+    "@firebase/app-types": "0.1.1",
     "@types/deep-freeze": "0.1.x",
     "@types/jest": "~22.x",
     "@types/node": "~6.x",

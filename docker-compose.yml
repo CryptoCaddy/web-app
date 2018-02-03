@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 services:
   static:
     restart: always
@@ -7,8 +7,8 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-    links:
-      - web:web
+    depends_on:
+      - web
 
   web:
     restart: always
@@ -19,49 +19,21 @@ services:
       - "8080:8080"
     volumes:
       - ./web-services:/code
-      - web-services-maven:/root/.m2:rw
-    links:
-      - fiat
-      - mysql
     environment:
+      - MYSQL_HOST
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
     depends_on:
-      mysql:
-        condition: service_healthy
+      - fiat
 
   fiat:
     restart: always
     build: ./fiat-engine
     ports:
       - "5000:5000"
-    links:
-      - mysql
     environment:
+      - MYSQL_HOST
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
-    depends_on:
-      mysql:
-        condition: service_healthy
-
-  mysql:
-    restart: always
-    image: mysql:latest
-    volumes:
-      - data_sql:/var/lib/mysql
-    environment:
-      - MYSQL_DATABASE
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - MYSQL_ROOT_PASSWORD
-    healthcheck:
-      test: mysqladmin ping -p$MYSQL_ROOT_PASSWORD
-      interval: 20s
-      timeout: 5s
-      retries: 30
-
-volumes:
-  data_sql:
-  web-services-maven:
