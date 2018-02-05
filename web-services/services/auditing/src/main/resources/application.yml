@@ -18,33 +18,15 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
-security:
-  basic:
-    enabled: false
-management:
-  security:
-    enabled: false
 springfox:
   documentation:
     swagger:
       v2:
         path: "/api-docs"
 server:
-  contextPath: "/api"
+  servlet:
+    context-path: "/api"
 fiat:
   engine:
     base:
       url: http://${FIAT_HOST:"localhost"}:7001/api/
-binance:
-  binancekey:
-  binancesecret:
-bittrex:
-  bittrexkey:
-  bittrexsecret:
-coinbase:
-  coinbasekey:
-  coinbasesecret:
-gdax:
-  gdaxkey:
-  gdaxsecret:
-  gdaxpass:

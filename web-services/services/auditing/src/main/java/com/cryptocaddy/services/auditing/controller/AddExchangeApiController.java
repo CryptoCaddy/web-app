@@ -2,14 +2,10 @@ package com.cryptocaddy.services.auditing.controller;
 
 import com.cryptocaddy.services.auditing.api.AbstractRestHandler;
 import com.cryptocaddy.services.auditing.api.AddExchangeApi;
-import com.cryptocaddy.services.auditing.model.Result;
 import com.cryptocaddy.services.auditing.model.request.RequestAddExchange;
 import com.cryptocaddy.services.auditing.model.response.ResponseExchangeWrapper;
 import com.cryptocaddy.services.auditing.service.AddExchangeService;
-import com.cryptocaddy.services.auditing.validation.AddExchangeValidator;
-import com.cryptocaddy.services.common.authentication.JWTAuthenticator;
-import com.cryptocaddy.services.common.authentication.JWTBody;
-import com.cryptocaddy.xchange.data.exchanges.ExchangeType;
+import com.cryptocaddy.services.auditing.security.JWTAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +33,7 @@ public class AddExchangeApiController extends AbstractRestHandler implements Add
             return new ResponseEntity<>(new ResponseExchangeWrapper(), HttpStatus.BAD_REQUEST);
         }*/
 
-        //TODO:strip bearer from token via Spring
-        JWTBody jwtBody = null; //JWTAuthenticator.getBodyFromToken(authorization);
-
-        ResponseExchangeWrapper response = addExchangeService.addExchange(jwtBody, requestAddExchange);
+        ResponseExchangeWrapper response = addExchangeService.addExchange(requestAddExchange);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

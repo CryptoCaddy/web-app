@@ -1,5 +1,6 @@
 package com.cryptocaddy.services.common.builder;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.function.Consumer;
 
 /**
@@ -11,8 +12,8 @@ public class Builder<T> {
 
     private Builder(Class<T> clazz) {
         try {
-            this.instance = clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            this.instance = clazz.getConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

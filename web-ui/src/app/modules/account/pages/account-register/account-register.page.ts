@@ -24,7 +24,7 @@ export class AccountRegisterPage implements OnInit, AfterViewInit, OnDestroy {
   /** Current active step in the stepper. */
   public currentStep = 0;
 
-  /** Map of internal subscriptions. Must be cleared on descrution. */
+  /** Map of internal subscriptions. Must be cleared on destruction. */
   private subscriptions: Map<string, Subscription> = new Map();
 
   constructor(

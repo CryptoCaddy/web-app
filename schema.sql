@@ -50,8 +50,9 @@ DROP TABLE IF EXISTS `exchange`;
 CREATE TABLE `exchange` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,6 +61,7 @@ CREATE TABLE `exchange` (
 
 LOCK TABLES `exchange` WRITE;
 /*!40000 ALTER TABLE `exchange` DISABLE KEYS */;
+INSERT INTO `exchange` VALUES (1,'BINANCE'),(3,'BITTREX'),(2,'GDAX');
 /*!40000 ALTER TABLE `exchange` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,9 +107,12 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `username` varchar(48) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token_UNIQUE` (`username`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-02  2:03:11
+-- Dump completed on 2018-02-05  0:55:46

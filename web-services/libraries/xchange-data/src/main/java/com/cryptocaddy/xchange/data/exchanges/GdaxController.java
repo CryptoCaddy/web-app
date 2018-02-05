@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class GdaxController extends ExchangeController {
 
+    public static final String API_PASSPHRASE_PARAM = "passphrase";
+
     protected String getWrappedXchangeName(){
         return GDAXExchange.class.getName();
     }
@@ -24,7 +26,7 @@ public class GdaxController extends ExchangeController {
     @Override
     public ParameterList requiredParameters(){
         ParameterList parameters = super.requiredParameters();
-        parameters.add("passphrase", JsonFormatTypes.STRING);
+        parameters.add(API_PASSPHRASE_PARAM, JsonFormatTypes.STRING);
         return parameters;
     }
 

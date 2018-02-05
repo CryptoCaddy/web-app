@@ -14,7 +14,6 @@ public class CreateAccountValidator extends GenericValidator<RequestCreateAccoun
         VALIDATORS.add(requestCreateAccount -> notBlank(requestCreateAccount.getEmail()));
         VALIDATORS.add(requestCreateAccount -> notBlank(requestCreateAccount.getToken()));
 
-        VALIDATORS.add(requestCreateAccount -> isAuthorized(requestCreateAccount.getToken()));
     }
 
     public CreateAccountValidator() {

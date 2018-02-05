@@ -36,6 +36,10 @@ public class CreateAccountApiController extends AbstractRestHandler implements C
 
         Result result = createAccountService.createAccount(requestCreateAccount);
 
+        if(!result.getStatus().equalsIgnoreCase("Success")) {//todo don't do this
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
