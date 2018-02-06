@@ -14,7 +14,7 @@ services:
     restart: always
     build: ./web-services
     #we compile here instead of at build because when running we get a persistent volume that we can use for maven's cache
-    command: "sh -c 'mvn package && java -jar services/auditing/target/auditing-1.0.jar'"
+    command: "sh -c 'mvn clean package && java -jar services/auditing/target/auditing-1.0.jar'"
     ports:
       - "8080:8080"
     volumes:

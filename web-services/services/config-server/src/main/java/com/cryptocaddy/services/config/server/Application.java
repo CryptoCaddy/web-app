@@ -18,7 +18,7 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        Object[] sources = {Application.class};
+        Class[] sources = {Application.class};
         final ConfigurableApplicationContext applicationContext = SpringApplication.run(sources, args);
         Runtime.getRuntime().addShutdownHook(new Thread(applicationContext::close));
     }
