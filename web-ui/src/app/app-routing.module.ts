@@ -27,6 +27,10 @@ const routes: Routes = [
     canActivate: [ AuthGuard ],
     loadChildren: 'app/modules/exchanges/exchanges.module#ExchangesModule',
   }, {
+    path: 'wallets',
+    canActivate: [ AuthGuard ],
+    loadChildren: 'app/modules/wallet/wallet.module#WalletModule',
+  }, {
     path: '**',
     component: FourOhFourComponent,
   },

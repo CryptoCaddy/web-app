@@ -3,8 +3,8 @@
     Crypto Caddy
   </a>
   <ng-container *ngIf="(loggedIn$ | async) && (user$ | async); let user; else notLoggedIn">
+    <a mat-button [routerLink]="[ '/wallets' ]">Wallets</a>
     <a mat-button [routerLink]="[ '/reports' ]">Reports</a>
-    <!-- <a mat-button [routerLink]="[ '/exchanges' ]">Exchanges</a> -->
     <span class="cdyg-spacer"></span>
 
     <button mat-button [matMenuTriggerFor]="accountMenu">

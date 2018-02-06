@@ -1,0 +1,24 @@
+<mat-table [dataSource]="dataSource" [trackBy]="trackWalletCoinBy('id')">
+
+  <!-- Wallet Name -->
+  <ng-container matColumnDef="walletName">
+    <mat-header-cell *matHeaderCellDef> Wallet </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ getColumnContent(element, 'walletName') }} </mat-cell>
+  </ng-container>
+
+  <!-- Coin Name -->
+  <ng-container matColumnDef="coinName">
+    <mat-header-cell *matHeaderCellDef> Currency </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ getColumnContent(element, 'coinName') }} </mat-cell>
+  </ng-container>
+
+  <!-- Coin Balance -->
+  <ng-container matColumnDef="coinBalance">
+    <mat-header-cell *matHeaderCellDef> Balance </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ getColumnContent(element, 'coinBalance') }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>

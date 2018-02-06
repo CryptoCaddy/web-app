@@ -1,4 +1,4 @@
-export interface ExchangeCoin {
+export interface Coin {
   available: number;
   availableForWithdrawal: number;
   currencyCode: string;

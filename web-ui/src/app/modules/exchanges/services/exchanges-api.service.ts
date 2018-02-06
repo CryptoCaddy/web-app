@@ -37,9 +37,11 @@ export class ExchangesApiService extends AbstractApiService<Exchange> {
     return this.http.post(
       `${this.appConfig.apiUri}/addExchange`,
       exchange,
-    ).pipe(map(() => (<Exchange>{
-      exchangeId: Math.floor(Math.random() * 100000000),
+    ).pipe(map((response: Partial<Exchange>) => (<Exchange>{
+      // @TODO mock: use the api key as identifier
+      exchangeId: exchange.parameters[ 'api key' ],
       ...exchange,
+      ...response,
     })));
   }
 

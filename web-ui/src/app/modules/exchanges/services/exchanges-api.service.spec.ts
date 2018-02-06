@@ -8,7 +8,7 @@ class AppConfigServiceMock extends AppConfigService {
   get apiUrl(): string { return '/api'; }
 }
 
-describe('ExchangeWalletsApiService', () => {
+describe('ExchangesApiService', () => {
   let service: ExchangesApiService;
   let httpMock: HttpTestingController;
 

@@ -19,11 +19,9 @@ export class ExchangesDataSource extends DataSource<Exchange> {
       this.exchangesProvider.data$,
     );
 
-    const stream$ = sources$.pipe(
+    return sources$.pipe(
       map(([ exchanges ]) => ArrayUtil.sortByKey(exchanges, 'exchangeName')),
     );
-
-    return stream$;
   }
 
   public disconnect() { }

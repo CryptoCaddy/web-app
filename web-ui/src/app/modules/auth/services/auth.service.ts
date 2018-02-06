@@ -62,8 +62,7 @@ export class AuthService {
       this.fireAuth.authState,
       this.registrationInProgress$,
     ).subscribe(([ state, registartionInProgress ]) => {
-      console.log(state, registartionInProgress);
-
+      
       // Don't handle auth changes as long as the user is in the signup process
       if (registartionInProgress) { return; }
 

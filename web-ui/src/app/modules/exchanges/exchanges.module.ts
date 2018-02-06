@@ -21,10 +21,6 @@ import { AddExchangeFormComponent } from './components/add-exchange-form/add-exc
 import { ExchangesSetupTableComponent } from './components/exchanges-setup-table/exchanges-setup-table.component';
 import { ExchangesRoutingModule } from './exchanges-routing.module';
 import { ExchangesSetupPage } from './pages/exchanges-setup/exchanges-setup.page';
-import { ExchangesApiService } from './services/exchanges-api.service';
-import { SupportedExchangesApiService } from './services/supported-exchanges-api.service';
-import { ExchangesProvider } from './storages/exchanges.provider';
-import { SupportedExchangesProvider } from './storages/supported-exchanges.provider';
 
 @NgModule({
   imports: [
@@ -52,12 +48,6 @@ import { SupportedExchangesProvider } from './storages/supported-exchanges.provi
   ],
   entryComponents: [
     AddExchangeDialogComponent,
-  ],
-  providers: [
-    ExchangesApiService,
-    ExchangesProvider,
-    SupportedExchangesApiService,
-    SupportedExchangesProvider,
   ],
 })
 export class ExchangesModule { }
