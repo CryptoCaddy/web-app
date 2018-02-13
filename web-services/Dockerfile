@@ -7,3 +7,4 @@ RUN apt-get update && apt-get install -y maven
 #create our source code folder in the docker container
 RUN mkdir /code
 WORKDIR /code
+COPY . .
