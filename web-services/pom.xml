@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.0.RC1</version>
+        <version>1.5.9.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -23,31 +23,17 @@
         <module>services</module>
     </modules>
 
-    <repositories>
-        <repository>
-            <id>repository.spring.milestone</id>
-            <name>Spring Milestone Repository</name>
-            <url>http://repo.spring.io/milestone</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>repository.spring.milestone</id>
-            <name>Spring Milestone Repository</name>
-            <url>http://repo.spring.io/milestone</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <properties>
-        <project.java.version>1.9</project.java.version>
+        <project.java.version>1.8</project.java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.maven.version>3.5.1</project.maven.version>
-        <spring.boot.version>2.0.0.RC1</spring.boot.version>
+        <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
         <swagger.version>2.6.1</swagger.version>
         <commons.lang3.version>3.5</commons.lang3.version>
         <javax.inject.version>1</javax.inject.version>
         <jaxb.api.version>2.3.0</jaxb.api.version>
+        <spring.boot.maven.plugin.version>1.5.9.RELEASE</spring.boot.maven.plugin.version>
         <xchange.core.version>4.3.2</xchange.core.version>
         <xchange.gdax.version>4.3.2</xchange.gdax.version>
         <xchange.binance.version>4.3.2</xchange.binance.version>
@@ -84,7 +70,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.M5</version>
+                <version>Dalston.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

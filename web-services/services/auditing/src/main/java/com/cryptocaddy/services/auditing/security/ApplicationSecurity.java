@@ -51,10 +51,12 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     private RequestMatcher swaggerRequestMatcher() {
         //returns a matcher for all the resource swagger needs
         return new OrRequestMatcher(new AntPathRequestMatcher("/"),
+                new AntPathRequestMatcher("/api/createAccount/"),
                 new AntPathRequestMatcher("/swagger-ui.html"),
                 new AntPathRequestMatcher("/swagger-resources/**"),
                 new AntPathRequestMatcher("/webjars/**"),
                 new AntPathRequestMatcher("/api-docs/**"));
+
     }
 
     @Override

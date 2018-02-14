@@ -28,6 +28,8 @@ public class JWTFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws IOException, ServletException {
         String header = httpServletRequest.getHeader("Authorization");
 
+
+
         //process this request if there's a bearer token
         if (header != null && header.startsWith("Bearer ")) {
             //retrieve the token
