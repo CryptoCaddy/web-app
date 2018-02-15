@@ -25,6 +25,11 @@ public class JWTAuthenticationProvider implements AuthenticationProvider {
 
             //get the user id
             String uid = jwtAuthentication.getPrincipal().toString();
+            if (uid == null){
+                return null;
+
+            }
+            jwtAuthentication.setAuthenticated(true);
 
             //try to find the user id in the databse
             User u = userRepository.findByUsername(uid);
@@ -32,9 +37,10 @@ public class JWTAuthenticationProvider implements AuthenticationProvider {
             //if we find the user authenticate this request
             if(u != null) {
                 jwtAuthentication.setUser(u);
-                jwtAuthentication.setAuthenticated(true);
-                return jwtAuthentication;
+                //jwtAuthentication.setAuthenticated(true);
+
             }
+            return jwtAuthentication;
         }
         return null;
     }

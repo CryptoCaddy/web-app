@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
@@ -24,8 +26,29 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
     }
 
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/api/createAccount");
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//
+//        http.
+//                csrf().disable().
+//                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+//                and().
+//                authorizeRequests().
+//                anyRequest().authenticated().
+//                and().
+//                anonymous().disable();
+//        http.addFilterBefore(new JWTFilter(authenticationManager()), BasicAuthenticationFilter.class);
+//    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.csrf().disable()//no default csrf
                 .authorizeRequests()
                     //by default all endpoints requires authentication
@@ -47,6 +70,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .disable();
     }
+
 
     private RequestMatcher swaggerRequestMatcher() {
         //returns a matcher for all the resource swagger needs
