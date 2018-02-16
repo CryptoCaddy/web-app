@@ -12,6 +12,13 @@ spring:
   cloud:
     config:
       enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:
+    username: us
+    password: ps
 security:
   basic:
     enabled: false
