@@ -1,7 +1,12 @@
 package com.cryptocaddy.services.common.authorization;
 
+import com.cryptocaddy.services.common.authentication.JWTAuthenticator;
+import com.cryptocaddy.services.common.authentication.JWTBody;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseToken;
 import io.jsonwebtoken.Jwts;
 
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,16 +40,28 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+
+
+        AbstractAuthenticationToken authentication = getAuthentication(req);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+    private AbstractAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
+            try{
+                token = token.replace(TOKEN_PREFIX, "");
+                FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdTokenAsync(token).get();
+                JWTBody authToken = new JWTBody(decodedToken);
+                authToken.setAuthenticated(true);
+                return authToken;
+            }catch (Exception e){
+                System.out.println("failed auth");
+            }
+            /*
             String user = Jwts.parser()
                     .setSigningKey(SECRET.getBytes())
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
@@ -53,7 +70,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-            }
+            }*/
             return null;
         }
         return null;

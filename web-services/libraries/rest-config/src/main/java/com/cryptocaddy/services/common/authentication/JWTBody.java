@@ -1,8 +1,12 @@
 package com.cryptocaddy.services.common.authentication;
 
 import com.google.firebase.auth.FirebaseToken;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-public class JWTBody {
+import java.util.Collections;
+
+public class JWTBody extends AbstractAuthenticationToken{
 
     private String uid;
     private String email;
@@ -10,15 +14,26 @@ public class JWTBody {
 
     private Boolean emailVerified;
 
-    public JWTBody() {}
-
     public JWTBody(FirebaseToken decodedToken){
+        super(Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+
         uid = decodedToken.getUid();
         email = decodedToken.getEmail();
         name = decodedToken.getName();
 
         emailVerified = decodedToken.isEmailVerified();
     }
+
+    @Override
+    public Object getCredentials() {
+        return email;
+    }
+
+    @Override
+    public Object getPrincipal() {
+        return uid;
+    }
+
 
     public String getUid() {
         return uid;
