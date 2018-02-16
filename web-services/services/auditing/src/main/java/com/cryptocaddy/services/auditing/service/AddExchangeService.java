@@ -31,7 +31,6 @@ public class AddExchangeService {
 
         // TODO: 1/13/2018 - Wire up to some core method that will add these exchanges to a user's account in db/cloud-storage
 
-
         IExchangeController controller = abstractExchangeFactory.getExchangeController(requestAddExchange.getExchangeName());
         List<Coin> coinList = controller != null ? controller.getAllCoins(requestAddExchange.getParameters()) : new ArrayList<>();
 

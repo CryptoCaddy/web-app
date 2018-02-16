@@ -40,8 +40,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-
-
         AbstractAuthenticationToken authentication = getAuthentication(req);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -61,16 +59,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             }catch (Exception e){
                 System.out.println("failed auth");
             }
-            /*
-            String user = Jwts.parser()
-                    .setSigningKey(SECRET.getBytes())
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody()
-                    .getSubject();
-
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-            }*/
             return null;
         }
         return null;

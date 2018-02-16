@@ -1,7 +1,6 @@
 package com.cryptocaddy.services.auditing;
 
 import com.cryptocaddy.services.auditing.dao.UserRepository;
-import com.cryptocaddy.services.common.user.ApplicationUserRepository;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -27,11 +26,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class Application extends SpringBootServletInitializer{
     Application() {
         // Do not use
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     public static void main(String[] args) {

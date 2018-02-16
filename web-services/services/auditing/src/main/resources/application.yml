@@ -16,9 +16,9 @@ spring:
     hibernate:
       ddl-auto: create
   datasource:
-    url: jdbc:mysql://localhost:
-    username: us
-    password: ps
+    url: jdbc:mysql://localhost:3306/user_data
+    username: jon
+    password: jonDefaultPass
 security:
   basic:
     enabled: false
