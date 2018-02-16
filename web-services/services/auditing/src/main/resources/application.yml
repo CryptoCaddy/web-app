@@ -6,19 +6,19 @@ info:
     version: ${project.version}
 logging:
   level:
-    .: info
-    org.springframework: info
+    .: debug
+    org.springframework: debug
 spring:
   cloud:
     config:
       enabled: false
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3306/user_data
     username: jon
-    password: jonDefaultPass
+    password: 
 security:
   basic:
     enabled: false

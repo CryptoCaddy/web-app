@@ -5,11 +5,15 @@ import com.cryptocaddy.services.auditing.api.ExchangeWalletsApi;
 import com.cryptocaddy.services.auditing.model.AuditReport;
 import com.cryptocaddy.services.auditing.model.attributes.Exchange;
 import com.cryptocaddy.services.auditing.model.response.ResponseExchangeWrapper;
+import com.cryptocaddy.services.auditing.model.response.ResponseUserData;
 import com.cryptocaddy.services.auditing.service.ExchangeWalletsService;
 import com.cryptocaddy.services.auditing.validation.ExchangeValidator;
+import com.cryptocaddy.services.common.authentication.JWTAuthenticator;
+import com.cryptocaddy.services.common.authentication.JWTBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,14 +30,11 @@ public class ExchangeWalletsApiController extends AbstractRestHandler implements
     }
 
     @Override
-    public ResponseEntity<ResponseExchangeWrapper> getExchangeWallets(Exchange exchange) {
+    public ResponseEntity<ResponseUserData> getExchangeWallets(@RequestHeader(value="Authorization") String authorization) {
 
-        ExchangeValidator exchangeValidator = new ExchangeValidator();
-        if (!exchangeValidator.test(exchange)) {
-            return new ResponseEntity<>(new ResponseExchangeWrapper(exchange.getExchangeName()), HttpStatus.BAD_REQUEST);
-        }
+        JWTBody jwtBody = JWTAuthenticator.getBodyFromToken(authorization);
 
-        ResponseExchangeWrapper result = exchangeWalletsService.getExchangeWallets(exchange);
+        ResponseUserData result = exchangeWalletsService.getExchangeWallets(jwtBody);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

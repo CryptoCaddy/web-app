@@ -30,7 +30,6 @@ public class AddExchangeApiController extends AbstractRestHandler implements Add
     @Override
     public ResponseEntity<ResponseExchangeWrapper> addExchange(@RequestHeader(value="Authorization") String authorization, @RequestBody RequestAddExchange requestAddExchange){
 
-        //TODO:strip bearer from token via Spring
         JWTBody jwtBody = JWTAuthenticator.getBodyFromToken(authorization);
 
         ResponseExchangeWrapper response = addExchangeService.addExchange(jwtBody, requestAddExchange);

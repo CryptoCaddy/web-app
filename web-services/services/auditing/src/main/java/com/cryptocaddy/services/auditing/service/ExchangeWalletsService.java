@@ -1,7 +1,14 @@
 package com.cryptocaddy.services.auditing.service;
 
 import com.cryptocaddy.fiat.client.service.IFiatEngineService;
+import com.cryptocaddy.services.auditing.dao.User;
+import com.cryptocaddy.services.auditing.dao.UserExchange;
+import com.cryptocaddy.services.auditing.dao.UserExchangeRepository;
+import com.cryptocaddy.services.auditing.dao.UserRepository;
 import com.cryptocaddy.services.auditing.model.response.ResponseExchangeWrapper;
+import com.cryptocaddy.services.auditing.model.response.ResponseUserData;
+import com.cryptocaddy.services.common.authentication.JWTBody;
+import com.cryptocaddy.xchange.data.exchanges.ExchangeController;
 import com.cryptocaddy.xchange.data.exchanges.IExchangeController;
 import com.cryptocaddy.xchange.data.factory.AbstractExchangeFactory;
 import com.cryptocaddy.xchange.data.exchanges.ExchangeType;
@@ -16,48 +23,52 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ExchangeWalletsService {
-    private final IFiatEngineService fiatEngineService;
     private final AbstractExchangeFactory abstractExchangeFactory;
+    private UserRepository userRepository;
+    private UserExchangeRepository userExchangeRepository;
 
     @Autowired
-    public ExchangeWalletsService(IFiatEngineService fiatEngineService,
-                                  AbstractExchangeFactory abstractExchangeFactory) {
-
-        this.fiatEngineService = fiatEngineService;
+    public ExchangeWalletsService(AbstractExchangeFactory abstractExchangeFactory, UserRepository userRepository, UserExchangeRepository userExchangeRepository) {
         this.abstractExchangeFactory = abstractExchangeFactory;
+        this.userRepository = userRepository;
+        this.userExchangeRepository = userExchangeRepository;
     }
 
-    public ResponseExchangeWrapper getExchangeWallets(Exchange exchange) {
-        String exchangeName = exchange.getExchangeName();
-        String exchangeKey = exchange.getExchangeKey();
-        String exchangeSecret = exchange.getExchangeSecret();
-        String exchangePass = exchange.getExchangePass();
-
-        //TODO: this map actually needs to be passed from front end not created here.
-        HashMap<String, String> params = new HashMap<>();
-        params.put("api key", exchangeKey);
-        params.put("api secret", exchangeSecret);
-        params.put("passphrase", exchangePass);
+    public ResponseUserData getExchangeWallets(JWTBody jwtBody) {
 
 
-        IExchangeController controller = abstractExchangeFactory.getExchangeController(ExchangeType.valueOf(exchangeName.toUpperCase()));
-        List<Coin> coinList = controller != null ? controller.getAllCoins(params) : new ArrayList<>();
+        User user = userRepository.findUserByUid(jwtBody.getUid());
 
-        // Convert crypto value via Fiat Engine
-        //List<FiatCoin> fiatCoinList = fiatEngineService.convertValues(coinList, exchangeName);
+        //TODO: get the exchanges that the user has added to their account
+        List<UserExchange> exchanges = user.getExchanges();
 
-        /*
-        return Builder.build(ResponseExchangeWrapper.class)
-                .with(auditReport -> auditReport.setExchangeCoins(coinList))
-                //.with(auditReport -> auditReport.setFiatCoins(fiatCoinList))
-                .get();*/
+        ResponseUserData response = new ResponseUserData();
 
-        ResponseExchangeWrapper wrapper = new ResponseExchangeWrapper(exchangeName);
-        wrapper.setExchangeCoins(coinList);
-        return  wrapper;
+        for (UserExchange userExchange : exchanges){
+            IExchangeController controller = abstractExchangeFactory.getExchangeController(userExchange.getName());
+
+            Map<String, String> parameters = new HashMap<>();
+            parameters.put(ExchangeController.API_KEY_PARAM, userExchange.getApiKey());
+            parameters.put(ExchangeController.API_SECRET_PARAM, userExchange.getSecret());
+
+            if (userExchange.getPassphrase() != null)
+                parameters.put(ExchangeController.API_PASSPHRASE_PARAM, userExchange.getPassphrase());
+
+            List<Coin> coinList = controller != null ? controller.getAllCoins(parameters) : new ArrayList<>();
+
+            ResponseExchangeWrapper wrapper = new ResponseExchangeWrapper(userExchange.getName());
+            wrapper.setExchangeCoins(coinList);
+
+            response.addExchangeWrapper(wrapper);
+
+        }
+
+        return response;
+
     }
 
 }

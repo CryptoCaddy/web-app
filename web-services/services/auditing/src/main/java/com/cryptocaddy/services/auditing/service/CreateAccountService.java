@@ -19,7 +19,7 @@ public class CreateAccountService {
     }
 
     public Result createAccount(RequestCreateAccount requestCreateAccount) {
-        // TODO: 1/13/2018 - Wire up to some core method that will add this user to the database
+
         JWTBody jwtBody = JWTAuthenticator.getBodyFromToken(requestCreateAccount.getToken());
         User user = new User(jwtBody.getUid(), jwtBody.getEmail(), jwtBody.getName());
         userRepository.save(user);

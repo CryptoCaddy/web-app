@@ -28,6 +28,7 @@ public abstract class ExchangeController implements IExchangeController {
 
     public static final String API_KEY_PARAM = "api key";
     public static final String API_SECRET_PARAM = "api secret";
+    public static final String API_PASSPHRASE_PARAM = "passphrase";
 
     protected String wrappedXchangeName;
     public ExchangeController(){
