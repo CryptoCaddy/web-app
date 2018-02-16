@@ -19,7 +19,7 @@ public class JWTAuthentication extends AbstractAuthenticationToken {
         super(Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
         uid = decodedToken.getUid();
         email = decodedToken.getEmail();
-        name = decodedToken.getName();
+        name = "none"; //decodedToken.getName();
         
         //TODO: unsure if this should be left null til filled or not. Doing this cuz spring isn't liking a null user.
         user = new User();

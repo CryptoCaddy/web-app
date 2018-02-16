@@ -46,6 +46,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 //        http.addFilterBefore(new JWTFilter(authenticationManager()), BasicAuthenticationFilter.class);
 //    }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -70,6 +71,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .disable();
     }
+
 
 
     private RequestMatcher swaggerRequestMatcher() {
