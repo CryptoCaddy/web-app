@@ -7,12 +7,12 @@ import { AuthModule } from 'app/modules/auth/auth.module';
 import { environment } from 'environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.page';
 import { CoreModule } from './modules/core/core.module';
+import { RootPage } from './root.page';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    RootPage,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -24,7 +24,7 @@ import { CoreModule } from './modules/core/core.module';
     HttpClientModule,
   ],
   bootstrap: [
-    AppComponent,
+    RootPage,
   ],
 })
 export class AppModule { }

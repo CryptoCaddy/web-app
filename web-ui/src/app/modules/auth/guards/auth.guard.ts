@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private reroute() {
-    const target = '/account/login';
+    const target = '/app/account/login';
     Logger.logGroup(this.constructor.name, 'reroute', target, 'info');
     this.router.navigateByUrl(target);
   }

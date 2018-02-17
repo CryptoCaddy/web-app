@@ -7,8 +7,8 @@ import { ButtonContentComponent } from './components/button-content/button-conte
 import { CardHeaderToolbarComponent } from './components/card-header-toolbar/card-header-toolbar.component';
 import { CardWrapperComponent } from './components/card-wrapper/card-wrapper.component';
 import { PageContentComponent } from './components/page-content/page-content.component';
-import { TableWrapperComponent } from './components/table-wrapper/table-wrapper.component';
 import { PageFabContainerComponent } from './components/page-fab-container/page-fab-container.component';
+import { TableWrapperComponent } from './components/table-wrapper/table-wrapper.component';
 
 /**
  * The applications shared module.

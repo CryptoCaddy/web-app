@@ -62,7 +62,6 @@ export class AuthService {
       this.fireAuth.authState,
       this.registrationInProgress$,
     ).subscribe(([ state, registartionInProgress ]) => {
-      console.log(state, registartionInProgress);
 
       // Don't handle auth changes as long as the user is in the signup process
       if (registartionInProgress) { return; }
@@ -138,12 +137,12 @@ export class AuthService {
 
   /** Perform actions if the user logged in. */
   private onLogin(): void {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/app/home');
   }
 
   /** Perform actions if the user logged out. */
   private onLogout(): void {
-    this.router.navigateByUrl('/account/login');
+    this.router.navigateByUrl('/app/home');
   }
 
 }

@@ -1,5 +1,3 @@
-@import 'vars/dimensions';
-
 body {
   display: flex;
   position: absolute;
@@ -8,7 +6,6 @@ body {
   left: 0;
   right: 0;
   overflow: hidden;
-  margin-top: $navbar-height;
   background: #fafafa;
 }
 
@@ -19,4 +16,8 @@ img {
 
 .cdyg-spacer {
   flex: 1;
+}
+
+* {
+  box-sizing: border-box;
 }

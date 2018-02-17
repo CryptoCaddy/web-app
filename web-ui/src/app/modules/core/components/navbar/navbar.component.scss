@@ -1,5 +1,5 @@
+@import 'globals/theme';
 @import "vars/dimensions";
-@import "~@angular/material/theming";
 
 :host {
   @include mat-elevation(6);
@@ -8,11 +8,6 @@
   left: 0;
   right: 0;
   z-index: 2;
-
-  // // Reset the margin on the body element if there's no navbar
-  // &.hidden /deep/ ~ router-outlet + * {
-  //   margin-top: $navbar-height * -1;
-  // }
 }
 
 .mat-toolbar {
