@@ -20,13 +20,16 @@ services:
     volumes:
       - ./web-services:/code
     environment:
-      - MYSQL_HOST
+      - MYSQL_HOST=mysql
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
       - FIREBASE_CRED_PATH=/code/firebase-credentials.json
+    links:
+      - mysql
     depends_on:
       - fiat
+      - mysql
 
   fiat:
     restart: always

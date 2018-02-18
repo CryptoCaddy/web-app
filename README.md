@@ -1,12 +1,12 @@
 
 <img src='https://github.com/CryptoCaddy/web-app/blob/master/web-ui/src/assets/img/caddy-cropped.png'/>
 
-CryptoCaddy is a platform designed to automate the complicated process of generating gain/loss documents for tax purposes and live portfolio tracking based on exchange API keys, blockchain explorers and csv uploads. The web-app is the central component to the project and will be at the core of any peripheral mobile or desktop applications that become a part of the CryptoCaddy platform. 
+CryptoCaddy is a platform designed to automate the complicated process of generating gain/loss documents for tax purposes and live portfolio tracking based on exchange API keys, blockchain explorers and csv uploads. The web-app is the central component to the project and will be at the core of any peripheral mobile or desktop applications that become a part of the CryptoCaddy platform.
 
-This web-app repository is divided into 3 main components: web-services (Java/MySQL), fiat-engine (Python/MySQL) and web-ui (TypeScript/Angular). 
+This web-app repository is divided into 3 main components: web-services (Java/MySQL), fiat-engine (Python/MySQL) and web-ui (TypeScript/Angular).
 
 
-* The web-services directory is the root of the Java back end service for the web-app. It houses the central api that the web-ui and other peripherals will leverage to access private user and market level data. 
+* The web-services directory is the root of the Java back end service for the web-app. It houses the central api that the web-ui and other peripherals will leverage to access private user and market level data.
 * The fiat-engine directory is the root of the Python service that will be used to access the historical fiat value of coins based on timestamps. It will keep the MySQL database up to date with historical market data and access that data as neccessary to convert historical coin values into fiat values when generating gain/loss data in the Java web-service.
 * The web-ui is written with TypeScript and Angular. It uses the Java back end api for all data. It does not directly interface with the fiat-engine.
 
@@ -112,8 +112,8 @@ Please read [CONTRIBUTING.md](https://github.com/CryptoCaddy/web-app/blob/master
 
 ## Authors
 
-* **Jon Waggoner** 
-* **Nicholas Fields** 
+* **Jon Waggoner**
+* **Nicholas Fields**
 
 See also the list of [contributors](https://github.com/CryptoCaddy/web-services/contributors) who participated in this project.
 
