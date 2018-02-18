@@ -26,6 +26,8 @@ This project uses Google Firebase for authentication.  You can create an account
 Compile the source code - in terminal go to the web-services directory and run a clean install
 
 ```
+export MYSQL_HOST=localhost
+
 cd web-services
 mvn clean install
 ```
@@ -39,7 +41,7 @@ Start class: com.cryptocaddy.services.auditing.Application
 
 ## Deployment
 
-If running from an IDE just use the run configuration described above.  
+If running from an IDE just use the run configuration described above.
 Otherwise you can use the Spring command line to run start the application (look up Spring CLI).
 Another option is to use jetty to run the application through terminal.
 
@@ -50,5 +52,3 @@ Currently only available when service is running locally and can be found at loc
 ## Debugging with Docker
 
 To debug a running spring docker container simply connect to the JVM debugging port available at port `50505` on the docker machine's ip.
-
-
