@@ -30,7 +30,7 @@ CREATE TABLE `user_exchange` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `uid` varchar(255) NOT NULL,
 `name` varchar(45) DEFAULT NULL,
-`key` varchar(128) NOT NULL,
+`api_key` varchar(128) NOT NULL,
 `secret` varchar(128) NOT NULL,
 `passphrase` varchar(128) DEFAULT NULL,
 PRIMARY KEY (`id`),
