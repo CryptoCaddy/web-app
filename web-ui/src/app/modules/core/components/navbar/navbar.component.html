@@ -1,9 +1,9 @@
 <mat-toolbar role="header" [color]="'primary'">
-  <a class="cdy-brand" mat-button [routerLink]="[ '/home' ]">
+  <a class="cdy-brand" mat-button [routerLink]="[ '/app/home' ]">
     Crypto Caddy
   </a>
   <ng-container *ngIf="(loggedIn$ | async) && (user$ | async); let user; else notLoggedIn">
-    <a mat-button [routerLink]="[ '/reports' ]">Reports</a>
+    <a mat-button [routerLink]="[ '/app/reports' ]">Reports</a>
     <!-- <a mat-button [routerLink]="[ '/exchanges' ]">Exchanges</a> -->
     <span class="cdyg-spacer"></span>
 
@@ -24,8 +24,8 @@
       [yPosition]="'below'"
       [xPosition]="'before'"
     >
-      <a mat-menu-item [routerLink]="[ '/account/overview' ]">Account</a>
-      <a mat-menu-item [routerLink]="[ '/exchanges/setup' ]">Linked Exchanges</a>
+      <a mat-menu-item [routerLink]="[ '/app/account/overview' ]">Account</a>
+      <a mat-menu-item [routerLink]="[ '/app/exchanges/setup' ]">Linked Exchanges</a>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="onLogout()">
         <span>Sign out</span>
@@ -36,6 +36,6 @@
 
 <ng-template #notLoggedIn>
   <span class="cdyg-spacer"></span>
-  <a mat-button [routerLink]="[ '/account/register' ]">Sign up</a>
-  <a mat-button mat-raised-button [color]="'accent'" [routerLink]="[ '/account/login' ]">Sign in</a>
+  <a mat-button [routerLink]="[ '/app/account/register' ]">Sign up</a>
+  <a mat-button mat-raised-button [color]="'accent'" [routerLink]="[ '/app/account/login' ]">Sign in</a>
 </ng-template>

@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 export type SpinnerColor = 'primary'|'accent'|'warn'|'white';
 
@@ -19,7 +19,7 @@ export class ButtonContentComponent {
   public spinnerMode: 'determinate'|'indeterminate' = 'indeterminate';
 
   @HostBinding('class.cdy-spinner-white')
-  private get spinnerIsWhite() {
+  protected get spinnerIsWhite() {
     return this.spinnerColor === 'white';
   }
 

@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
+import { AppPage } from './pages/app/app.page';
 
 /**
  * Core module containing components and services only imported by the AppModule.
@@ -28,6 +29,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
     RouterModule.forChild([ ]),
   ],
   declarations: [
+    AppPage,
     FooterComponent,
     FourOhFourComponent,
     NavbarComponent,

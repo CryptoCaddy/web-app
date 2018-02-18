@@ -1,5 +1,88 @@
-<div class="cdyg-page-banner"></div>
+<div class="cdy-hero-wrapper">
+  <div class="cdy-background"></div>
+
+  <div class="cdy-hero">
+    <div [fxHide.xs]="true" class="cdy-logo">
+      <img src="/assets/img/crypto-caddy.png" alt="Crypto Caddy Logo">
+    </div>
+    <div class="cdy-header">
+      <h1 class="cdy-hero-headline">Crypto Caddy</h1>
+      <h2 class="mat-headline">Monitor your coins. Anywhere. Anytime.</h2>
+    </div>
+  </div>
+</div>
 
 <cdy-page-content>
-  <h1>Home</h1>
+  <section class="cdy-use-case">
+    <div class="cdy-item">
+      <div class="cdy-text">
+        <div>
+          <h3>Portfolio Tracking:</h3>
+          <ul>
+            <li>Profit Calculation</li>
+            <li>Interactive Charts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cdy-icon">
+        <mat-icon>show_chart</mat-icon>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="cdy-item">
+      <div class="cdy-icon">
+        <mat-icon>attach_money</mat-icon>
+      </div>
+
+      <div class="cdy-text">
+        <div>
+          <h3>Tax Calculation:</h3>
+          <ul>
+            <li>FIFO, LIFO, ...</li>
+            <li>Customizable parameters</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="cdy-item">
+      <div class="cdy-text">
+        <div>
+          <h3>Imports:</h3>
+          <ul>
+            <li>Automatic and Manual Imports for Exchanges</li>
+            <li>Synchronization with supported Wallets</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cdy-icon">
+        <mat-icon>import_export</mat-icon>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="cdy-item">
+      <div class="cdy-icon">
+        <mat-icon>lock</mat-icon>
+      </div>
+
+      <div class="cdy-text">
+        <div>
+          <h3>Secure:</h3>
+          <ul>
+            <li>Encrypted Communication</li>
+            <li>Encrypted Communication</li>
+            <li>Open Source Codebase</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </cdy-page-content>

@@ -1,0 +1,14 @@
+@import 'vars/dimensions';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  margin-top: $navbar-height;
+}
+
+router-outlet /deep/ {
+  & + * {
+    flex: 1;
+  }
+}

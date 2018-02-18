@@ -1,4 +1,4 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+// import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { AppConfigService } from 'app/modules/shared/services/app-config.service';
 
@@ -10,13 +10,13 @@ class AppConfigServiceMock extends AppConfigService {
 
 describe('ExchangeWalletsApiService', () => {
   let service: ExchangesApiService;
-  let httpMock: HttpTestingController;
+  // let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-      ],
+      // imports: [
+      //   HttpClientTestingModule,
+      // ],
       providers: [
         ExchangesApiService,
         { provide: AppConfigService, useClass: AppConfigServiceMock },
@@ -24,7 +24,7 @@ describe('ExchangeWalletsApiService', () => {
     });
 
     service = TestBed.get(ExchangesApiService);
-    httpMock = TestBed.get(HttpTestingController);
+    // httpMock = TestBed.get(HttpTestingController);
   });
 
   it('should be created', () => {

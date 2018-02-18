@@ -11,9 +11,9 @@ export class PageFabContainerComponent {
   public size: 'tiny'|'small'|'regular' = 'regular';
 
   @HostBinding('class.cdy-small')
-  private get isSmall() { return this.size === 'small'; }
+  protected get isSmall() { return this.size === 'small'; }
 
   @HostBinding('class.cdy-tiny')
-  private get isTiny() { return this.size === 'tiny'; }
+  protected get isTiny() { return this.size === 'tiny'; }
 
 }
