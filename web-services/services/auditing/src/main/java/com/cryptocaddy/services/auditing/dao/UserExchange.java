@@ -11,6 +11,7 @@ public class UserExchange {
 
     //exchange name
     private String name;
+
     //exchange api key
     private String apiKey;
     //exchange api secret
@@ -22,6 +23,10 @@ public class UserExchange {
     @JoinColumn(name = "uid")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "xid")
+    private Exchange exchange;
+
 
 
     public UserExchange(String name, String key, String secret, String passphrase) {
@@ -30,6 +35,7 @@ public class UserExchange {
         this.secret = secret;
         this.passphrase = passphrase;
     }
+
 
     public UserExchange() { super(); }
 
@@ -41,6 +47,14 @@ public class UserExchange {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getApiKey() {
@@ -72,20 +86,21 @@ public class UserExchange {
     }
 
     public void setUser(User user) {
-        if (user == null)
-            return;
 
         this.user = user;
+
+        if (user == null)
+            return;
         if (!user.getExchanges().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
             user.getExchanges().add(this);
         }
     }
 
-    public String getName() {
-        return name;
+    public Exchange getExchange() {
+        return exchange;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setExchange(Exchange exchange) {
+        this.exchange = exchange;
     }
 }
