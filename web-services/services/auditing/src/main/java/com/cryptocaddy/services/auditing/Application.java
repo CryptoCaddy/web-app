@@ -5,6 +5,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,7 +21,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"io.swagger", "com.cryptocaddy.*"})
-@EnableJpaRepositories
+@EnableJpaRepositories("com.cryptocaddy.*")
+@EntityScan("com.cryptocaddy.*")
 public class Application extends SpringBootServletInitializer{
     Application() {
         // Do not use
