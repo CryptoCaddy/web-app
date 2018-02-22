@@ -1,7 +1,7 @@
 package com.cryptocaddy.services.auditing.service;
 
-import com.cryptocaddy.services.auditing.dao.User;
-import com.cryptocaddy.services.auditing.dao.UserRepository;
+import com.cryptocaddy.libraries.database.dao.User;
+import com.cryptocaddy.libraries.database.dao.UserRepository;
 import com.cryptocaddy.services.auditing.model.Result;
 import com.cryptocaddy.services.auditing.model.request.RequestCreateAccount;
 import com.cryptocaddy.services.common.authentication.JWTAuthenticator;

@@ -1,4 +1,4 @@
-package com.cryptocaddy.services.auditing.dao;
+package com.cryptocaddy.libraries.database.dao;
 
 import javax.persistence.*;
 

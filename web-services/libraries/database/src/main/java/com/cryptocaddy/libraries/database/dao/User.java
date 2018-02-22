@@ -1,9 +1,8 @@
-package com.cryptocaddy.services.auditing.dao;
+package com.cryptocaddy.libraries.database.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity

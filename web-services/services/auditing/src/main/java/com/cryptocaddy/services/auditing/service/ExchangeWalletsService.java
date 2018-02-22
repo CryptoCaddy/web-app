@@ -1,21 +1,17 @@
 package com.cryptocaddy.services.auditing.service;
 
 import com.cryptocaddy.fiat.client.service.IFiatEngineService;
-import com.cryptocaddy.services.auditing.dao.User;
-import com.cryptocaddy.services.auditing.dao.UserExchange;
-import com.cryptocaddy.services.auditing.dao.UserExchangeRepository;
-import com.cryptocaddy.services.auditing.dao.UserRepository;
+import com.cryptocaddy.libraries.database.dao.User;
+import com.cryptocaddy.libraries.database.dao.UserExchange;
+import com.cryptocaddy.libraries.database.dao.UserExchangeRepository;
+import com.cryptocaddy.libraries.database.dao.UserRepository;
 import com.cryptocaddy.services.auditing.model.response.ResponseExchangeWrapper;
 import com.cryptocaddy.services.auditing.model.response.ResponseUserData;
 import com.cryptocaddy.services.common.authentication.JWTBody;
 import com.cryptocaddy.xchange.data.exchanges.ExchangeController;
 import com.cryptocaddy.xchange.data.exchanges.IExchangeController;
 import com.cryptocaddy.xchange.data.factory.AbstractExchangeFactory;
-import com.cryptocaddy.xchange.data.exchanges.ExchangeType;
 
-import com.cryptocaddy.services.auditing.model.AuditReport;
-import com.cryptocaddy.services.auditing.model.attributes.Exchange;
-import com.cryptocaddy.services.common.builder.Builder;
 import com.cryptocaddy.xchange.data.model.Coin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
