@@ -1,13 +1,10 @@
 import { AccountApi } from '@/api/account';
-import {
-  AccountPreferences,
-  AccountState,
-} from '@/store/modules/account.state';
+import { AccountPreferences, AccountState } from '@/store/modules/account.state';
+import { Logger } from '@/util/logger';
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 
 import { State as RootState } from '../';
-import { Logger } from '@/util/logger';
 
 export const moduleName = 'account';
 
@@ -77,9 +74,9 @@ export const module = {
           commiters.loadPreferencesSuccess(ctx, preferences);
           return preferences;
         })
-        .catch((err) => {
-          commiters.loadPreferencesError(ctx, err);
+        .catch((err: Error) => {
           Logger.warn('AccountStore#loadPreferences', err);
+          commiters.loadPreferencesError(ctx, err.message);
           return {};
         });
     },
@@ -93,9 +90,9 @@ export const module = {
         .then((updatedPreferences) => {
           commiters.savePreferencesSuccess(ctx, updatedPreferences);
         })
-        .catch((err: string) => {
+        .catch((err: Error) => {
           Logger.warn('AccountStore#updatePreferences', err);
-          commiters.savePreferencesError(ctx, err);
+          commiters.savePreferencesError(ctx, err.message);
         });
     },
   },

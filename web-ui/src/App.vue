@@ -1,6 +1,10 @@
 <template>
   <v-app class="app-root">
-    <v-navigation-drawer ref="drawerEl" v-model="drawer" right app
+    <v-navigation-drawer
+      ref="drawerEl"
+      v-model="drawer"
+      right
+      app
       :clipped="largeScreen"
       :fixed="largeScreen"
       :permanent="largeScreen"
@@ -9,7 +13,10 @@
       <transition
         name="avatar"
       >
-        <v-toolbar flat color="transparent" v-if="user">
+        <v-toolbar
+          flat
+          color="transparent"
+          v-if="user">
           <v-list class="pa-0">
             <v-list-tile avatar>
               <v-list-tile-avatar>
@@ -23,54 +30,67 @@
         </v-toolbar>
       </transition>
 
-      <v-divider></v-divider>
+      <v-divider/>
 
       <v-list>
-      <v-tooltip left lazy
-        open-delay="200"
-        close-delay="100"
-        tag="div"
-        v-for="entry of menuEntries"
-        v-if="entry.condition()"
-        :key="entry.id"
-        :disabled="!useMiniDrawer"
-      >
-        <v-list-tile
-          slot="activator"
-          :to="entry.to ? entry.to : null"
-          @click="entry.action ? entry.action() : null"
+        <v-tooltip
+          left
+          lazy
+          open-delay="200"
+          close-delay="100"
+          tag="div"
+          v-for="entry of menuEntries"
+          v-if="entry.condition()"
+          :key="entry.id"
+          :disabled="!useMiniDrawer"
         >
-          <v-list-tile-action>
+          <v-list-tile
+            slot="activator"
+            :to="entry.to ? entry.to : null"
+            @click="entry.action ? entry.action() : null"
+          >
+            <v-list-tile-action>
               <!-- <v-btn dark color="primary" slot="activator">Left</v-btn> -->
               <v-icon >{{ entry.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ entry.label }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      <span>{{ entry.label }}</span>
-      </v-tooltip>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ entry.label }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <span>{{ entry.label }}</span>
+        </v-tooltip>
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar color="primary" height="56dp" dark fixed clipped-right app>
+    <v-toolbar
+      color="primary"
+      height="56dp"
+      dark
+      fixed
+      clipped-right
+      app>
       <v-toolbar-title>
         <router-link to="/">Crypto Caddy</router-link>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-spacer/>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
     </v-toolbar>
 
     <v-content>
-      <transition name="router" mode="out-in">
+      <transition
+        name="router"
+        mode="out-in">
         <router-view />
       </transition>
 
-      <v-spacer></v-spacer>
-      <v-footer class="pa-2" color="primary" dark>
-        <v-spacer></v-spacer>
+      <v-spacer/>
+      <v-footer
+        class="pa-2"
+        color="primary"
+        dark>
+        <v-spacer/>
         - work in progress -
-        <v-spacer></v-spacer>
+        <v-spacer/>
       </v-footer>
     </v-content>
 
@@ -126,6 +146,7 @@ export default Vue.extend({
     },
 
     gravatarUrl() {
+      /* eslint-disable-next-line prefer-destructuring */
       const email: string = this.email;
       return `https://www.gravatar.com/avatar/${md5(email)}?s=80`;
     },

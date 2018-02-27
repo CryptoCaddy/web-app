@@ -1,5 +1,6 @@
-import * as ArrayUtil from '../array';
 import deepFreeze from 'deep-freeze';
+
+import * as ArrayUtil from '../array';
 
 describe('ArrayUtil', () => {
   describe('sortBy', () => {

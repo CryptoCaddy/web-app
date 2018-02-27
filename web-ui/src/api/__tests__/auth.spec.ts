@@ -1,11 +1,13 @@
-import { AuthApi, firebaseFallbackErrorMessage } from '@/api/auth';
+import { AuthApi } from '@/api/auth';
 import { ApiError } from '@/models/ApiError';
 import { EmailAndPassword } from '@/store/modules/auth.state';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import deepFreeze from 'deep-freeze';
-import firebase, { FirebaseError } from 'firebase/app';
+import firebase from 'firebase/app';
 
+const firebaseFallbackErrorMessage =
+  'Firebase: An unknown error occured.';
 const mockHttp = new MockAdapter(axios);
 
 afterEach(() => {
@@ -13,13 +15,13 @@ afterEach(() => {
 });
 
 describe('AuthApi', () => {
-  const authMock = firebase.auth()!;
+  const authMock = firebase.auth!();
   const errorFn = jest.fn();
   const credentials: EmailAndPassword = deepFreeze({
     email: 'user@example.com',
     password: 'Passw0rd!',
   });
-  const emailCredential = firebase.auth.EmailAuthProvider.credential(
+  const emailCredential = firebase.auth!.EmailAuthProvider.credential(
     credentials.email,
     credentials.password,
   );
@@ -39,154 +41,262 @@ describe('AuthApi', () => {
     }
   });
 
+  /**
+   * linkWithCredential
+   */
   describe('linkWithCredential()', () => {
+    beforeEach(() => {
+      authMock.currentUser = { isAnonymous: true, linkWithCredential: jest.fn() } as any;
+
+      jest
+        .spyOn(authMock.currentUser!, 'linkWithCredential')
+        .mockImplementation(() => Promise.resolve({ ...firebaseUser }));
+    });
+
+    it('should call the corresponding firebase method', async () => {
+      await AuthApi.linkWithCredential(emailCredential);
+
+      expect(authMock.currentUser!.linkWithCredential)
+        .toHaveBeenCalledWith(emailCredential);
+    });
+
     describe('if firebase request succeeded', () => {
+      it('should succeed', async () => {
+        await AuthApi.linkWithCredential(emailCredential).catch(errorFn);
+
+        expect(errorFn).not.toHaveBeenCalled();
+      });
+
       it('should return a promise containing a firebase user', async () => {
-        authMock.signInAnonymously();
-        (authMock as any).flush();
+        const response = AuthApi.linkWithCredential(emailCredential);
 
-        authMock.currentUser!.linkWithCredential = jest.fn(() =>
-          Promise.resolve({ ...firebaseUser }),
-        );
-
-        const response = await AuthApi.linkWithCredential(emailCredential);
-
-        expect(authMock.currentUser!.linkWithCredential).toHaveBeenCalledWith(
-          emailCredential,
-        );
-        expect(response).toMatchObject(firebaseUser);
-        expect(response).not.toBe(firebaseUser);
+        expect(response).resolves.toMatchObject(firebaseUser);
+        expect(response).resolves.not.toBe(firebaseUser);
       });
     });
 
     describe('if firebase request failed', () => {
+      beforeEach(() => {
+        jest
+          .spyOn(authMock.currentUser!, 'linkWithCredential')
+          .mockImplementation(() => Promise.reject(new Error('Email already in use.')));
+      });
+
       it('should reject with an error', async () => {
-        authMock.signInAnonymously();
-        (authMock as any).flush();
+        await AuthApi.linkWithCredential(emailCredential).catch(errorFn);
 
-        const error: Partial<FirebaseError> = {
-          message: 'Email already in use.',
-        };
-        authMock.currentUser!.linkWithCredential = jest.fn(() =>
-          Promise.reject(error),
-        );
+        expect(errorFn).toHaveBeenCalledWith(new Error('Email already in use.'));
+      });
 
-        const response = await AuthApi.linkWithCredential(
-          emailCredential,
-        ).catch(errorFn);
+      it('user should still be anonymous', async () => {
+        await AuthApi.linkWithCredential(emailCredential).catch(errorFn);
 
         expect(authMock.currentUser).toMatchObject({ isAnonymous: true });
-        expect(response).toBeUndefined();
-        expect(errorFn).toHaveBeenCalledWith('Email already in use.');
       });
 
       it('should reject with a default error if none provided', async () => {
-        authMock.signInAnonymously();
-        (authMock as any).flush();
+        jest
+          .spyOn(authMock.currentUser!, 'linkWithCredential')
+          .mockImplementation(() => Promise.reject(new Error()));
 
-        authMock.currentUser!.linkWithCredential = jest.fn(() =>
-          Promise.reject({}),
-        );
+        await AuthApi.linkWithCredential(emailCredential).catch(errorFn);
 
-        const response = await AuthApi.linkWithCredential(
-          emailCredential,
-        ).catch(errorFn);
-
-        expect(authMock.currentUser).toMatchObject({
-          isAnonymous: true,
-        });
-        expect(response).toBeUndefined();
-        expect(errorFn).toHaveBeenCalledWith(firebaseFallbackErrorMessage);
+        expect(errorFn).toHaveBeenCalledWith(new Error(firebaseFallbackErrorMessage));
       });
     });
 
     describe('if no user is currently logged in', () => {
+      beforeEach(() => {
+        authMock.signOut();
+        (authMock as any).flush();
+      });
+
       it('should reject with an error', async () => {
-        const response = await AuthApi.linkWithCredential(
-          emailCredential,
-        ).catch(errorFn);
+        const response = await AuthApi.linkWithCredential(emailCredential).catch(errorFn);
 
         expect(response).toBeUndefined();
-        expect(errorFn).toHaveBeenCalledWith('No user context found.');
+        expect(errorFn).toHaveBeenCalledWith(new Error('No user context found.'));
       });
     });
   });
 
+  /**
+   * signInAnonymously
+   */
   describe('signInAnonymously()', () => {
+    it('should call the corresponding firebase method', async () => {
+      jest.spyOn(authMock, 'signInAnonymously').mockImplementation(() => {
+        authMock.currentUser = { isAnonymous: true } as any;
+        return Promise.resolve(authMock.currentUser);
+      });
+      await AuthApi.signInAnonymously();
+
+      expect(authMock.signInAnonymously).toHaveBeenCalled();
+    });
+
     describe('if firebase request succeeded', () => {
-      it('should log in the user with an anonymous account', () => {
-        AuthApi.signInAnonymously();
-        (authMock as any).flush();
+      beforeEach(() => {
+        jest.spyOn(authMock, 'signInAnonymously').mockImplementation(() => {
+          authMock.currentUser = { isAnonymous: true } as any;
+          return Promise.resolve(authMock.currentUser);
+        });
+      });
+
+      it('should log in the user with an anonymous account', async () => {
+        await AuthApi.signInAnonymously();
 
         expect(authMock.currentUser).toMatchObject({ isAnonymous: true });
       });
 
       it('should return a promise containing a firebase user', () => {
         const result = AuthApi.signInAnonymously();
-        (authMock as any).flush();
 
         expect(result).resolves.toMatchObject({ isAnonymous: true });
       });
     });
 
     describe('if firebase request failed', () => {
+      beforeEach(() => {
+        jest.spyOn(authMock, 'signInAnonymously').mockImplementation(() => {
+          authMock.currentUser = null;
+          return Promise.reject(new Error('Not allowed.'));
+        });
+      });
+
       it('should not log in the user', async () => {
-        authMock.signInAnonymously = jest.fn(() =>
-          Promise.reject({ message: 'Not allowed.' }),
-        );
-        const result = await AuthApi.signInAnonymously().catch(errorFn);
+        await AuthApi.signInAnonymously().catch(errorFn);
 
         expect(authMock.currentUser).toBeNull();
-        expect(result).toBeUndefined();
-        expect(errorFn).toHaveBeenCalledWith('Not allowed.');
+      });
+
+      it('should reject with an error message ', async () => {
+        await AuthApi.signInAnonymously().catch(errorFn);
+
+        expect(errorFn).toHaveBeenCalledWith(new Error('Not allowed.'));
       });
 
       it('should reject with a default error if none provided', async () => {
-        authMock.signInAnonymously = jest.fn(() => Promise.reject({}));
-        const result = await AuthApi.signInAnonymously().catch(errorFn);
+        jest.spyOn(authMock, 'signInAnonymously').mockImplementation(() => {
+          authMock.currentUser = null;
+          return Promise.reject(new Error());
+        });
+        await AuthApi.signInAnonymously().catch(errorFn);
 
-        expect(authMock.currentUser).toBeNull();
-        expect(result).toBeUndefined();
-        expect(errorFn).toHaveBeenCalledWith(firebaseFallbackErrorMessage);
+        expect(errorFn).toHaveBeenCalledWith(new Error(firebaseFallbackErrorMessage));
       });
     });
   });
 
+  /**
+   * signInWithEmailAndPassword
+   */
   describe('signInWithEmailAndPassword()', () => {
-    describe('if firebase request succeeded', () => {
-      it('should return a promise containing the firebase user', () => {
-        const result = AuthApi.signInWithEmailAndPassword(credentials);
-        (authMock as any).flush();
+    const signUpEndpoint = '/api/createAccount';
 
-        expect(result).resolves.toMatchObject(authMock!.currentUser!);
+    beforeEach(() => {
+      jest.spyOn(axios, 'post');
+    });
+
+    afterEach(() => {
+      jest.spyOn(axios, 'post').mockRestore();
+    });
+
+    describe('if request succeeded', () => {
+      beforeEach(() => {
+        jest
+          .spyOn(authMock, 'signInWithEmailAndPassword')
+          .mockImplementation((email) =>
+            Promise.resolve({ email, getIdToken: () => Promise.resolve(token) }));
+
+        mockHttp
+          .onPost(signUpEndpoint, { email: credentials.email, token })
+          .replyOnce(201);
+      });
+
+      it('should sign in on firebase', async () => {
+        await AuthApi.signInWithEmailAndPassword(credentials);
+
+        expect(authMock.signInWithEmailAndPassword)
+          .toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
+      });
+
+      it('should sign in on the crypto caddy backend', async () => {
+        await AuthApi.signInWithEmailAndPassword(credentials);
+
+        expect(axios.post)
+          .toHaveBeenCalledWith(signUpEndpoint, { email: 'user@example.com', token });
+      });
+
+      it('should resolve a promise containing a firebase user', async () => {
+        const result = await AuthApi
+          .signInWithEmailAndPassword(credentials)
+          .catch(errorFn);
+
+        expect(errorFn).not.toHaveBeenCalled();
+        expect(result).toMatchObject({
+          email: 'user@example.com',
+        });
       });
     });
 
     describe('if firebase request failed', () => {
-      it('should reject with an error', async () => {
-        authMock.signInWithEmailAndPassword = jest.fn(() =>
-          Promise.reject({ message: 'Error: Wrong credentials.' }),
-        );
-        const result = await AuthApi.signInWithEmailAndPassword(
-          credentials,
-        ).catch(errorFn);
+      beforeEach(() => {
+        jest
+          .spyOn(authMock, 'signInWithEmailAndPassword')
+          .mockImplementation(() => Promise.reject(new Error('Error: Wrong credentials.')));
+      });
+
+      it('should not return an user object', async () => {
+        const result = await AuthApi.signInWithEmailAndPassword(credentials).catch(errorFn);
 
         expect(result).toBeUndefined();
-        expect(errorFn).toHaveBeenCalledWith('Error: Wrong credentials.');
+      });
+
+      it('should reject with an error', async () => {
+        await AuthApi.signInWithEmailAndPassword(credentials).catch(errorFn);
+
+        expect(errorFn).toHaveBeenCalledWith(new Error('Error: Wrong credentials.'));
       });
 
       it('should reject with a default error if none provided', async () => {
-        authMock.signInWithEmailAndPassword = jest.fn(() => Promise.reject({}));
-        const result = await AuthApi.signInWithEmailAndPassword(
-          credentials,
-        ).catch(errorFn);
+        jest
+          .spyOn(authMock, 'signInWithEmailAndPassword')
+          .mockImplementation(() => Promise.reject(new Error()));
+
+        await AuthApi.signInWithEmailAndPassword(credentials).catch(errorFn);
+        expect(errorFn).toHaveBeenCalledWith(new Error(firebaseFallbackErrorMessage));
+      });
+    });
+
+    describe('if backend request failed', () => {
+      beforeEach(() => {
+        jest
+          .spyOn(authMock, 'signInWithEmailAndPassword')
+          .mockImplementation((email) =>
+            Promise.resolve({ email, getIdToken: () => Promise.resolve(token) }));
+
+        mockHttp
+          .onPost(signUpEndpoint, { email: credentials.email, token })
+          .replyOnce(500, { message: 'Server not available.' });
+      });
+
+      it('should not return an user object', async () => {
+        const result = await AuthApi.signInWithEmailAndPassword(credentials).catch(errorFn);
 
         expect(result).toBeUndefined();
-        expect(errorFn).toHaveBeenCalledWith(firebaseFallbackErrorMessage);
+      });
+
+      it('should reject with the given error', async () => {
+        await AuthApi.signInWithEmailAndPassword(credentials).catch(errorFn);
+
+        expect(errorFn).toHaveBeenCalledWith(new Error('Server not available.'));
       });
     });
   });
 
+  /**
+   * signOut
+   */
   describe('signOut()', () => {
     it('should log out the user on firebase', () => {
       authMock.signOut = jest.fn(() => Promise.resolve());
@@ -196,8 +306,11 @@ describe('AuthApi', () => {
     });
   });
 
+  /**
+   * signUpWithEmailAndPassword
+   */
   describe('signUpWithEmailAndPassword()', () => {
-    const endpoint = '/api/createAccount';
+    const signUpEndpoint = '/api/createAccount';
 
     beforeEach(() => {
       jest.spyOn(axios, 'post');
@@ -208,95 +321,94 @@ describe('AuthApi', () => {
     });
 
     describe('if successful', () => {
-      it('should return a promise containing a firebase user', async () => {
-        firebase.auth().createUserWithEmailAndPassword = jest.fn((email) =>
-          Promise.resolve({
-            email,
-            getToken: () => Promise.resolve(token),
-          }),
-        );
+      beforeEach(() => {
+        jest
+          .spyOn(authMock, 'createUserWithEmailAndPassword')
+          .mockImplementation((email) =>
+            Promise.resolve({ email, getIdToken: () => Promise.resolve(token) }));
 
         mockHttp
-          .onPost(endpoint, {
-            email: credentials.email,
-            token,
-          })
+          .onPost(signUpEndpoint, { email: credentials.email, token })
           .replyOnce(201);
+      });
 
-        const result = await AuthApi.signUpWithEmailAndPassword(
-          credentials,
-        ).catch(errorFn);
+      it('should call the corresponding firebase method', async () => {
+        AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
 
-        expect(
-          firebase.auth().createUserWithEmailAndPassword,
-        ).toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
+        expect(authMock.createUserWithEmailAndPassword)
+          .toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
+      });
 
+      it('should make a backend request', async () => {
+        await AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
+        expect(axios.post).toHaveBeenCalledWith(signUpEndpoint, {
+          email: credentials.email,
+          token,
+        });
+      });
+
+      it('should succeed', async () => {
+        AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
         expect(errorFn).not.toHaveBeenCalled();
-        expect(
-          firebase.auth().createUserWithEmailAndPassword,
-        ).toHaveBeenCalledWith(credentials.email, credentials.password);
+      });
+
+      it('should return a promise containing a firebase user', async () => {
+        const result = await AuthApi.signUpWithEmailAndPassword(credentials);
         expect(result).toMatchObject({ email: 'user@example.com' });
       });
     });
 
     describe('if firebase registration failed', () => {
-      it('should reject with an error based on the firebase error message', async () => {
-        firebase.auth().createUserWithEmailAndPassword = jest.fn(() =>
-          Promise.reject({
-            message: 'Email address already in use.',
-          } as FirebaseError),
-        );
+      beforeEach(() => {
+        jest
+          .spyOn(authMock, 'createUserWithEmailAndPassword')
+          .mockImplementation(() =>
+            Promise.reject(new Error('Email address already in use.')));
+      });
 
+      it('should not return an user object', async () => {
+        const result = await AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
+        expect(result).toBeUndefined();
+      });
+
+      it('should reject with an error', async () => {
         await AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
 
-        expect(
-          firebase.auth().createUserWithEmailAndPassword,
-        ).toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
-
-        expect(errorFn).toHaveBeenCalledWith('Email address already in use.');
+        expect(errorFn).toHaveBeenCalledWith(new Error('Email address already in use.'));
       });
 
       it('should reject with a default error if no firebase error was provided', async () => {
-        firebase.auth().createUserWithEmailAndPassword = jest.fn(() =>
-          Promise.reject({} as FirebaseError),
-        );
-
+        jest
+          .spyOn(authMock, 'createUserWithEmailAndPassword')
+          .mockImplementation(() => Promise.reject(new Error()));
         await AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
 
-        expect(
-          firebase.auth().createUserWithEmailAndPassword,
-        ).toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
-
-        expect(errorFn).toHaveBeenCalledWith(firebaseFallbackErrorMessage);
+        expect(errorFn).toHaveBeenCalledWith(new Error(firebaseFallbackErrorMessage));
       });
     });
 
     describe('if crypto caddy registration failed', () => {
-      it('should reject with an error based on the crypto caddy error message', async () => {
-        firebase.auth().createUserWithEmailAndPassword = jest.fn((email) =>
-          Promise.resolve({
-            email,
-            getToken: () => Promise.resolve(token),
-          }),
-        );
+      beforeEach(() => {
+        jest
+          .spyOn(authMock, 'createUserWithEmailAndPassword')
+          .mockImplementation((email) =>
+            Promise.resolve({ email, getIdToken: () => Promise.resolve(token) }));
 
         mockHttp
-          .onPost(endpoint, { email: credentials.email, token })
-          .replyOnce(418, {
-            detail: `418 - I'm a teapot`,
-            message: 'Just throwing some stuff.',
-          } as ApiError);
+          .onPost(signUpEndpoint, { email: credentials.email, token })
+          .replyOnce(418, { message: 'Just throwing some stuff.' } as ApiError);
+      });
 
+      it('should not return an user object', async () => {
+        const result = await AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
+
+        expect(result).toBeUndefined();
+      });
+
+      it('should reject with an error', async () => {
         await AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
 
-        expect(
-          firebase.auth().createUserWithEmailAndPassword,
-        ).toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
-        expect(axios.post).toHaveBeenCalledWith(endpoint, {
-          email: credentials.email,
-          token,
-        });
-        expect(errorFn).toHaveBeenCalledWith('Just throwing some stuff.');
+        expect(errorFn).toHaveBeenCalledWith(new Error('Just throwing some stuff.'));
       });
     });
   });

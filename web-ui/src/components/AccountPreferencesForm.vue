@@ -1,10 +1,18 @@
 <template>
-  <v-form v-model="form.valid" ref="form" lazy-validation @submit.prevent="submit()">
+  <v-form
+    v-model="form.valid"
+    ref="form"
+    lazy-validation
+    @submit.prevent="submit()">
     <v-layout row>
 
       <v-flex xs12>
-        <FormFieldCurrency v-model="form.value.currency" required />
-        <FormFieldTimezone v-model="form.value.timezone" required />
+        <FormFieldCurrency
+          v-model="form.value.currency"
+          required />
+        <FormFieldTimezone
+          v-model="form.value.timezone"
+          required />
       </v-flex>
 
     </v-layout>

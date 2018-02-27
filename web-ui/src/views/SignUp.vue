@@ -1,20 +1,34 @@
 <template>
-  <v-container fill-height :class="containerClasses">
-    <v-layout row justify-center align-center>
-      <v-flex xs12 sm8 md6>
+  <v-container
+    fill-height
+    :class="containerClasses">
+    <v-layout
+      row
+      justify-center
+      align-center>
+      <v-flex
+        xs12
+        sm8
+        md6>
 
-        <v-stepper vertical
+        <v-stepper
+          vertical
           v-model="currentStep"
           :class="stepperClasses"
         >
 
-          <v-stepper-step step="1" :complete="currentStep > 1">
+          <v-stepper-step
+            step="1"
+            :complete="currentStep > 1">
             Credentials
             <small>Set email and password</small>
           </v-stepper-step>
           <v-stepper-content step="1">
             <SignUpForm ref="signUpForm" />
-            <v-layout row justify-end pt-2>
+            <v-layout
+              row
+              justify-end
+              pt-2>
               <v-btn
                 color="primary"
                 :loading="authPending"
@@ -23,28 +37,43 @@
             </v-layout>
           </v-stepper-content>
 
-          <v-stepper-step step="2" :complete="currentStep > 2">
+          <v-stepper-step
+            step="2"
+            :complete="currentStep > 2">
             Preferences
             <small>Configure essential preferences</small>
           </v-stepper-step>
           <v-stepper-content step="2">
-            <AccountPreferencesForm ref="preferencesForm" :prepopulate="false" />
-            <v-layout row justify-end pt-2>
-              <v-btn color="primary"
+            <AccountPreferencesForm
+              ref="preferencesForm"
+              :prepopulate="false" />
+            <v-layout
+              row
+              justify-end
+              pt-2>
+              <v-btn
+                color="primary"
                 :loading="preferencesSaving"
                 @click.native="$refs.preferencesForm.submit"
               >Proceed</v-btn>
             </v-layout>
           </v-stepper-content>
 
-          <v-stepper-step step="3" :complete="currentStep > 3">
+          <v-stepper-step
+            step="3"
+            :complete="currentStep > 3">
             Done
             <small>You're ready to go!</small>
           </v-stepper-step>
           <v-stepper-content step="3">
             <div>Thank you for choosing Crypto Caddy!</div>
-            <v-layout row justify-end pt-4>
-              <v-btn color="primary" to="/">Proceed</v-btn>
+            <v-layout
+              row
+              justify-end
+              pt-4>
+              <v-btn
+                color="primary"
+                to="/">Proceed</v-btn>
             </v-layout>
           </v-stepper-content>
 

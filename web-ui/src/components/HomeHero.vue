@@ -1,12 +1,27 @@
 <template>
-  <v-layout class="hero-wrapper" align-center justify-center>
-    <div class="background"></div>
+  <v-layout
+    class="hero-wrapper"
+    align-center
+    justify-center>
+    <div class="background"/>
 
-    <v-container align-center class="content">
-      <v-layout align-center justify-center hidden-xs-only class="logo">
-        <img src="/img/crypto-caddy.png" alt="Crypto Caddy Logo">
+    <v-container
+      align-center
+      class="content">
+      <v-layout
+        align-center
+        justify-center
+        hidden-xs-only
+        class="logo">
+        <img
+          src="/img/crypto-caddy.png"
+          alt="Crypto Caddy Logo">
       </v-layout>
-      <v-layout column align-start justify-center class="header">
+      <v-layout
+        column
+        align-start
+        justify-center
+        class="header">
         <h1 class="display-3">Crypto Caddy</h1>
         <h2 class="display-1">Monitor your coins. Anywhere. Anytime.</h2>
       </v-layout>
@@ -16,6 +31,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
 export default Vue.extend({});
 </script>
 

@@ -23,6 +23,7 @@ export const errorMessageInterceptor = axios.interceptors.response.use(
   (err: AxiosError) => {
     // Try to map the backend's error message to the AxiosError's message property.
     if (err.response && err.response.data && err.response.data.message) {
+      /* eslint-disable-next-line no-param-reassign */
       err.message = err.response.data.message;
     }
 

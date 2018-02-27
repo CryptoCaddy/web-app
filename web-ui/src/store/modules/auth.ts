@@ -3,6 +3,7 @@ import {
   AuthState,
   AuthUser,
   EmailAndPassword,
+  firebaseUserToAuthUser,
 } from '@/store/modules/auth.state';
 import firebase from 'firebase/app';
 import { ActionContext } from 'vuex';
@@ -78,8 +79,8 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: string) => {
-          commiters.authError(ctx, err);
+        .catch((err: Error) => {
+          commiters.authError(ctx, err.message);
         });
     },
 
@@ -90,8 +91,8 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: string) => {
-          commiters.authError(ctx, err);
+        .catch((err: Error) => {
+          commiters.authError(ctx, err.message);
         });
     },
 
@@ -105,8 +106,8 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: string) => {
-          commiters.authError(ctx, err);
+        .catch((err: Error) => {
+          commiters.authError(ctx, err.message);
         });
     },
 
@@ -126,8 +127,8 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: string) => {
-          commiters.authError(ctx, err);
+        .catch((err: Error) => {
+          commiters.authError(ctx, err.message);
         });
     },
   },
@@ -164,11 +165,3 @@ export const dispatchers = {
     module.actions.signUpWithEmailAndPassword,
   ),
 };
-
-function firebaseUserToAuthUser(user: firebase.User): AuthUser {
-  return {
-    email: user.email,
-    emailVerified: user.emailVerified,
-    isAnonymous: user.isAnonymous,
-  };
-}

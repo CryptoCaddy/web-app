@@ -1,11 +1,21 @@
 <template>
   <v-container :class="containerClasses">
-    <v-layout row wrap>
-      <v-flex xs12 sm8 offset-sm2 md6 offset-md3>
+    <v-layout
+      row
+      wrap>
+      <v-flex
+        xs12
+        sm8
+        offset-sm2
+        md6
+        offset-md3>
 
         <!-- <h1 class="headline">Account</h1> -->
 
-        <v-card v-if="!isAnonymous" class="pt-4 px-4 mb-4" :flat="isPhone">
+        <v-card
+          v-if="!isAnonymous"
+          class="pt-4 px-4 mb-4"
+          :flat="isPhone">
           <v-card-title>
             <h2 class="title mb-0">Account Data</h2>
           </v-card-title>
@@ -14,12 +24,19 @@
           </v-card-text>
 
           <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn flat disabled color="primary" class="ma-0">TBI</v-btn>
+            <v-spacer/>
+            <v-btn
+              flat
+              disabled
+              color="primary"
+              class="ma-0">TBI</v-btn>
           </v-card-actions>
         </v-card>
 
-        <v-card v-else class="pt-4 px-4 mb-4" :flat="isPhone">
+        <v-card
+          v-else
+          class="pt-4 px-4 mb-4"
+          :flat="isPhone">
           <v-card-title primary-title>
             <h2 class="title mb-0">Link Account</h2>
           </v-card-title>
@@ -29,21 +46,28 @@
             <br>
             <span>Create your Crypto Caddy account now!</span>
 
-            <SingUpForm ref="signUpForm" link-account class="mt-4" />
+            <SingUpForm
+              ref="signUpForm"
+              link-account
+              class="mt-4" />
           </v-card-text>
 
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn flat color="primary"
+            <v-spacer/>
+            <v-btn
+              flat
+              color="primary"
               @click.native="$refs.signUpForm.submit()"
               :loading="authPending"
             >Sign Up</v-btn>
           </v-card-actions>
         </v-card>
 
-        <v-divider></v-divider>
+        <v-divider/>
 
-        <v-card class="pt-4 px-4 mb-4" :flat="isPhone">
+        <v-card
+          class="pt-4 px-4 mb-4"
+          :flat="isPhone">
           <v-card-title primary-title>
             <h2 class="title mb-0">Preferences</h2>
           </v-card-title>
@@ -52,8 +76,12 @@
           </v-card-text>
 
           <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn flat disabled color="primary" class="ma-0">TBI</v-btn>
+            <v-spacer/>
+            <v-btn
+              flat
+              disabled
+              color="primary"
+              class="ma-0">TBI</v-btn>
           </v-card-actions>
         </v-card>
 

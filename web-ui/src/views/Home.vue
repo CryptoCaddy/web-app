@@ -12,8 +12,10 @@
               :key="useCase.id"
               v-scroll-reveal="scrollRevealOptions"
             >
-              <v-divider v-if="index !== 0"></v-divider>
-              <HomeUseCase :useCase="useCase" :iconFirst="index % 2 === 1" />
+              <v-divider v-if="index !== 0"/>
+              <HomeUseCase
+                :use-case="useCase"
+                :icon-first="index % 2 === 1" />
             </div>
           </div>
         </section>

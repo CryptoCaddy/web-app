@@ -10,7 +10,7 @@
     :rules="validators"
     :required="required"
     :disabled="disabled"
-  ></v-text-field>
+  />
 </template>
 
 <script lang="ts">
@@ -19,18 +19,12 @@ import * as Validators from '@/util/validators';
 
 export default Vue.extend({
   props: {
-    value: String,
-    label: {
-      type: String,
-      default: 'Password',
-    },
-    name: {
-      type: String,
-      default: 'password',
-    },
-    equals: String,
-    disabled: Boolean,
-    required: Boolean,
+    value: { type: String, default: null },
+    label: { type: String, default: 'Password' },
+    name: { type: String, default: 'password' },
+    equals: { type: String, default: null },
+    disabled: { type: Boolean, default: false },
+    required: { type: Boolean, default: false },
   },
 
   data() {

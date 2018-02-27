@@ -13,13 +13,11 @@ export const AccountApi = {
     });
   },
 
-  updatePreferences(
-    preferences: AccountPreferences,
-  ): Promise<AccountPreferences> {
+  updatePreferences(preferences: AccountPreferences): Promise<AccountPreferences> {
     // @TODO real implementation
     return new Promise((resolve) => {
       setTimeout(() => {
-        return resolve({ ...preferences });
+        resolve({ ...preferences });
       }, Math.random() * 2000);
     });
   },

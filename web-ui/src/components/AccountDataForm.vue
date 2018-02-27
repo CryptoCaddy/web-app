@@ -2,7 +2,9 @@
   <v-form v-model="form.valid">
     <v-layout row>
       <v-flex xs12>
-        <FormFieldEmail v-model="form.value.email" disabled />
+        <FormFieldEmail
+          v-model="form.value.email"
+          disabled />
       </v-flex>
     </v-layout>
   </v-form>

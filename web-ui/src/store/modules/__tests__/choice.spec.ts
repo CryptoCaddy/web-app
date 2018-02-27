@@ -1,11 +1,11 @@
 import { ChoicesApi } from '@/api/choices';
+import { SelectOption } from '@/models/SelectOption';
 import { Logger } from '@/util/logger';
 import { clone } from '@/util/object';
 
 import RootStore from '../..';
 import * as ChoiceStore from '../choice';
 import { ChoiceState } from '../choice.state';
-import { SelectOption } from '@/models/SelectOption';
 
 jest.mock('@/util/logger', () => ({
   Logger: {
@@ -53,8 +53,7 @@ describe('ChoiceStore', () => {
         expectedState.currency.options = [];
 
         ChoicesApi.getCurrencies = jest.fn(() =>
-          Promise.resolve<SelectOption[]>([{ value: 'eur', label: 'Euro' }]),
-        );
+          Promise.resolve<SelectOption[]>([{ value: 'eur', label: 'Euro' }]));
 
         const p = ChoiceStore.dispatchers.loadCurrencyOptions(RootStore);
         expect(state).toEqual(expectedState);
@@ -73,13 +72,12 @@ describe('ChoiceStore', () => {
           expectedState.currency.options = [];
 
           ChoicesApi.getCurrencies = jest.fn(() =>
-            Promise.reject('500 - Internal Server Error'),
-          );
+            Promise.reject(new Error('500 - Internal Server Error')));
           await ChoiceStore.dispatchers.loadCurrencyOptions(RootStore);
 
           expect(Logger.warn).toHaveBeenLastCalledWith(
             'ChoiceStore#loadCurrencyOptions',
-            '500 - Internal Server Error',
+            new Error('500 - Internal Server Error'),
           );
           expect(state).toEqual(expectedState);
         });
@@ -95,8 +93,7 @@ describe('ChoiceStore', () => {
         ChoicesApi.getTimezones = jest.fn(() =>
           Promise.resolve<SelectOption[]>([
             { value: 'Europe/Berlin', label: 'Europe/Berlin' },
-          ]),
-        );
+          ]));
         const p = ChoiceStore.dispatchers.loadTimezoneOptions(RootStore);
         expect(state).toEqual(expectedState);
 
@@ -117,13 +114,12 @@ describe('ChoiceStore', () => {
         expectedState.timezone.options = [];
 
         ChoicesApi.getTimezones = jest.fn(() =>
-          Promise.reject('500 - Internal Server Error'),
-        );
+          Promise.reject(new Error('500 - Internal Server Error')));
         await ChoiceStore.dispatchers.loadTimezoneOptions(RootStore);
 
         expect(Logger.warn).toHaveBeenLastCalledWith(
           'ChoiceStore#loadTimezoneOptions',
-          '500 - Internal Server Error',
+          new Error('500 - Internal Server Error'),
         );
         expect(state).toEqual(expectedState);
       });

@@ -13,7 +13,7 @@
     :loading="currencies.pending"
     :required="required"
     :disabled="disabled || currencies.pending"
-  ></v-select>
+  />
 </template>
 
 <script lang="ts">
@@ -26,17 +26,11 @@ import { Choice } from '@/store/modules/choice.state';
 
 export default Vue.extend({
   props: {
-    value: String,
-    label: {
-      type: String,
-      default: 'Currency',
-    },
-    name: {
-      type: String,
-      default: 'currency',
-    },
-    disabled: Boolean,
-    required: Boolean,
+    value: { type: String, default: null },
+    label: { type: String, default: 'Currency' },
+    name: { type: String, default: 'currency' },
+    disabled: { type: Boolean, default: false },
+    required: { type: Boolean, default: false },
   },
 
   computed: {
@@ -66,7 +60,7 @@ export default Vue.extend({
   },
 
   watch: {
-    'currencies.pending'(value) {
+    'currencies.pending': function (value) {
       this.$emit('pending', value);
     },
   },

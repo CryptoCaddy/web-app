@@ -1,5 +1,12 @@
 module.exports = {
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'vue'],
+  moduleFileExtensions: [
+    'ts',
+    'tsx',
+    'js',
+    'jsx',
+    'json',
+    'vue',
+  ],
   transform: {
     '^.+\\.vue$': 'vue-jest',
     '^.+\\.tsx?$': 'ts-jest',
@@ -7,8 +14,12 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  snapshotSerializers: ['jest-serializer-vue'],
-  testMatch: ['**/__tests__/*.(ts|tsx|js)'],
+  snapshotSerializers: [
+    'jest-serializer-vue',
+  ],
+  testMatch: [
+    '**/__tests__/*.(ts|tsx|js)',
+  ],
   mapCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{vue,ts}',
@@ -16,6 +27,12 @@ module.exports = {
     '!src/theme.ts',
     '!src/**/*.d.ts',
   ],
-  coverageReporters: ['json', 'lcov', 'text-summary'],
-  setupFiles: ['./config/jest.setup.ts'],
+  coverageReporters: [
+    'json',
+    'lcov',
+    'text-summary',
+  ],
+  setupFiles: [
+    './config/jest.setup.ts',
+  ],
 };

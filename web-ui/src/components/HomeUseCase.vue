@@ -1,17 +1,38 @@
 <template>
-  <v-layout class="use-case" row>
-    <v-layout flex xs9 sm6 column justify-center align-start order-xs2>
+  <v-layout
+    class="use-case"
+    row>
+    <v-layout
+      flex
+      xs9
+      sm6
+      column
+      justify-center
+      align-start
+      order-xs2>
       <div class="text-wrapper">
         <h3>{{ useCase.header }}</h3>
         <ul>
-          <li v-for="item of useCase.items" :key="item">{{ item }}</li>
+          <li
+            v-for="item of useCase.items"
+            :key="item">{{ item }}</li>
         </ul>
       </div>
     </v-layout>
 
-    <v-layout flex xs3 sm6 column justify-center align-center order-xs1 :order-sm3="!iconFirst">
-      <div class="icon-wrapper" :class="iconClasses">
-        <div class="background primary elevation-2"></div>
+    <v-layout
+      flex
+      xs3
+      sm6
+      column
+      justify-center
+      align-center
+      order-xs1
+      :order-sm3="!iconFirst">
+      <div
+        class="icon-wrapper"
+        :class="iconClasses">
+        <div class="background primary elevation-2"/>
         <v-icon class="white--text">{{ useCase.icon }}</v-icon>
       </div>
     </v-layout>
@@ -23,7 +44,7 @@ import Vue from 'vue';
 
 export default Vue.extend({
   props: {
-    iconFirst: Boolean,
+    iconFirst: { type: Boolean, default: false },
     useCase: {
       type: Object,
       required: true,

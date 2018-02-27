@@ -8,7 +8,7 @@ import firebase from 'firebase/app';
 import Vue from 'vue';
 import VueScrollReveal from 'vue-scroll-reveal';
 
-import { config as firebaseConfig } from '../config/firebase';
+import firebaseConfig from '../config/firebase';
 import App from './App.vue';
 import router from './router';
 import store from './store';

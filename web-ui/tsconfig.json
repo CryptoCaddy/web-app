@@ -1,24 +1,34 @@
 {
   "compilerOptions": {
-    "outDir": "ts-out/",
     "target": "es5",
     "module": "es2015",
     "strict": true,
-    // required by ramda
-    "strictFunctionTypes": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "jsx": "preserve",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "esnext"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    // required by ramda
+    "strictFunctionTypes": false
   },
-  "include": ["__mocks__/**/*.ts", "src/**/*.ts", "src/**/*.vue"],
-  "exclude": ["node_modules"]
+  "include": [
+    "__mocks__/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

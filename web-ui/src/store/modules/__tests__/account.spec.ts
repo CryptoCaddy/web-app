@@ -4,7 +4,7 @@ import { clone } from '@/util/object';
 
 import RootStore from '../..';
 import * as AccountStore from '../account';
-import { AccountState, AccountPreferences } from '../account.state';
+import { AccountPreferences, AccountState } from '../account.state';
 
 jest.mock('@/util/logger', () => ({
   Logger: {
@@ -53,12 +53,11 @@ describe('AccountStore', () => {
         expectedState.loading = true;
         expectedState.error = null;
 
-        AccountApi.getPreferences = jest.fn(() =>
-          Promise.resolve<AccountPreferences>({
+        AccountApi.getPreferences =
+          jest.fn(() => Promise.resolve<AccountPreferences>({
             currency: 'eur',
             timezone: 'Europe/Berlin',
-          }),
-        );
+          }));
 
         const p = AccountStore.dispatchers.loadPreferences(RootStore);
         expect(state).toEqual(expectedState);
@@ -79,14 +78,13 @@ describe('AccountStore', () => {
           expectedState.loading = false;
           expectedState.error = '500 - Internal Server Error';
 
-          AccountApi.getPreferences = jest.fn(() =>
-            Promise.reject('500 - Internal Server Error'),
-          );
+          AccountApi.getPreferences =
+            jest.fn(() => Promise.reject(new Error('500 - Internal Server Error')));
           await AccountStore.dispatchers.loadPreferences(RootStore);
 
           expect(Logger.warn).toHaveBeenLastCalledWith(
             'AccountStore#loadPreferences',
-            '500 - Internal Server Error',
+            new Error('500 - Internal Server Error'),
           );
           expect(state).toEqual(expectedState);
         });
