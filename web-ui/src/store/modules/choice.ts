@@ -1,11 +1,11 @@
-import ChoicesApi from '@/api/choices';
+import { ChoicesApi } from '@/api/choices';
 import { SelectOption } from '@/models/SelectOption';
 import { Choice, ChoiceState } from '@/store/modules/choice.state';
+import { Logger } from '@/util/logger';
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 
 import { State as RootState } from '../';
-import { Logger } from '../../util/logger';
 
 export const moduleName = 'choice';
 
@@ -47,29 +47,33 @@ export const module = {
   },
 
   actions: {
-    loadCurrencyOptions(ctx: ChoiceContext) {
+    loadCurrencyOptions(ctx: ChoiceContext): Promise<SelectOption[]> {
       commiters.currencyLoading(ctx);
 
-      ChoicesApi.getCurrencies()
+      return ChoicesApi.getCurrencies()
         .then((options) => {
           commiters.currencyLoaded(ctx, options);
+          return options;
         })
         .catch((err) => {
-          // @TODO error handling
           Logger.warn('ChoiceStore#loadCurrencyOptions', err);
+          commiters.currencyLoaded(ctx, []);
+          return [];
         });
     },
 
-    loadTimezoneOptions(ctx: ChoiceContext) {
+    loadTimezoneOptions(ctx: ChoiceContext): Promise<SelectOption[]> {
       commiters.timezoneLoading(ctx);
 
-      ChoicesApi.getTimezones()
+      return ChoicesApi.getTimezones()
         .then((options) => {
           commiters.timezoneLoaded(ctx, options);
+          return options;
         })
         .catch((err) => {
-          // @TODO error handling
           Logger.warn('ChoiceStore#loadTimezoneOptions', err);
+          commiters.timezoneLoaded(ctx, []);
+          return [];
         });
     },
   },

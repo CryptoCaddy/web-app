@@ -1,11 +1,11 @@
 export interface AccountState {
-  error: Error | null;
+  error: string | null;
   loading: boolean;
-  saving: boolean;
   preferences: AccountPreferences;
+  saving: boolean;
 }
 
 export interface AccountPreferences {
-  currency: string;
-  timezone: string;
+  currency?: string;
+  timezone?: string;
 }

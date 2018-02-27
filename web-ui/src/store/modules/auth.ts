@@ -1,10 +1,10 @@
-import AuthApi from '@/api/auth';
+import { AuthApi } from '@/api/auth';
 import {
   AuthState,
   AuthUser,
   EmailAndPassword,
 } from '@/store/modules/auth.state';
-import firebase, { FirebaseError } from 'firebase/app';
+import firebase from 'firebase/app';
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 
@@ -46,8 +46,8 @@ export const module = {
       state.user = user;
     },
 
-    authError(state: AuthState, err: FirebaseError) {
-      state.error = (err && err.message) || 'An unkonwn error occured.';
+    authError(state: AuthState, err: string) {
+      state.error = err;
       state.pending = false;
     },
 
@@ -78,7 +78,7 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: FirebaseError) => {
+        .catch((err: string) => {
           commiters.authError(ctx, err);
         });
     },
@@ -90,7 +90,7 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: FirebaseError) => {
+        .catch((err: string) => {
           commiters.authError(ctx, err);
         });
     },
@@ -105,7 +105,7 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: FirebaseError) => {
+        .catch((err: string) => {
           commiters.authError(ctx, err);
         });
     },
@@ -126,7 +126,7 @@ export const module = {
         .then((user: firebase.User) => {
           commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
         })
-        .catch((err: FirebaseError) => {
+        .catch((err: string) => {
           commiters.authError(ctx, err);
         });
     },

@@ -1,6 +1,6 @@
 import { AccountPreferences } from '@/store/modules/account.state';
 
-export default {
+export const AccountApi = {
   getPreferences(): Promise<AccountPreferences> {
     // @TODO real implementation
     return new Promise((resolve) => {
@@ -19,7 +19,7 @@ export default {
     // @TODO real implementation
     return new Promise((resolve) => {
       setTimeout(() => {
-        return resolve(preferences);
+        return resolve({ ...preferences });
       }, Math.random() * 2000);
     });
   },

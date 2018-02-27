@@ -1,3 +1,4 @@
+import './helpers/axios.interceptors';
 import './registerServiceWorker';
 import './theme';
 import 'firebase/auth';

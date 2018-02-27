@@ -1,4 +1,4 @@
-import AccountApi from '@/api/account';
+import { AccountApi } from '@/api/account';
 import {
   AccountPreferences,
   AccountState,
@@ -7,6 +7,7 @@ import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 
 import { State as RootState } from '../';
+import { Logger } from '@/util/logger';
 
 export const moduleName = 'account';
 
@@ -23,13 +24,14 @@ export const module = {
   },
 
   getters: {
+    error: (state: AccountState) => state.error,
     loading: (state: AccountState) => state.loading,
     preferences: (state: AccountState) => state.preferences,
     saving: (state: AccountState) => state.saving,
   },
 
   mutations: {
-    loadPreferencesError(state: AccountState, error: Error | null) {
+    loadPreferencesError(state: AccountState, error: string | null) {
       state.loading = false;
       state.error = error;
     },
@@ -47,7 +49,7 @@ export const module = {
       state.preferences = preferences;
     },
 
-    savePreferencesError(state: AccountState, error: Error | null) {
+    savePreferencesError(state: AccountState, error: string | null) {
       state.saving = false;
       state.error = error;
     },
@@ -67,15 +69,18 @@ export const module = {
   },
 
   actions: {
-    loadPreferences(ctx: AccountContext) {
+    loadPreferences(ctx: AccountContext): Promise<AccountPreferences> {
       commiters.loadPreferences(ctx);
 
-      AccountApi.getPreferences()
+      return AccountApi.getPreferences()
         .then((preferences) => {
           commiters.loadPreferencesSuccess(ctx, preferences);
+          return preferences;
         })
         .catch((err) => {
           commiters.loadPreferencesError(ctx, err);
+          Logger.warn('AccountStore#loadPreferences', err);
+          return {};
         });
     },
 
@@ -88,7 +93,8 @@ export const module = {
         .then((updatedPreferences) => {
           commiters.savePreferencesSuccess(ctx, updatedPreferences);
         })
-        .catch((err: Error) => {
+        .catch((err: string) => {
+          Logger.warn('AccountStore#updatePreferences', err);
           commiters.savePreferencesError(ctx, err);
         });
     },
@@ -109,6 +115,7 @@ const commiters = {
 };
 
 export const getters = {
+  error: read(module.getters.error),
   loading: read(module.getters.loading),
   preferences: read(module.getters.preferences),
   saving: read(module.getters.saving),

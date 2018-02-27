@@ -10,4 +10,12 @@ module.exports = {
   snapshotSerializers: ['jest-serializer-vue'],
   testMatch: ['**/__tests__/*.(ts|tsx|js)'],
   mapCoverage: true,
+  collectCoverageFrom: [
+    'src/**/*.{vue,ts}',
+    '!src/registerServiceWorker.ts',
+    '!src/theme.ts',
+    '!src/**/*.d.ts',
+  ],
+  coverageReporters: ['json', 'lcov', 'text-summary'],
+  setupFiles: ['./config/jest.setup.ts'],
 };

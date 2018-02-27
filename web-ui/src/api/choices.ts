@@ -1,22 +1,7 @@
 import { SelectOption } from '@/models/SelectOption';
 import moment from 'moment-timezone';
 
-export default {
-  getOptions(choiceName: string) {
-    switch (choiceName) {
-      case 'currency':
-        return this.getCurrencies();
-
-      case 'timezone':
-        return this.getTimezones();
-
-      default:
-        throw new ReferenceError(
-          `[ChoicesApi] Unknown choice: "${choiceName}"`,
-        );
-    }
-  },
-
+export const ChoicesApi = {
   getCurrencies(): Promise<SelectOption[]> {
     return new Promise((resolve) => {
       // @TODO
