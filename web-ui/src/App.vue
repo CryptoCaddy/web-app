@@ -1,207 +1,83 @@
 <template>
-  <v-app class="app-root">
-    <v-navigation-drawer
-      ref="drawerEl"
-      v-model="drawer"
-      right
-      app
-      :clipped="largeScreen"
-      :fixed="largeScreen"
-      :permanent="largeScreen"
-      :mini-variant="useMiniDrawer"
+  <transition name="app">
+    <v-app
+      class="app-root"
+      v-if="initialized"
     >
-      <transition
-        name="avatar"
-      >
-        <v-toolbar
-          flat
-          color="transparent"
-          v-if="user">
-          <v-list class="pa-0">
-            <v-list-tile avatar>
-              <v-list-tile-avatar>
-                <img :src="gravatarUrl">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ displayName }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-toolbar>
-      </transition>
 
-      <v-divider/>
+      <AppDrawer v-model="drawer" />
 
-      <v-list>
-        <v-tooltip
-          left
-          lazy
-          open-delay="200"
-          close-delay="100"
-          tag="div"
-          v-for="entry of menuEntries"
-          v-if="entry.condition()"
-          :key="entry.id"
-          :disabled="!useMiniDrawer"
-        >
-          <v-list-tile
-            slot="activator"
-            :to="entry.to ? entry.to : null"
-            @click="entry.action ? entry.action() : null"
-          >
-            <v-list-tile-action>
-              <!-- <v-btn dark color="primary" slot="activator">Left</v-btn> -->
-              <v-icon >{{ entry.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ entry.label }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <span>{{ entry.label }}</span>
-        </v-tooltip>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-toolbar
-      color="primary"
-      height="56dp"
-      dark
-      fixed
-      clipped-right
-      app>
-      <v-toolbar-title>
-        <router-link to="/">Crypto Caddy</router-link>
-      </v-toolbar-title>
-      <v-spacer/>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
-    </v-toolbar>
-
-    <v-content>
-      <transition
-        name="router"
-        mode="out-in">
-        <router-view />
-      </transition>
-
-      <v-spacer/>
-      <v-footer
-        class="pa-2"
+      <v-toolbar
         color="primary"
-        dark>
+        height="56dp"
+        dark
+        fixed
+        clipped-right
+        app>
+        <v-toolbar-title>
+          <router-link to="/">Crypto Caddy</router-link>
+        </v-toolbar-title>
         <v-spacer/>
-        - work in progress -
-        <v-spacer/>
-      </v-footer>
-    </v-content>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
+      </v-toolbar>
 
-  </v-app>
+      <v-content>
+        <transition
+          name="router"
+          mode="out-in">
+          <router-view />
+        </transition>
+
+        <v-spacer/>
+        <v-footer
+          class="pa-2"
+          color="primary"
+          dark>
+          <v-spacer/>
+          - work in progress -
+          <v-spacer/>
+        </v-footer>
+      </v-content>
+
+    </v-app>
+  </transition>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import * as md5 from 'md5';
+import AppDrawer from '@/components/AppDrawer.vue';
 import * as AuthStore from '@/store/modules/auth';
-import { AuthUser } from '@/store/modules/auth.state';
-
-interface MenuEntry {
-  id: string;
-  icon: string;
-  label: string;
-  to?: string;
-  action?: () => void;
-  condition: () => boolean;
-}
+import firebase from 'firebase/app';
 
 export default Vue.extend({
   name: 'App',
 
-  computed: {
-    largeScreen(): boolean {
-      return this.$vuetify.breakpoint.lgAndUp;
-    },
-
-    useMiniDrawer(): boolean {
-      // Mini drawer will be shown instead of hiding the drawer on large screens
-      return this.largeScreen && !this.drawer;
-    },
-
-    user(): AuthUser | null {
-      return AuthStore.getters.user(this.$store);
-    },
-
-    email(): string {
-      return (this.user && this.user.email) || '';
-    },
-
-    displayName(): string {
-      if (!this.user) {
-        return '';
-      }
-
-      if (this.user.isAnonymous) {
-        return 'Temporary Account';
-      }
-
-      return this.user.email || '';
-    },
-
-    gravatarUrl() {
-      /* eslint-disable-next-line prefer-destructuring */
-      const email: string = this.email;
-      return `https://www.gravatar.com/avatar/${md5(email)}?s=80`;
-    },
-
-    menuEntries(): MenuEntry[] {
-      return [
-        {
-          id: 'home',
-          icon: 'home',
-          label: 'Home',
-          to: '/',
-          condition: () => true,
-        },
-        {
-          id: 'account',
-          icon: 'account_box',
-          label: 'Account',
-          to: '/account',
-          condition: () => !!this.user,
-        },
-        {
-          id: 'sign-in',
-          icon: 'vpn_key',
-          label: 'Sign In',
-          to: '/sign-in',
-          condition: () => !this.user,
-        },
-        {
-          id: 'sign-out',
-          icon: 'exit_to_app',
-          label: 'Sign Out',
-          action: () => this.signOut(),
-          condition: () => !!this.user,
-        },
-      ];
-    },
-  },
+  components: { AppDrawer },
 
   data() {
     return {
       drawer: false,
+      initialized: false,
     };
   },
 
-  methods: {
-    signOut() {
-      AuthStore.dispatchers.signOut(this.$store);
+  created() {
+    /**
+     * Wait for the initial auth state of firebase. If the user is logged in,
+     * wait for the data to be updated in the store, especially the JWT token,
+     * since it's used for further requests in components.
+     */
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      unsubscribe();
 
-      // Make sure to hide drawer in mobile mode, since it may not be hidden
-      // if current route and target route afer sign out are the same
-      if ((this.$refs.drawerEl as any).isMobile) {
-        this.drawer = false;
+      if (user) {
+        AuthStore.dispatchers.autoSignIn(this.$store, user)
+          .then(() => { this.initialized = true; });
+        return;
       }
-      this.$router.push('/sign-out');
-    },
+
+      this.initialized = true;
+    });
   },
 });
 </script>
@@ -221,6 +97,14 @@ export default Vue.extend({
   text-decoration: none;
 }
 
+.app-enter {
+  opacity: 0;
+}
+
+.app-enter-active {
+  transition: all 600ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 .router-enter {
   opacity: 0;
   transform: translateX(10%);
@@ -238,22 +122,5 @@ export default Vue.extend({
 
 .router-leave-active {
   position: absolute;
-}
-
-.avatar-enter,
-.avatar-leave-to {
-  margin-top: -64px !important;
-  opacity: 0;
-}
-
-.avatar-enter-to,
-.avatar-leave {
-  margin-top: 0 !important;
-  opacity: 1;
-}
-
-.avatar-enter-active,
-.avatar-leave-active {
-  transition: all 0.15s;
 }
 </style>
