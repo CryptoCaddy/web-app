@@ -1,21 +1,18 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import * as AuthStore from '@/store/modules/auth';
 
-// import store from 'your/store/path/store';
+/* eslint-disable no-param-reassign */
 
-// export default function setup() {
-//   axios.interceptors.request.use(
-//     function(config) {
-//       const token = store.state.token;
-//       if (token) {
-//         config.headers.Authorization = `Bearer ${token}`;
-//       }
-//       return config;
-//     },
-//     function(err) {
-//       return Promise.reject(err);
-//     },
-//   );
-// }
+export const jwtRequestInterceptor = axios.interceptors.request.use(
+  (req: AxiosRequestConfig) => {
+    const { user } = AuthStore.module.state;
+    if (user) {
+      req.headers.Authorization = `Bearer ${user.token}`;
+    }
+    return req;
+  },
+  (err: AxiosError) => Promise.reject(err),
+);
 
 // Configure interceptor to map error messages
 export const errorMessageInterceptor = axios.interceptors.response.use(
@@ -23,7 +20,6 @@ export const errorMessageInterceptor = axios.interceptors.response.use(
   (err: AxiosError) => {
     // Try to map the backend's error message to the AxiosError's message property.
     if (err.response && err.response.data && err.response.data.message) {
-      /* eslint-disable-next-line no-param-reassign */
       err.message = err.response.data.message;
     }
 

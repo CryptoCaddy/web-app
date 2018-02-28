@@ -220,11 +220,28 @@ describe('AuthApi', () => {
           .toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
       });
 
-      it('should sign in on the crypto caddy backend', async () => {
-        await AuthApi.signInWithEmailAndPassword(credentials);
+      describe('signing in on crypto caddy', () => {
+        it('should send the email and token', async () => {
+          await AuthApi.signInWithEmailAndPassword(credentials);
 
-        expect(axios.post)
-          .toHaveBeenCalledWith(signUpEndpoint, { email: 'user@example.com', token });
+          expect(axios.post)
+            .toHaveBeenCalledWith(
+              signUpEndpoint,
+              { email: 'user@example.com', token },
+              expect.any(Object),
+            );
+        });
+
+        it('should add an authorization header to the request', async () => {
+          await AuthApi.signInWithEmailAndPassword(credentials);
+
+          expect(axios.post)
+            .toHaveBeenCalledWith(
+              signUpEndpoint,
+              expect.any(Object),
+              { headers: { Authorization: 'Bearer demo-token' } },
+            );
+        });
       });
 
       it('should resolve a promise containing a firebase user', async () => {
@@ -339,11 +356,27 @@ describe('AuthApi', () => {
           .toHaveBeenCalledWith('user@example.com', 'Passw0rd!');
       });
 
-      it('should make a backend request', async () => {
-        await AuthApi.signUpWithEmailAndPassword(credentials).catch(errorFn);
-        expect(axios.post).toHaveBeenCalledWith(signUpEndpoint, {
-          email: credentials.email,
-          token,
+      describe('signing in on crypto caddy', () => {
+        it('should send the email and token', async () => {
+          await AuthApi.signInWithEmailAndPassword(credentials);
+
+          expect(axios.post)
+            .toHaveBeenCalledWith(
+              signUpEndpoint,
+              { email: credentials.email, token },
+              expect.any(Object),
+            );
+        });
+
+        it('should add an authorization header to the request', async () => {
+          await AuthApi.signInWithEmailAndPassword(credentials);
+
+          expect(axios.post)
+            .toHaveBeenCalledWith(
+              signUpEndpoint,
+              expect.any(Object),
+              { headers: { Authorization: 'Bearer demo-token' } },
+            );
         });
       });
 

@@ -22,7 +22,7 @@ export const module = {
     error: null,
     pending: false,
     user: null,
-  },
+  } as AuthState,
 
   getters: {
     error: (state: AuthState) => state.error,
@@ -60,75 +60,93 @@ export const module = {
   },
 
   actions: {
-    autoSignIn(ctx: AuthContext, user: firebase.User) {
-      const authUser = firebaseUserToAuthUser(user);
-      commiters.authSuccess(ctx, authUser);
+    async autoSignIn(ctx: AuthContext, user: firebase.User): Promise<AuthUser> {
+      return firebaseUserToAuthUser(user)
+        .then((authUser) => {
+          commiters.authSuccess(ctx, authUser);
+          return authUser;
+        });
     },
 
-    clear(ctx: AuthContext) {
+    async clear(ctx: AuthContext): Promise<void> {
       commiters.clear(ctx);
     },
 
-    linkWithEmailAndPassword(ctx: AuthContext, credentials: EmailAndPassword) {
+    async linkWithEmailAndPassword(
+      ctx: AuthContext,
+      credentials: EmailAndPassword,
+    ): Promise<AuthUser | null> {
       commiters.authAttempt(ctx);
       const credential = firebase.auth.EmailAuthProvider.credential(
         credentials.email,
         credentials.password,
       );
-      AuthApi.linkWithCredential(credential)
-        .then((user: firebase.User) => {
-          commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
+      return AuthApi.linkWithCredential(credential)
+        .then((user: firebase.User) => firebaseUserToAuthUser(user))
+        .then((authUser: AuthUser) => {
+          commiters.authSuccess(ctx, authUser);
+          return authUser;
         })
         .catch((err: Error) => {
           commiters.authError(ctx, err.message);
+          return null;
         });
     },
 
-    signInAnonymously(ctx: AuthContext) {
+    async signInAnonymously(ctx: AuthContext): Promise<AuthUser | null> {
       commiters.authAttempt(ctx);
 
-      AuthApi.signInAnonymously()
-        .then((user: firebase.User) => {
-          commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
+      return AuthApi.signInAnonymously()
+        .then((user: firebase.User) => firebaseUserToAuthUser(user))
+        .then((authUser: AuthUser) => {
+          commiters.authSuccess(ctx, authUser);
+          return authUser;
         })
         .catch((err: Error) => {
           commiters.authError(ctx, err.message);
+          return null;
         });
     },
 
-    signInWithEmailAndPassword(
+    async signInWithEmailAndPassword(
       ctx: AuthContext,
       credentials: EmailAndPassword,
-    ) {
+    ): Promise<AuthUser | null> {
       commiters.authAttempt(ctx);
 
-      AuthApi.signInWithEmailAndPassword(credentials)
-        .then((user: firebase.User) => {
-          commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
+      return AuthApi.signInWithEmailAndPassword(credentials)
+        .then((user: firebase.User) => firebaseUserToAuthUser(user))
+        .then((authUser: AuthUser) => {
+          commiters.authSuccess(ctx, authUser);
+          return authUser;
         })
         .catch((err: Error) => {
           commiters.authError(ctx, err.message);
+          return null;
         });
     },
 
-    signOut(ctx: AuthContext) {
-      AuthApi.signOut().then(() => {
+    async signOut(ctx: AuthContext): Promise<void> {
+      return AuthApi.signOut().then(() => {
         commiters.signOut(ctx);
       });
     },
 
-    signUpWithEmailAndPassword(
+    async signUpWithEmailAndPassword(
       ctx: AuthContext,
       credentials: EmailAndPassword,
-    ) {
+    ): Promise<AuthUser | null> {
       commiters.authAttempt(ctx);
 
-      AuthApi.signUpWithEmailAndPassword(credentials)
-        .then((user: firebase.User) => {
-          commiters.authSuccess(ctx, firebaseUserToAuthUser(user));
+      return AuthApi.signUpWithEmailAndPassword(credentials)
+        .then((user: firebase.User) => firebaseUserToAuthUser(user))
+        .then((authUser: AuthUser) => {
+          commiters.authSuccess(ctx, authUser);
+          return authUser;
         })
         .catch((err: Error) => {
           commiters.authError(ctx, err.message);
+          return null;
         });
     },
   },
