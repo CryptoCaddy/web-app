@@ -1,12 +1,12 @@
 import { AccountApi } from '@/api/account';
-import { Logger } from '@/util/logger';
+import { Logger } from '@/packages/util/logger';
 import { clone } from '@/util/object';
 
 import RootStore from '../..';
 import * as AccountStore from '../account';
 import { AccountPreferences, AccountState } from '../account.state';
 
-jest.mock('@/util/logger', () => ({
+jest.mock('@/packages/util/logger', () => ({
   Logger: {
     warn: jest.fn(),
   },

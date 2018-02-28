@@ -15,7 +15,7 @@ export function email(v: string) {
 }
 
 export function equals(v: any, s: any) {
-  if (!v) {
+  if (!v || !s) {
     return true;
   }
 

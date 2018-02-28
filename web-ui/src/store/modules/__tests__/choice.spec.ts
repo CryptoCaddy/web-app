@@ -1,13 +1,13 @@
 import { ChoicesApi } from '@/api/choices';
 import { SelectOption } from '@/models/SelectOption';
-import { Logger } from '@/util/logger';
+import { Logger } from '@/packages/util/logger';
 import { clone } from '@/util/object';
 
 import RootStore from '../..';
 import * as ChoiceStore from '../choice';
 import { ChoiceState } from '../choice.state';
 
-jest.mock('@/util/logger', () => ({
+jest.mock('@/packages/util/logger', () => ({
   Logger: {
     warn: jest.fn(),
   },
