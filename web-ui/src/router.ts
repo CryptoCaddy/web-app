@@ -1,4 +1,5 @@
 import Account from '@/views/Account.vue';
+import ExchangesOverview from '@/views/ExchangesOverview.vue';
 import Home from '@/views/Home.vue';
 import NotFound from '@/views/NotFound.vue';
 import SignIn from '@/views/SignIn.vue';
@@ -33,6 +34,11 @@ export default new Router({
       path: '/account',
       name: 'Account',
       component: Account,
+    },
+    {
+      path: '/exchanges/overview',
+      name: 'ExchangesOverview',
+      component: ExchangesOverview,
     },
     {
       path: '**',

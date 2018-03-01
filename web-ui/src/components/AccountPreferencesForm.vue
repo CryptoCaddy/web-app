@@ -7,12 +7,22 @@
     <v-layout row>
 
       <v-flex xs12>
-        <FormFieldCurrency
+        <CaddySelect
           v-model="form.value.currency"
-          required />
-        <FormFieldTimezone
+          name="currency"
+          label="Currency"
+          :items="currencyOptions"
+          :loading="currencyLoading"
+          required
+        />
+        <CaddySelect
           v-model="form.value.timezone"
-          required />
+          name="timezone"
+          label="Timezone"
+          :items="timezoneOptions"
+          :loading="timezoneLoading"
+          required
+        />
       </v-flex>
 
     </v-layout>
@@ -21,13 +31,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import FormFieldCurrency from '@/components/FormFieldCurrency.vue';
-import FormFieldTimezone from '@/components/FormFieldTimezone.vue';
+import { SelectOption } from '@/models/SelectOption';
+import { CaddySelect } from '@/packages/forms';
 import * as AccountStore from '@/store/modules/account';
+import * as ChoiceStore from '@/store/modules/choice';
 import { AccountPreferences } from '@/store/modules/account.state';
 
 export default Vue.extend({
-  components: { FormFieldCurrency, FormFieldTimezone },
+  components: { CaddySelect },
 
   props: {
     prepopulate: {
@@ -37,6 +48,22 @@ export default Vue.extend({
   },
 
   computed: {
+    currencyOptions(): SelectOption[] {
+      return ChoiceStore.getters.currency(this.$store).options;
+    },
+
+    currencyLoading(): boolean {
+      return ChoiceStore.getters.currency(this.$store).pending;
+    },
+
+    timezoneOptions(): SelectOption[] {
+      return ChoiceStore.getters.timezone(this.$store).options;
+    },
+
+    timezoneLoading(): boolean {
+      return ChoiceStore.getters.timezone(this.$store).pending;
+    },
+
     preferences(): AccountPreferences {
       return AccountStore.getters.preferences(this.$store);
     },
@@ -82,6 +109,9 @@ export default Vue.extend({
   },
 
   mounted() {
+    ChoiceStore.dispatchers.loadCurrencyOptions(this.$store);
+    ChoiceStore.dispatchers.loadTimezoneOptions(this.$store);
+
     if (this.prepopulate) {
       AccountStore.dispatchers.loadPreferences(this.$store);
     }

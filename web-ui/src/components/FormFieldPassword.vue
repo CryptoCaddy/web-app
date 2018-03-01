@@ -1,20 +1,34 @@
+<template>
+  <CaddyInput
+    :autocomplete="autocomplete"
+    :label="label"
+    :name="name"
+    :rules="rules"
+    type="password"
+    :value="value"
+    @input="$emit('input', $event)"
+  />
+</template>
+
+
 <script lang="ts">
 import Vue from 'vue';
 import { CaddyInput, Validators } from '@/packages/forms';
 
 export default Vue.extend({
-  mixins: [CaddyInput],
+  components: { CaddyInput },
 
   props: {
+    autocomplete: { type: String, default: 'current-password' },
+    equals: { type: String, default: null },
     label: { type: String, default: 'Password' },
     name: { type: String, default: 'password' },
-    equals: { type: String, default: null },
+    value: { type: String, default: '' },
   },
 
   data() {
     return {
       type: 'password',
-      autocomplete: 'current-password',
       rules: [
         (v: string) => Validators.equals(v, this.equals) || `${this.label} does not match.`,
       ],

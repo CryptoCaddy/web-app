@@ -23,6 +23,7 @@ module.exports = {
     "space-infix-ops": 0,
     "strict": 0,
 
+    // import
     "import/extensions": [ 2, "never", { "vue": "always" } ],
     "import/first": [ 2, { "absolute-first": false } ],
     "import/order": [ 2, {
@@ -33,6 +34,9 @@ module.exports = {
       // "newlines-between": "always",
       "no-multiple-empty-line": true
     } ],
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+
+    // vue
+    "vue/max-attributes-per-line": [ 0 ]
   }
 }

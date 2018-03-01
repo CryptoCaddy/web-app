@@ -1199,9 +1199,9 @@ aws4@^1.2.1, aws4@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios-mock-adapter@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/axios-mock-adapter/-/axios-mock-adapter-1.14.0.tgz#11996250fc6dac26d26bbb47ee0905afee5d2cbc"
+axios-mock-adapter@^1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/axios-mock-adapter/-/axios-mock-adapter-1.14.1.tgz#c8e0ee1134955267538d566d7ae068be20467158"
   dependencies:
     deep-equal "^1.0.1"
 
@@ -3543,9 +3543,9 @@ firebase-auto-ids@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/firebase-auto-ids/-/firebase-auto-ids-1.1.0.tgz#378ffb8590888c37eb2dd8b704659ad0f49f9061"
 
-firebase-mock@^2.0.27:
-  version "2.0.27"
-  resolved "https://registry.yarnpkg.com/firebase-mock/-/firebase-mock-2.0.27.tgz#4dc74f2222b0ffa4ea0d6787a12f801d0b906438"
+firebase-mock@^2.0.28:
+  version "2.0.28"
+  resolved "https://registry.yarnpkg.com/firebase-mock/-/firebase-mock-2.0.28.tgz#8654289ab2b939e001b224112ce6ac083d98dc04"
   dependencies:
     firebase-auto-ids "~1.1.0"
     lodash "^3.10.1"
@@ -9056,9 +9056,9 @@ vue@^2.5.13:
   version "2.5.13"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
 
-vuetify@^1.0.1:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.0.3.tgz#b140367b88d903beb5218bb8c01ad79e2cd39781"
+vuetify@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.0.4.tgz#ef712e4ccd231d0d3678da31047d338d94e7f20d"
 
 vuex-typescript@^3.0.2:
   version "3.0.2"

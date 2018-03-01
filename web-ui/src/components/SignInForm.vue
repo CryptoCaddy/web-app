@@ -3,7 +3,8 @@
     v-model="form.valid"
     ref="form"
     lazy-validation
-    @submit.prevent="submit()">
+    @submit.prevent="submit"
+  >
     <v-layout row>
       <v-flex xs12>
         <FormFieldEmail
@@ -25,11 +26,13 @@
     <!-- Hidden button allows submitting by pressing enter -->
     <button
       type="submit"
-      hidden/>
+      hidden
+    />
 
     <div
       class="py-2 error--text"
-      v-if="authError">{{ authError }}</div>
+      v-if="authError"
+    >{{ authError }}</div>
   </v-form>
 </template>
 

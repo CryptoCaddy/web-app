@@ -60,7 +60,8 @@
 
     <v-dialog
       v-model="anonymousDialog"
-      max-width="290">
+      max-width="290"
+    >
       <v-card>
 
         <v-card-title class="headline">Create temporary account?</v-card-title>

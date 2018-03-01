@@ -3,7 +3,7 @@
 export const Logger = {
 
   error(module: string, message: any) {
-    console.warn(module, message);
+    console.error(module, message);
   },
 
   warn(module: string, message: any) {

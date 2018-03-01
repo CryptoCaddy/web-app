@@ -7,6 +7,8 @@ import * as AuthStore from './modules/auth';
 import { AuthState } from './modules/auth.state';
 import * as ChoiceStore from './modules/choice';
 import { ChoiceState } from './modules/choice.state';
+import * as ExchangesStore from './modules/exchanges';
+import { ExchangesState } from './modules/exchanges.state';
 
 Vue.use(Vuex);
 
@@ -16,6 +18,7 @@ export interface State {
   [AccountStore.moduleName]: AccountState;
   [AuthStore.moduleName]: AuthState;
   [ChoiceStore.moduleName]: ChoiceState;
+  [ExchangesStore.moduleName]: ExchangesState;
 }
 
 export default new Vuex.Store({
@@ -23,6 +26,7 @@ export default new Vuex.Store({
     [AccountStore.moduleName]: AccountStore.module,
     [AuthStore.moduleName]: AuthStore.module,
     [ChoiceStore.moduleName]: ChoiceStore.module,
+    [ExchangesStore.moduleName]: ExchangesStore.module,
   },
   strict: debug,
 });

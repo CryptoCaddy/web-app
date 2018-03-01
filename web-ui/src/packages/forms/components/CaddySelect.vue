@@ -6,7 +6,7 @@
     :id="name"
     :value="value"
     @input="updateValue($event)"
-    :items="sortedOptions"
+    :items="sortedItems"
     item-value="value"
     item-text="label"
     :rules="rules"
@@ -20,51 +20,32 @@
 import Vue from 'vue';
 import * as R from 'ramda';
 import { SelectOption } from '@/models/SelectOption';
-import { Logger } from '@/packages/util/logger';
-import * as ChoiceStore from '@/store/modules/choice';
 
 import * as Validators from '../util/validators';
 
 export default Vue.extend({
   props: {
-    value: { type: String, default: null },
-    label: { type: String, required: true },
-    name: { type: String, required: true },
     disabled: { type: Boolean, default: false },
+    label: { type: String, required: true },
+    loading: { type: Boolean, default: false },
+    name: { type: String, required: true },
+    items: { type: Array, default: () => [] },
     required: { type: Boolean, default: false },
+    value: { type: String, default: null },
   },
 
   computed: {
-    options(): SelectOption[] {
-      Logger.error('CaddySelect', 'Missing computed `options`.');
-      return [];
-    },
-
-    loading() {
-      Logger.error('[CaddySelect]', 'Missing computed `loading`.');
-      return false;
-    },
-
-    sortedOptions(): SelectOption[] {
+    sortedItems(): SelectOption[] {
       const sortByLabel = R.sortBy(R.compose(R.toLower, R.prop('label')));
-      return sortByLabel(this.options);
+      return sortByLabel(this.items as SelectOption[]);
     },
-  },
-
-  data() {
-    return {
-      rules: [
+    rules(): ((v: string) => boolean | string)[] {
+      return [
         (v: string) =>
           !this.required ||
-          Validators.required(v) ||
-          `${this.label} is required.`,
-      ],
-    };
-  },
-
-  watch: {
-    pending(value) {
-      this.$emit('pending', value);
+        Validators.required(v) ||
+        `${this.label} is required.`,
+      ];
     },
   },
 
@@ -74,8 +55,5 @@ export default Vue.extend({
     },
   },
 
-  mounted() {
-    ChoiceStore.dispatchers.loadCurrencyOptions(this.$store);
-  },
 });
 </script>
