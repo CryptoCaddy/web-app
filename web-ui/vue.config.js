@@ -30,7 +30,8 @@ module.exports = {
     config.resolve
       .alias
       // @TODO eslint-plugin-import does not yet support @ prefixed aliases
-      .set('cryptocaddy', path.resolve(context, 'src/packages'));
+      .set('cryptocaddy', path.resolve(context, 'src/packages'))
+      .set('styles', path.resolve(context, 'src/styles'));
   },
   configureWebpack: () => { },
 

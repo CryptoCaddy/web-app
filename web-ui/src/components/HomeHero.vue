@@ -37,6 +37,8 @@ export default Vue.extend({});
 
 
 <style lang="scss" scoped>
+@import '~styles/vars/theme';
+
 $height: 60vh;
 $skew: 8deg;
 
@@ -75,7 +77,7 @@ $skew: 8deg;
   }
 
   &::after {
-    background: rgba(#009688, 0.66);
+    background: rgba(theme-color(primary), 0.66);
   }
 }
 
