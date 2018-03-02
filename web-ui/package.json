@@ -14,7 +14,7 @@
     "deep-freeze": "^0.0.1",
     "firebase": "4.10.1",
     "md5": "^2.2.1",
-    "moment": "^2.20.1",
+    "moment": "^2.21.0",
     "moment-timezone": "^0.5.14",
     "ramda": "^0.25.0",
     "register-service-worker": "^1.0.0",
@@ -46,12 +46,12 @@
     "babel-core": "^7.0.0-0",
     "babel-plugin-module-resolver": "3.1.0",
     "eslint-import-resolver-babel-module": "4.0.0",
-    "firebase-mock": "^2.0.28",
+    "firebase-mock": "^2.0.29",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "ts-jest": "^22.4.0",
+    "ts-jest": "^22.4.1",
     "vue-template-compiler": "^2.5.13"
   },
   "browserslist": [

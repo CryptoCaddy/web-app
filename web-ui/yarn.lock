@@ -3562,9 +3562,9 @@ firebase-auto-ids@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/firebase-auto-ids/-/firebase-auto-ids-1.1.0.tgz#378ffb8590888c37eb2dd8b704659ad0f49f9061"
 
-firebase-mock@^2.0.28:
-  version "2.0.28"
-  resolved "https://registry.yarnpkg.com/firebase-mock/-/firebase-mock-2.0.28.tgz#8654289ab2b939e001b224112ce6ac083d98dc04"
+firebase-mock@^2.0.29:
+  version "2.0.29"
+  resolved "https://registry.yarnpkg.com/firebase-mock/-/firebase-mock-2.0.29.tgz#50785b1d93cd0e1dfb4b5b2d1e318631f78d92dc"
   dependencies:
     firebase-auto-ids "~1.1.0"
     lodash "^3.10.1"
@@ -5985,9 +5985,13 @@ moment-timezone@^0.5.14:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@>=2.14.0, moment@^2.20.1:
+"moment@>= 2.9.0", moment@>=2.14.0:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+
+moment@^2.21.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -8538,9 +8542,9 @@ trim-right@^1.0.1:
   dependencies:
     glob "^6.0.4"
 
-ts-jest@^22.4.0:
-  version "22.4.0"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-22.4.0.tgz#c9d3f9565696e0ad17e658eee96e06822af96bb9"
+ts-jest@^22.4.1:
+  version "22.4.1"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-22.4.1.tgz#69defb2042d689cff9b4244365ef638ecd35f706"
   dependencies:
     babel-core "^6.24.1"
     babel-plugin-istanbul "^4.1.4"
