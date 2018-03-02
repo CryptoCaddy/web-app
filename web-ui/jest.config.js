@@ -20,7 +20,6 @@ module.exports = {
   testMatch: [
     '**/__tests__/*.(ts|tsx|js)',
   ],
-  mapCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{vue,ts}',
     '!src/registerServiceWorker.ts',
