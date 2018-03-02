@@ -1,4 +1,4 @@
-package com.cryptocaddy.services.auditing.dao;
+package com.cryptocaddy.libraries.database.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

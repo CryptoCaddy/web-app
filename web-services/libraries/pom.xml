@@ -20,6 +20,7 @@
         <module>cache-manager</module>
         <module>xchange-data</module>
         <module>fiat-client</module>
+        <module>database</module>
     </modules>
 
     <build>
