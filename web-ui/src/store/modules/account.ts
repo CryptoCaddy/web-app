@@ -1,6 +1,6 @@
 import { AccountApi } from '@/api/account';
 import { AccountPreferences, AccountState } from '@/store/modules/account.state';
-import { Logger } from '@/packages/util/logger';
+import { Logger } from 'cryptocaddy/util/logger';
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 

@@ -24,19 +24,27 @@ module.exports = {
     "strict": 0,
 
     // import
-    "import/extensions": [ 2, "never", { "vue": "always" } ],
+    'import/extensions': [ 2, "always", {
+      "js": "never",
+      "mjs": "never",
+      "jsx": "never",
+      "ts": "never",
+      "tsx": "never"
+    }],
     "import/first": [ 2, { "absolute-first": false } ],
     "import/order": [ 2, {
       "groups": [
         [ "builtin", "external", "internal" ],
         [ "parent", "sibling", "index" ]
       ],
-      // "newlines-between": "always",
       "no-multiple-empty-line": true
     } ],
     "import/prefer-default-export": 0,
+    "import/resolver": {
+      "babel-module": { }
+    },
 
     // vue
-    "vue/max-attributes-per-line": [ 0 ]
-  }
+    "vue/max-attributes-per-line": [ 0 ],
+  },
 }

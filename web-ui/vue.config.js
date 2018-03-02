@@ -1,3 +1,7 @@
+const path = require('path');
+
+const context = process.env.VUE_CLI_CONTEXT || process.cwd();
+
 module.exports = {
   // Project deployment base
   // By default we assume your app will be deployed at the root of a domain,
@@ -22,7 +26,12 @@ module.exports = {
 
   // tweak internal webpack configuration.
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-  chainWebpack: () => { },
+  chainWebpack: (config) => {
+    config.resolve
+      .alias
+      // @TODO eslint-plugin-import does not yet support @ prefixed aliases
+      .set('cryptocaddy', path.resolve(context, 'src/packages'));
+  },
   configureWebpack: () => { },
 
   // vue-loader options

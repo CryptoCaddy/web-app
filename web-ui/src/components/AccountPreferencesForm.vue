@@ -31,8 +31,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { CaddySelect } from 'cryptocaddy/forms';
 import { SelectOption } from '@/models/SelectOption';
-import { CaddySelect } from '@/packages/forms';
 import * as AccountStore from '@/store/modules/account';
 import * as ChoiceStore from '@/store/modules/choice';
 import { AccountPreferences } from '@/store/modules/account.state';

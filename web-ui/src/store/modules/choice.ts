@@ -1,7 +1,7 @@
 import { ChoicesApi } from '@/api/choices';
 import { SelectOption } from '@/models/SelectOption';
 import { Choice, ChoiceState } from '@/store/modules/choice.state';
-import { Logger } from '@/packages/util/logger';
+import { Logger } from 'cryptocaddy/util/logger';
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 

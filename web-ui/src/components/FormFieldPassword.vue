@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { CaddyInput, Validators } from '@/packages/forms';
+import { CaddyInput, Validators } from 'cryptocaddy/forms';
 
 export default Vue.extend({
   components: { CaddyInput },

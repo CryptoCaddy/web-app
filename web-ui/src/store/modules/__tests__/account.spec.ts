@@ -1,12 +1,12 @@
 import { AccountApi } from '@/api/account';
-import { Logger } from '@/packages/util/logger';
 import { clone } from '@/util/object';
+import { Logger } from 'cryptocaddy/util/logger';
 
 import RootStore from '../..';
 import * as AccountStore from '../account';
 import { AccountPreferences, AccountState } from '../account.state';
 
-jest.mock('@/packages/util/logger', () => ({
+jest.mock('cryptocaddy/util/logger', () => ({
   Logger: {
     warn: jest.fn(),
   },

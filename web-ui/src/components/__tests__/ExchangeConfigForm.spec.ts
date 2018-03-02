@@ -43,9 +43,9 @@ jest.mock('@/store/modules/exchanges', () => ({
 }));
 
 describe('ExchangeConfigForm', () => {
-  // type not yet supported
-  let wrapper: Wrapper<any>;
+  // typings not yet supported
   // let wrapper: Wrapper<ExchangeConfigForm>;
+  let wrapper: Wrapper<any>;
   let vm: any;
 
   function setFormValueExchangeName(key: string) {

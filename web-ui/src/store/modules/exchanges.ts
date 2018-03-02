@@ -1,12 +1,12 @@
 import { ExchangesApi } from '@/api/exchanges';
 import { ExchangeAddRequest, ExchangeWallet, SupportedExchange } from '@/api/exchanges.models';
-import { RequestState } from '@/packages/util';
 import {
   ExchangesState,
   ExchangeTradesState,
   ExchangeWalletsState,
   SupportedExchangeState,
 } from '@/store/modules/exchanges.state';
+import { RequestState } from 'cryptocaddy/util';
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
 

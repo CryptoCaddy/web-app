@@ -13,6 +13,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^cryptocaddy/(.*)$': '<rootDir>/src/packages/$1',
   },
   snapshotSerializers: [
     'jest-serializer-vue',

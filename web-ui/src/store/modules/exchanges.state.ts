@@ -1,5 +1,5 @@
 import { ExchangeTrade, ExchangeWallet, SupportedExchange } from '@/api/exchanges.models';
-import { RequestState } from '@/packages/util';
+import { RequestState } from 'cryptocaddy/util';
 
 export interface ExchangeTradesState extends RequestState {
   data: ExchangeTrade[],

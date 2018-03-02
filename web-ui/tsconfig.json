@@ -13,9 +13,8 @@
       "jest"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": [ "src/*" ],
+      "cryptocaddy/*": [ "src/packages/*" ]
     },
     "lib": ["dom", "esnext"],
     "noUnusedLocals": true,

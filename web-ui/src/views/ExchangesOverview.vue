@@ -91,8 +91,8 @@ import Vue from 'vue';
 import * as ExchangesStore from '@/store/modules/exchanges';
 import ExchangeConfigForm from '@/components/ExchangeConfigForm.vue';
 import ExchangeWalletTile from '@/components/ExchangeWalletTile.vue';
-import { RequestState } from '@/packages/util/models/request-state';
 import { ExchangeWallet } from '@/api/exchanges.models';
+import { RequestState } from 'cryptocaddy/util';
 
 export default Vue.extend({
   components: { ExchangeConfigForm, ExchangeWalletTile },

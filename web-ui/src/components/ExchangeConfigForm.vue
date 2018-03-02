@@ -37,10 +37,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import * as ExchangesStore from '@/store/modules/exchanges';
-import { CaddyInput, CaddySelect } from '@/packages/forms';
+import { CaddyInput, CaddySelect } from 'cryptocaddy/forms';
+import { RequestState } from 'cryptocaddy/util';
 import { SelectOption } from '@/models/SelectOption';
 import { clone } from '@/util/object';
-import { RequestState } from '@/packages/util/models/request-state';
 import { SupportedExchange, ExchangeAddRequest } from '@/api/exchanges.models';
 
 interface ParamterFormField {
