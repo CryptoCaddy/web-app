@@ -1,23 +1,18 @@
-#using a node image to build our frontend
-FROM node:latest
+# Image used for building
+FROM node:alpine as build
 
-#create the folder for our source code
-RUN mkdir /opt/client
+RUN mkdir -p /tmp/app
+WORKDIR /tmp/app
 
-#copy and install only our dependencies, this is to prevent docker from clearing them if there's no change
-COPY package.json yarn.lock /opt/client/
-WORKDIR /opt/client
-RUN yarn install
+COPY package.json yarn.lock /tmp/app/
+RUN yarn install --production=false --non-interactive
 
-#copy the rest of our source code to the docker container and compile
-COPY . /opt/client
+COPY . /tmp/app
 RUN yarn build
 
-#nginx is the actual image we'll be running
-FROM nginx:latest
+# Image used for running
+FROM nginx:alpine as final
 
-#copy our built static assets to nginx's root
-COPY --from=0 /opt/client/dist /usr/share/nginx/html
+COPY --from=build /tmp/app/dist /usr/share/nginx/html
 
-#set the entrypoint
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
