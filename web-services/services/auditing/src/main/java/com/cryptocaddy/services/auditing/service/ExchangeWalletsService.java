@@ -57,6 +57,7 @@ public class ExchangeWalletsService {
             List<Coin> coinList = controller != null ? controller.getAllCoins(parameters) : new ArrayList<>();
 
             ResponseExchangeWrapper wrapper = new ResponseExchangeWrapper(userExchange.getName());
+            wrapper.setExchangeEntryId(userExchange.getId());
             wrapper.setExchangeCoins(coinList);
 
             response.addExchangeWrapper(wrapper);

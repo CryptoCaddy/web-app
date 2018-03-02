@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ResponseExchangeWrapper {
 
+    //this is not the id of the exchange itself. this is the id of the entry in the user_exchange table.
+    private long exchangeEntryId;
+
     private String exchangeName;
     private TransactionHistory txHistory;
     private List<Coin> exchangeCoins;
@@ -42,5 +45,13 @@ public class ResponseExchangeWrapper {
 
     public void setTxHistory(TransactionHistory txHistory) {
         this.txHistory = txHistory;
+    }
+
+    public long getExchangeEntryId() {
+        return exchangeEntryId;
+    }
+
+    public void setExchangeEntryId(long exchangeEntryId) {
+        this.exchangeEntryId = exchangeEntryId;
     }
 }

@@ -53,6 +53,7 @@ public class AddExchangeService {
         userExchangeRepository.save(userExchange);
 
         ResponseExchangeWrapper wrapper = new ResponseExchangeWrapper(requestAddExchange.getExchangeName());
+        wrapper.setExchangeEntryId(userExchange.getId());
         wrapper.setExchangeCoins(coinList);
         return  wrapper;
 
