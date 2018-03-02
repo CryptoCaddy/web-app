@@ -8,6 +8,7 @@ $theme: (
   accent: map-get($amber, accent-3),
   accent-light: map-get($amber, accent-2),
   accent-dark: map-get($amber, darken-1),
+  error: map-get($deep-orange, accent-4),
 );
 
 @function theme-color($shade) {

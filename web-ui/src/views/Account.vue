@@ -10,8 +10,6 @@
         md6
         offset-md3>
 
-        <!-- <h1 class="headline">Account</h1> -->
-
         <v-card
           v-if="!isAnonymous"
           class="pt-4 px-4 mb-4"

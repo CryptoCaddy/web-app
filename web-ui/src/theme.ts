@@ -18,5 +18,6 @@ Vue.use(Vuetify, {
     accent: colors.amber.accent3,
     'accent-light': colors.amber.accent2,
     'accent-dark': colors.amber.darken1,
+    error: colors.deepOrange.accent4,
   },
 });

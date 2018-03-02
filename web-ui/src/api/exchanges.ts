@@ -8,6 +8,7 @@ import {
   ExchangeWalletsResponse,
   SupportedExchange,
   SupportedExchangeResponse,
+  ExchangeIdType,
 } from './exchanges.models';
 
 async function exchangeMapToArray(
@@ -73,6 +74,11 @@ export const ExchangesApi = {
           reject(new Error(err.message));
         });
     });
+  },
+
+  removeExchange(exchangeIdRemove: ExchangeIdType): Promise<any> {
+    // @TODO send as payload instead of query parameter
+    return axios.post('/api/removeExchange', { }, { params: { exchangeIdRemove } });
   },
 
 };

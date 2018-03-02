@@ -1,5 +1,7 @@
 import { ExchangeMetaInformation } from '@/api/exchanges-meta';
 
+export type ExchangeIdType = number;
+
 export interface ExchangeAddRequest {
   exchangeName: string;
   parameters: ExchangeApiCredentials;
@@ -46,9 +48,12 @@ export interface ExchangeWalletsResponse {
 }
 
 export interface ExchangeWallet {
-  exchangeName: string;
   exchangeCoins?: ExchangeCoin[];
-  txHistory?: any;
+  exchangeEntryId: ExchangeIdType;
+  exchangeName: string;
+  txHistory?: any[];
+
+  /** Meta information added in the UI loading. */
   meta?: ExchangeMetaInformation;
 }
 

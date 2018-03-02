@@ -1,11 +1,17 @@
 import { ExchangesApi } from '@/api/exchanges';
-import { ExchangeAddRequest, ExchangeWallet, SupportedExchange } from '@/api/exchanges.models';
+import {
+  ExchangeAddRequest,
+  ExchangeIdType,
+  ExchangeWallet,
+  SupportedExchange,
+} from '@/api/exchanges.models';
 import {
   ExchangesState,
   ExchangeTradesState,
   ExchangeWalletsState,
   SupportedExchangeState,
 } from '@/store/modules/exchanges.state';
+import { AxiosError } from 'axios';
 import { RequestState } from 'cryptocaddy/util';
 import { ActionContext } from 'vuex';
 import { getStoreAccessors } from 'vuex-typescript';
@@ -21,6 +27,10 @@ export const module = {
 
   state: {
     addExchange: {
+      pending: false,
+      error: null,
+    },
+    removeExchange: {
       pending: false,
       error: null,
     },
@@ -43,6 +53,7 @@ export const module = {
 
   getters: {
     addExchange: (state: ExchangesState): RequestState => state.addExchange,
+    removeExchange: (state: ExchangesState): RequestState => state.removeExchange,
     supported: (state: ExchangesState): SupportedExchangeState => state.supported,
     trades: (state: ExchangesState): ExchangeTradesState => state.trades,
     wallets: (state: ExchangesState): ExchangeWalletsState => state.wallets,
@@ -62,6 +73,23 @@ export const module = {
     addExchangeSuccess(state: ExchangesState, wallet: ExchangeWallet) {
       state.wallets.data.push(wallet);
       state.addExchange.pending = false;
+    },
+
+    removeExchangeInitiated(state: ExchangesState) {
+      state.removeExchange.pending = true;
+      state.removeExchange.error = null;
+    },
+
+    removeExchangeError(state: ExchangesState, err: AxiosError) {
+      state.removeExchange.pending = false;
+      state.removeExchange.error = err.message;
+    },
+
+    removeExchangeSuccess(state: ExchangesState, exchangeId: ExchangeIdType) {
+      state.removeExchange.pending = false;
+      state.wallets.data = state.wallets.data.filter(
+        (ex) => ex.exchangeEntryId !== exchangeId,
+      );
     },
 
     supportedLoading(state: ExchangesState) {
@@ -130,10 +158,6 @@ export const module = {
         });
     },
 
-    // async loadTrades(ctx: ExchangesContext): Promise<void> {
-    //   return
-    // },
-
     async loadWallets(ctx: ExchangesContext): Promise<ExchangeWallet[]> {
       commiters.walletsLoading(ctx);
 
@@ -145,6 +169,20 @@ export const module = {
         .catch((err: Error) => {
           commiters.walletsLoadError(ctx, err.message);
           return [];
+        });
+    },
+
+    async removeExchange(ctx: ExchangesContext, exchangeId: ExchangeIdType): Promise<any> {
+      commiters.removeExchangeInitiated(ctx);
+
+      return ExchangesApi.removeExchange(exchangeId)
+        .then((data: any) => {
+          commiters.removeExchangeSuccess(ctx, exchangeId);
+          return data;
+        })
+        .catch((err: AxiosError) => {
+          commiters.removeExchangeError(ctx, err);
+          return undefined;
         });
     },
 
@@ -161,6 +199,10 @@ const commiters = {
   addExchangeError: commit(module.mutations.addExchangeError),
   addExchangeSuccess: commit(module.mutations.addExchangeSuccess),
 
+  removeExchangeInitiated: commit(module.mutations.removeExchangeInitiated),
+  removeExchangeError: commit(module.mutations.removeExchangeError),
+  removeExchangeSuccess: commit(module.mutations.removeExchangeSuccess),
+
   supportedLoading: commit(module.mutations.supportedLoading),
   supportedLoadSuccess: commit(module.mutations.supportedLoadSuccess),
   supportedLoadError: commit(module.mutations.supportedLoadError),
@@ -172,6 +214,7 @@ const commiters = {
 
 export const getters = {
   addExchange: read(module.getters.addExchange),
+  removeExchange: read(module.getters.removeExchange),
   supported: read(module.getters.supported),
   trades: read(module.getters.trades),
   wallets: read(module.getters.wallets),
@@ -179,6 +222,7 @@ export const getters = {
 
 export const dispatchers = {
   addExchange: dispatch(module.actions.addExchange),
+  removeExchange: dispatch(module.actions.removeExchange),
   loadWallets: dispatch(module.actions.loadWallets),
   loadSupported: dispatch(module.actions.loadSupported),
 };

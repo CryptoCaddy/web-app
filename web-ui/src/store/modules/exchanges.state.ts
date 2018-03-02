@@ -15,6 +15,7 @@ export interface SupportedExchangeState extends RequestState {
 
 export interface ExchangesState {
   addExchange: RequestState,
+  removeExchange: RequestState,
   trades: ExchangeTradesState,
   wallets: ExchangeWalletsState,
   supported: SupportedExchangeState,

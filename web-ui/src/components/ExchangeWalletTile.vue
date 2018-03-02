@@ -20,46 +20,30 @@
       </v-container>
     </v-card-media>
     <v-card-actions>
-      <v-btn flat>Delete</v-btn>
+      <v-btn flat @click="removalDialogVisible = true">Remove</v-btn>
     </v-card-actions>
+    <ExchangeWalletRemoveDialog
+      v-model="removalDialogVisible"
+      :id="wallet.exchangeEntryId"
+    />
   </v-card>
-<!-- <v-card>
-    <v-card-media
-      :src="wallet.meta.bannerSm"
-      class="white--text"
-      height="150px"
-    >
-      <v-container
-        fill-height fluid
-        class="card-media-content"
-      >
-        <v-layout fill-height>
-          <v-flex/>
-        </v-layout>
-      </v-container>
-    </v-card-media>
-    <v-card-title>
-      <div>
-        <span class="grey--text">{{ wallet.exchangeName }}</span><br>
-        <v-spacer/>
-        <span>{{ wallet.exchangeCoins.length }} Coins</span><br>
-        <span>{{ wallet.txHistory.length }} Transactions</span>
-      </div>
-    </v-card-title>
-    <v-card-actions>
-      <v-btn flat color="accent">Edit</v-btn>
-      <v-btn flat color="accent">Delte</v-btn>
-    </v-card-actions>
-  </v-card> -->
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import ExchangeWalletRemoveDialog from './ExchangeWalletRemoveDialog.vue';
 
 export default Vue.extend({
+  components: { ExchangeWalletRemoveDialog },
 
   props: {
     wallet: { type: Object, required: true },
+  },
+
+  data() {
+    return {
+      removalDialogVisible: false,
+    };
   },
 
 });
