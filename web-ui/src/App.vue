@@ -9,7 +9,6 @@
 
       <v-toolbar
         color="primary"
-        height="56dp"
         dark
         fixed
         clipped-right

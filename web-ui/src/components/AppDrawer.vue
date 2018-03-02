@@ -16,6 +16,7 @@
       <v-toolbar
         flat
         color="transparent"
+        height="56dp"
         v-if="user"
       >
         <v-list class="pa-0">
