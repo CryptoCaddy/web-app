@@ -35,7 +35,6 @@ export default Vue.extend({
 });
 </script>
 
-
 <style lang="scss" scoped>
 .error-wrapper {
   flex: 0 0 auto;

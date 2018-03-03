@@ -35,29 +35,21 @@
     <v-divider/>
 
     <v-list>
-      <v-tooltip
-        left
-        lazy
-        :disabled="!useMiniDrawer"
-        v-for="entry of menuEntries"
-        v-if="entry.condition()"
-        :key="entry.id"
+      <template
+        v-for="item of drawerItems"
+        v-if="item.condition()"
       >
-        <v-list-tile
-          slot="activator"
-          :to="entry.to ? entry.to : null"
-          :exact="entry.exact"
-          @click="entry.action ? entry.action() : null"
-        >
-          <v-list-tile-action>
-            <v-icon>{{ entry.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ entry.label }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <span>{{ entry.label }}</span>
-      </v-tooltip>
+        <AppDrawerItemEntry
+          v-if="item.type === AppDrawerItemType.Entry"
+          :key="item.id"
+          :entry="item"
+        />
+        <AppDrawerItemGroup
+          v-else-if="item.type === AppDrawerItemType.Group"
+          :key="item.id"
+          :group="item"
+        />
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -65,21 +57,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import * as md5 from 'md5';
+
+import AppDrawerItemEntry, { IAppDrawerItemEntry } from '@/components/AppDrawerItemEntry.vue';
+import AppDrawerItemGroup, { IAppDrawerItemGroup } from '@/components/AppDrawerItemGroup.vue';
+import { AppDrawerItemType } from '@/models/AppDrawerBaseItem';
 import * as AuthStore from '@/store/modules/auth';
 import { AuthUser } from '@/store/modules/auth.state';
-import { RawLocation } from 'vue-router';
 
-interface MenuEntry {
-  id: string;
-  label: string;
-  icon?: string;
-  to?: RawLocation;
-  action?: () => void;
-  exact?: boolean;
-  condition: () => boolean;
-}
+
+type AppDrawerItem = IAppDrawerItemEntry | IAppDrawerItemGroup;
 
 export default Vue.extend({
+  components: { AppDrawerItemEntry, AppDrawerItemGroup },
 
   props: {
     value: {
@@ -89,6 +78,11 @@ export default Vue.extend({
   },
 
   computed: {
+    /** Enum exposed for usage in template. */
+    AppDrawerItemType() {
+      return AppDrawerItemType;
+    },
+
     largeScreen(): boolean {
       return this.$vuetify.breakpoint.lgAndUp;
     },
@@ -107,7 +101,7 @@ export default Vue.extend({
     },
 
     displayName(): string {
-      if (!this.user) {
+      if (this.user == null) {
         return '';
       }
 
@@ -124,9 +118,10 @@ export default Vue.extend({
       return `https://www.gravatar.com/avatar/${md5(email)}?s=80`;
     },
 
-    menuEntries(): MenuEntry[] {
+    drawerItems(): AppDrawerItem[] {
       return [
         {
+          type: AppDrawerItemType.Entry,
           id: 'home',
           icon: 'dashboard',
           label: 'Home',
@@ -135,20 +130,31 @@ export default Vue.extend({
           condition: () => true,
         },
         {
-          id: 'exchanges',
-          icon: 'swap_vert',
-          label: 'Exchanges',
-          to: { name: 'ExchangesOverview' },
+          type: AppDrawerItemType.Group,
+          id: 'settings',
+          label: 'Settings',
           condition: () => !!this.user,
+          items: [
+            {
+              type: AppDrawerItemType.Entry,
+              id: 'account',
+              icon: 'account_box',
+              label: 'Account',
+              to: { name: 'Account' },
+              condition: () => !!this.user,
+            },
+            {
+              type: AppDrawerItemType.Entry,
+              id: 'exchanges',
+              icon: 'swap_vert',
+              label: 'Exchanges',
+              to: { name: 'ExchangesOverview' },
+              condition: () => !!this.user,
+            },
+          ],
         },
         {
-          id: 'account',
-          icon: 'account_box',
-          label: 'Account',
-          to: { name: 'Account' },
-          condition: () => !!this.user,
-        },
-        {
+          type: AppDrawerItemType.Entry,
           id: 'sign-in',
           icon: 'vpn_key',
           label: 'Sign In',
@@ -156,6 +162,7 @@ export default Vue.extend({
           condition: () => !this.user,
         },
         {
+          type: AppDrawerItemType.Entry,
           id: 'sign-out',
           icon: 'exit_to_app',
           label: 'Sign Out',
