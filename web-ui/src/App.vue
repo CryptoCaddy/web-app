@@ -17,7 +17,10 @@
           <router-link to="/">Crypto Caddy</router-link>
         </v-toolbar-title>
         <v-spacer/>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
+        <v-toolbar-side-icon
+          v-if="!largeScreen"
+          @click.stop="drawer = !drawer"
+        />
       </v-toolbar>
 
       <v-content>
@@ -52,6 +55,12 @@ export default Vue.extend({
   name: 'App',
 
   components: { AppDrawer },
+
+  computed: {
+    largeScreen(): boolean {
+      return this.$vuetify.breakpoint.lgAndUp;
+    },
+  },
 
   data() {
     return {

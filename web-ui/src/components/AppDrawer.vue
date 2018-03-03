@@ -8,7 +8,6 @@
     :clipped="largeScreen"
     :fixed="largeScreen"
     :permanent="largeScreen"
-    :mini-variant.sync="useMiniDrawer"
   >
     <transition
       name="avatar"
@@ -85,11 +84,6 @@ export default Vue.extend({
 
     largeScreen(): boolean {
       return this.$vuetify.breakpoint.lgAndUp;
-    },
-
-    useMiniDrawer(): boolean {
-      // Mini drawer will be shown instead of hiding the drawer on large screens
-      return this.largeScreen && !this.value;
     },
 
     user(): AuthUser | null {
