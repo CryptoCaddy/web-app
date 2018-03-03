@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class UserExchange {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     //exchange name
     private String name;
@@ -35,11 +35,11 @@ public class UserExchange {
 
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

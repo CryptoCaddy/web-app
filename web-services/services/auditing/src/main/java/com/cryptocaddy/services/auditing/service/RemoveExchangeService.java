@@ -15,12 +15,14 @@ import com.cryptocaddy.xchange.data.model.Coin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
 @Service
+@Transactional
 public class RemoveExchangeService {
 
     private UserRepository userRepository;
@@ -32,7 +34,7 @@ public class RemoveExchangeService {
         this.userExchangeRepository = userExchangeRepository;
     }
 
-    public Result removeExchange(JWTBody userJWTBody, long exchangeIdRemove) {
+    public Result removeExchange(JWTBody userJWTBody, Long exchangeIdRemove) {
 
         User user = userRepository.findUserByUid(userJWTBody.getUid());
         UserExchange ux = userExchangeRepository.findById(exchangeIdRemove);

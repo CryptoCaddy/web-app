@@ -21,7 +21,7 @@ public interface RemoveExchangeApi {
     })
 
     @SuppressWarnings("all")
-    @RequestMapping(value = "/removeExchange",
+    @RequestMapping(value = "removeExchange",
             produces = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<Result> removeExchange(@RequestHeader(value="Authorization") String authorization, @RequestParam long exchangeIdRemove);

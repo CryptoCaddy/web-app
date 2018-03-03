@@ -21,7 +21,7 @@ public interface AddExchangeApi {
             @ApiResponse(code = 400, message = "Unexpected Error", response = RestErrorInfo.class)
     })
     @SuppressWarnings("all")
-    @RequestMapping(value = "/addExchange",
+    @RequestMapping(value = "deprecated/addExchange",
             produces = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<ResponseExchangeWrapper> addExchange(@RequestHeader(value="Authorization") String authorization, @RequestBody RequestAddExchange requestAddExchange);

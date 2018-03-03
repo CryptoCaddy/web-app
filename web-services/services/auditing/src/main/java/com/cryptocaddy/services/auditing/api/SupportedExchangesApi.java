@@ -23,7 +23,7 @@ public interface SupportedExchangesApi {
             @ApiResponse(code = 400, message = "Unexpected Error", response = RestErrorInfo.class)
     })
     @SuppressWarnings("all")
-    @RequestMapping(value = "/supportedExchanges",
+    @RequestMapping(value = "deprecated/supportedExchanges",
             produces = { "application/json" },
             method = RequestMethod.GET)
     ResponseEntity<ResponseSupportedExchanges> getSupportedExchanges();
