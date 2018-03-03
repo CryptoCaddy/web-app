@@ -6,6 +6,7 @@
     :rules="rules"
     type="email"
     :value="value"
+    :disabled="disabled"
     @input="$emit('input', $event)"
   />
 </template>
@@ -20,6 +21,7 @@ export default Vue.extend({
 
   props: {
     autocomplete: { type: String, default: 'email' },
+    disabled: { type: Boolean, default: false },
     label: { type: String, default: 'Email' },
     name: { type: String, default: 'email' },
     value: { type: String, default: '' },

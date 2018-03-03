@@ -4,7 +4,8 @@
       <v-flex xs12>
         <FormFieldEmail
           v-model="form.value.email"
-          disabled />
+          disabled
+        />
       </v-flex>
     </v-layout>
   </v-form>

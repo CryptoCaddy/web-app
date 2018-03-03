@@ -20,6 +20,7 @@ export default Vue.extend({
 
   props: {
     autocomplete: { type: String, default: 'current-password' },
+    disabled: { type: Boolean, default: false },
     equals: { type: String, default: null },
     label: { type: String, default: 'Password' },
     name: { type: String, default: 'password' },
