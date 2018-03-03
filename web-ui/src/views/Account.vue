@@ -1,21 +1,15 @@
 <template>
-  <v-container :class="containerClasses">
-    <v-layout
-      row
-      wrap>
-      <v-flex
-        xs12
-        sm8
-        offset-sm2
-        md6
-        offset-md3>
+  <v-container :class="containerClasses" grid-list-md>
+    <v-layout row wrap>
+      <v-flex xs12 sm8 offset-sm2 md6 offset-md3>
 
         <v-card
           v-if="!isAnonymous"
-          class="pt-4 px-4 mb-4"
-          :flat="isPhone">
+          :class="cardClasses"
+          :flat="isPhone"
+        >
           <v-card-title>
-            <h2 class="title mb-0">Account Data</h2>
+            <h2 class="caption mb-0">Account Data</h2>
           </v-card-title>
           <v-card-text>
             <AccountDataForm ref="accountDataForm" />
@@ -33,8 +27,9 @@
 
         <v-card
           v-else
-          class="pt-4 px-4 mb-4"
-          :flat="isPhone">
+          :class="cardClasses"
+          :flat="isPhone"
+        >
           <v-card-title primary-title>
             <h2 class="title mb-0">Link Account</h2>
           </v-card-title>
@@ -62,10 +57,14 @@
         </v-card>
 
         <v-divider/>
+      </v-flex>
 
+
+      <v-flex xs12 sm8 offset-sm2 md6 offset-md3>
         <v-card
-          class="pt-4 px-4 mb-4"
-          :flat="isPhone">
+          :class="cardClasses"
+          :flat="isPhone"
+        >
           <v-card-title primary-title>
             <h2 class="title mb-0">Preferences</h2>
           </v-card-title>
@@ -106,6 +105,13 @@ export default Vue.extend({
 
     containerClasses(): { [key: string]: boolean } {
       return { white: this.isPhone, 'pa-0': this.isPhone };
+    },
+
+    cardClasses(): { [key: string]: boolean } {
+      return {
+        white: this.isPhone,
+        'pa-3': this.isPhone,
+      };
     },
 
     authPending(): boolean {
