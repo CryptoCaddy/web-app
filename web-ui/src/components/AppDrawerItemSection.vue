@@ -14,7 +14,7 @@ import Vue from 'vue';
 import AppDrawerItemEntry, { IAppDrawerItemEntry } from './AppDrawerItemEntry.vue';
 import { AppDrawerBaseItem, AppDrawerItemType } from '@/models/AppDrawerBaseItem';
 
-export interface IAppDrawerItemGroup extends AppDrawerBaseItem {
+export interface IAppDrawerItemSection extends AppDrawerBaseItem {
   type: AppDrawerItemType.Group;
   items: IAppDrawerItemEntry[];
 }

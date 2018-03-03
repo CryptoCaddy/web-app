@@ -4,7 +4,7 @@
     :exact="props.entry.exact"
     @click="props.entry.action ? props.entry.action() : null"
   >
-    <v-list-tile-action>
+    <v-list-tile-action v-if="props.entry.icon">
       <v-icon>{{ props.entry.icon }}</v-icon>
     </v-list-tile-action>
     <v-list-tile-content>

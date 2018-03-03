@@ -80,7 +80,7 @@
     </v-dialog>
 
     <v-snackbar
-      bottom right
+      bottom left
       :timeout="5000"
       color="error"
       :multi-line="isPhone"

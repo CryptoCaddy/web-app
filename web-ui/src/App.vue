@@ -8,17 +8,14 @@
       <AppDrawer v-model="drawer" />
 
       <v-toolbar
-        color="primary"
-        dark
-        fixed
-        clipped-right
-        app>
+        app fixed dark color="primary"
+        v-if="!largeScreen"
+      >
         <v-toolbar-title>
           <router-link to="/">Crypto Caddy</router-link>
         </v-toolbar-title>
         <v-spacer/>
         <v-toolbar-side-icon
-          v-if="!largeScreen"
           @click.stop="drawer = !drawer"
         />
       </v-toolbar>
