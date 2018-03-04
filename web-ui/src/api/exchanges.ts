@@ -41,7 +41,7 @@ export const ExchangesApi = {
 
   addExchange(exchangeToAdd: ExchangeAddRequest): Promise<ExchangeWallet> {
     return new Promise((resolve, reject) => {
-      axios.post('/api/addExchange', exchangeToAdd)
+      axios.post('/api/user-exchange/add', exchangeToAdd)
         .then((res) => res.data)
         .then((data) => getNormalizeWallet(data))
         .then((data) => getExchangeWithMeta(data))
@@ -54,7 +54,7 @@ export const ExchangesApi = {
 
   getSupportedExchanges(): Promise<SupportedExchange[]> {
     return new Promise((resolve, reject) => {
-      axios.get('/api/supportedExchanges')
+      axios.get('/api/exchanges/supported')
         .then((res) => res.data as SupportedExchangeResponse)
         .then((data) => resolve(exchangeMapToArray(data.exchangeToParameterMap)))
         .catch((err: AxiosError) => {
@@ -65,7 +65,7 @@ export const ExchangesApi = {
 
   getWallets(): Promise<ExchangeWallet[]> {
     return new Promise((resolve, reject) => {
-      axios.get<ExchangeWalletsResponse>('/api/exchangeWallets')
+      axios.get<ExchangeWalletsResponse>('/api/user-exchange/wallets')
         .then((res) => res.data.allExchangeWrappers)
         .then((data) => data.map(getNormalizeWallet))
         .then((data) => data.map(getExchangeWithMeta))
@@ -78,7 +78,7 @@ export const ExchangesApi = {
 
   removeExchange(exchangeIdRemove: ExchangeIdType): Promise<any> {
     // @TODO send as payload instead of query parameter
-    return axios.post('/api/removeExchange', { }, { params: { exchangeIdRemove } });
+    return axios.post('/api/user-exchange/remove', { }, { params: { exchangeIdRemove } });
   },
 
 };

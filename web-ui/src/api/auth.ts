@@ -24,7 +24,7 @@ function signUpOnCryptoCaddy(user: firebase.User): Promise<firebase.User> {
     const token = await user.getIdToken();
     axios
       .post(
-        '/api/createAccount',
+        '/api/users/add',
         { email: user.email, token },
         { headers: { Authorization: `Bearer ${token}` } },
       )
