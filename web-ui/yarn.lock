@@ -4988,6 +4988,10 @@ jest-leak-detector@^22.4.0:
   dependencies:
     pretty-format "^22.4.0"
 
+jest-localstorage-mock@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jest-localstorage-mock/-/jest-localstorage-mock-2.2.0.tgz#ce9a9de01dfdde2ad8aa08adf73acc7e5cc394cf"
+
 jest-matcher-utils@^22.4.0:
   version "22.4.0"
   resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-22.4.0.tgz#d55f5faf2270462736bdf7c7485ee931c9d4b6a1"
@@ -7876,6 +7880,10 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
+shvl@^1.1.1:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/shvl/-/shvl-1.2.0.tgz#5e2de474c68b8430602689a7d35100ad2cb33fec"
+
 sigmund@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
@@ -9043,6 +9051,13 @@ vue@^2.5.13:
 vuetify@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.0.4.tgz#ef712e4ccd231d0d3678da31047d338d94e7f20d"
+
+vuex-persistedstate@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/vuex-persistedstate/-/vuex-persistedstate-2.4.2.tgz#a8caf63b07ce4bdff6d82b29634c051ead382bf3"
+  dependencies:
+    deepmerge "^2.0.1"
+    shvl "^1.1.1"
 
 vuex-typescript@^3.0.2:
   version "3.0.2"

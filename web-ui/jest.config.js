@@ -33,6 +33,7 @@ module.exports = {
     'text-summary',
   ],
   setupFiles: [
+    'jest-localstorage-mock',
     './config/jest.setup.ts',
   ],
 };

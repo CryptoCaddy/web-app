@@ -13,3 +13,4 @@ declare module '*.vue' {
 declare module 'firebase-mock';
 declare module 'vue-scroll-reveal';
 declare module 'vuetify/es5/util/colors';
+declare module 'vuex-persistedstate';
