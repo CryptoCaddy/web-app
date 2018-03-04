@@ -4,9 +4,6 @@ package com.cryptocaddy.services.common.security;
 
 import com.cryptocaddy.services.common.authorization.JWTAuthorizationFilter;
 import com.cryptocaddy.services.common.authentication.JWTAuthenticationFilter;
-
-
-import static com.cryptocaddy.services.common.security.SecurityConstants.SIGN_UP_URL;
 import static com.cryptocaddy.services.common.security.SecurityConstants.API_DOCS_URL;
 
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers(API_DOCS_URL)
+                .antMatchers("/")
+                .antMatchers("/api/")
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/webjars/springfox-swagger-ui/**")
                 .antMatchers("/swagger-ui.html")
