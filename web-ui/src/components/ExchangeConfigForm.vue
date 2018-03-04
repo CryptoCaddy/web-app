@@ -97,6 +97,13 @@ export default Vue.extend({
   },
 
   methods: {
+    clearForm() {
+      this.form.value = {
+        exchangeName: '',
+        parameters: { },
+      };
+    },
+
     submit() {
       // @TODO typing not yet supported
       // @TODO PENDING STATE
@@ -119,6 +126,7 @@ export default Vue.extend({
       ExchangesStore.dispatchers.addExchange(this.$store, formValue as ExchangeAddRequest)
         .then((res: any | null) => {
           if (res) {
+            this.clearForm();
             this.$emit('success');
           }
         });
