@@ -6,14 +6,12 @@ import RootStore from '../..';
 import * as AccountStore from '../account';
 import { AccountPreferences, AccountState } from '../account.state';
 
-jest.mock('cryptocaddy/util/logger', () => ({
-  Logger: {
-    warn: jest.fn(),
-  },
-}));
-
 describe('AccountStore', () => {
   const state: AccountState = RootStore.state.account;
+
+  beforeEach(() => {
+    jest.spyOn(Logger, 'warn').mockImplementation(() => { });
+  });
 
   it('should contain a vuex module named `account`', () => {
     expect(AccountStore).toEqual(

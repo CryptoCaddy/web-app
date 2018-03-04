@@ -79,9 +79,8 @@ export const module = {
   },
 };
 
-const { commit, read, dispatch } = getStoreAccessors<ChoiceState, RootState>(
-  moduleName,
-);
+const { commit, read, dispatch } =
+  getStoreAccessors<ChoiceState, RootState>(moduleName);
 
 const commiters = {
   currencyLoaded: commit(module.mutations.currencyLoaded),

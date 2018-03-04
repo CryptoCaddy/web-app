@@ -1,11 +1,11 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import * as AuthStore from '@/store/modules/auth';
+import RootStore from '@/store';
 
 /* eslint-disable no-param-reassign */
 
 export const jwtRequestInterceptor = axios.interceptors.request.use(
   (req: AxiosRequestConfig) => {
-    const { user } = AuthStore.module.state;
+    const { user } = RootStore.state.auth;
     if (user) {
       req.headers.Authorization = `Bearer ${user.token}`;
     }

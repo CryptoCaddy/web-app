@@ -98,9 +98,8 @@ export const module = {
   },
 };
 
-const { commit, read, dispatch } = getStoreAccessors<AccountState, RootState>(
-  moduleName,
-);
+const { commit, read, dispatch } =
+  getStoreAccessors<AccountState, RootState>(moduleName);
 
 const commiters = {
   loadPreferencesError: commit(module.mutations.loadPreferencesError),

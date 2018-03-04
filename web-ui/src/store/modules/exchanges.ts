@@ -190,9 +190,8 @@ export const module = {
 
 };
 
-const { commit, read, dispatch } = getStoreAccessors<ExchangesState, RootState>(
-  moduleName,
-);
+const { commit, read, dispatch } =
+  getStoreAccessors<ExchangesState, RootState>(moduleName);
 
 const commiters = {
   addExchangeInitiated: commit(module.mutations.addExchangeInitiated),

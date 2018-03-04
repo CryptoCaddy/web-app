@@ -152,9 +152,8 @@ export const module = {
   },
 };
 
-const { commit, read, dispatch } = getStoreAccessors<AuthState, RootState>(
-  moduleName,
-);
+const { commit, read, dispatch } =
+  getStoreAccessors<AuthState, RootState>(moduleName);
 
 const commiters = {
   authAttempt: commit(module.mutations.authAttempt),

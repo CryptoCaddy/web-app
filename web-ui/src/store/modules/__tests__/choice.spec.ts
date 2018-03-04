@@ -7,14 +7,12 @@ import RootStore from '../..';
 import * as ChoiceStore from '../choice';
 import { ChoiceState } from '../choice.state';
 
-jest.mock('cryptocaddy/util/logger', () => ({
-  Logger: {
-    warn: jest.fn(),
-  },
-}));
-
 describe('ChoiceStore', () => {
   const state: ChoiceState = RootStore.state.choice;
+
+  beforeEach(() => {
+    jest.spyOn(Logger, 'warn').mockImplementation(() => { });
+  });
 
   it('should contain a vuex module named `choice`', () => {
     expect(ChoiceStore).toEqual(
@@ -65,7 +63,7 @@ describe('ChoiceStore', () => {
         expect(state).toEqual(expectedState);
       });
 
-      describe('if currencies could not be loaded', () => {
+      fdescribe('if currencies could not be loaded', () => {
         it('should log an error and return to a clean state', async () => {
           const expectedState = clone(state);
           expectedState.currency.pending = false;
