@@ -1,18 +1,18 @@
 import { exchangeMetaMappings } from '@/api/exchanges-meta';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import {
   ExchangeAddRequest,
+  ExchangeIdType,
   ExchangeToParameterMap,
   ExchangeWallet,
   ExchangeWalletsResponse,
   SupportedExchange,
   SupportedExchangeResponse,
-  ExchangeIdType,
 } from './exchanges.models';
 
 async function exchangeMapToArray(
-  exchangeMap: ExchangeToParameterMap | null,
+  exchangeMap: ExchangeToParameterMap,
 ): Promise<SupportedExchange[]> {
   if (!exchangeMap) {
     return Promise.reject(new Error('Data could not be loaded.'));
@@ -40,40 +40,23 @@ function getExchangeWithMeta(exchange: ExchangeWallet): ExchangeWallet {
 export const ExchangesApi = {
 
   addExchange(exchangeToAdd: ExchangeAddRequest): Promise<ExchangeWallet> {
-    return new Promise((resolve, reject) => {
-      axios.post('/api/user-exchange/add', exchangeToAdd)
-        .then((res) => res.data)
-        .then((data) => getNormalizeWallet(data))
-        .then((data) => getExchangeWithMeta(data))
-        .then((data) => resolve(data))
-        .catch((err: AxiosError) => {
-          reject(new Error(err.message));
-        });
-    });
+    return axios.post<ExchangeWallet>('/api/user-exchange/add', exchangeToAdd)
+      .then((res) => res.data)
+      .then((data) => getNormalizeWallet(data))
+      .then((data) => getExchangeWithMeta(data));
   },
 
   getSupportedExchanges(): Promise<SupportedExchange[]> {
-    return new Promise((resolve, reject) => {
-      axios.get('/api/exchanges/supported')
-        .then((res) => res.data as SupportedExchangeResponse)
-        .then((data) => resolve(exchangeMapToArray(data.exchangeToParameterMap)))
-        .catch((err: AxiosError) => {
-          reject(new Error(err.message));
-        });
-    });
+    return axios.get<SupportedExchangeResponse>('/api/exchanges/supported')
+      .then((res) => res.data)
+      .then((data) => exchangeMapToArray(data.exchangeToParameterMap));
   },
 
   getWallets(): Promise<ExchangeWallet[]> {
-    return new Promise((resolve, reject) => {
-      axios.get<ExchangeWalletsResponse>('/api/user-exchange/wallets')
-        .then((res) => res.data.allExchangeWrappers)
-        .then((data) => data.map(getNormalizeWallet))
-        .then((data) => data.map(getExchangeWithMeta))
-        .then((data) => resolve(data))
-        .catch((err: AxiosError) => {
-          reject(new Error(err.message));
-        });
-    });
+    return axios.get<ExchangeWalletsResponse>('/api/user-exchange/wallets')
+      .then((res) => res.data.allExchangeWrappers)
+      .then((data) => data.map(getNormalizeWallet))
+      .then((data) => data.map(getExchangeWithMeta));
   },
 
   removeExchange(exchangeIdRemove: ExchangeIdType): Promise<any> {

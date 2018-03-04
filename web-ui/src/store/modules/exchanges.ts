@@ -65,9 +65,9 @@ export const module = {
       state.addExchange.error = null;
     },
 
-    addExchangeError(state: ExchangesState, err: string) {
+    addExchangeError(state: ExchangesState, err: Error) {
       state.addExchange.pending = false;
-      state.addExchange.error = err;
+      state.addExchange.error = err.message;
     },
 
     addExchangeSuccess(state: ExchangesState, wallet: ExchangeWallet) {
@@ -103,9 +103,9 @@ export const module = {
       state.supported.data = data;
     },
 
-    supportedLoadError(state: ExchangesState, err: string) {
+    supportedLoadError(state: ExchangesState, err: Error) {
       state.supported.pending = false;
-      state.supported.error = err;
+      state.supported.error = err.message;
     },
 
     walletsLoading(state: ExchangesState) {
@@ -119,9 +119,9 @@ export const module = {
       state.wallets.data = data;
     },
 
-    walletsLoadError(state: ExchangesState, err: string) {
+    walletsLoadError(state: ExchangesState, err: Error) {
       state.wallets.pending = false;
-      state.wallets.error = err;
+      state.wallets.error = err.message;
     },
   },
 
@@ -138,8 +138,8 @@ export const module = {
           commiters.addExchangeSuccess(ctx, data);
           return data;
         })
-        .catch((err: Error) => {
-          commiters.addExchangeError(ctx, err.message);
+        .catch((err: AxiosError) => {
+          commiters.addExchangeError(ctx, err);
           return null;
         });
     },
@@ -152,7 +152,7 @@ export const module = {
           commiters.supportedLoadSuccess(ctx, data);
           return data;
         })
-        .catch((err: string) => {
+        .catch((err: AxiosError) => {
           commiters.supportedLoadError(ctx, err);
           return [];
         });
@@ -166,8 +166,8 @@ export const module = {
           commiters.walletsLoadSuccess(ctx, data);
           return data;
         })
-        .catch((err: Error) => {
-          commiters.walletsLoadError(ctx, err.message);
+        .catch((err: AxiosError) => {
+          commiters.walletsLoadError(ctx, err);
           return [];
         });
     },

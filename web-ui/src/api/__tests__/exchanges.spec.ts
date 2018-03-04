@@ -29,20 +29,20 @@ describe('ExchangesApi', () => {
       },
     };
 
-    it('should call the /addExchanges endpoint', async () => {
+    it('should call the /user-exchange/add endpoint', async () => {
       mockHttp
-        .onPost('/api/addExchange', exchangeToAdd)
+        .onPost('/api/user-exchange/add', exchangeToAdd)
         .replyOnce(201, { });
       ExchangesApi.addExchange(exchangeToAdd);
 
       expect(axios.post)
-        .toHaveBeenCalledWith('/api/addExchange', exchangeToAdd);
+        .toHaveBeenCalledWith('/api/user-exchange/add', exchangeToAdd);
     });
 
     describe('when succeeded', () => {
       it('should resolve a promise', () => {
         mockHttp
-          .onPost('/api/addExchange')
+          .onPost('/api/user-exchange/add')
           .replyOnce(201, { });
 
         expect(ExchangesApi.addExchange(exchangeToAdd))
@@ -53,7 +53,7 @@ describe('ExchangesApi', () => {
     describe('when failed', () => {
       it('should reject with an error message', () => {
         mockHttp
-          .onGet('/api/addExchange')
+          .onGet('/api/user-exchange/add')
           .replyOnce(404);
 
         expect(ExchangesApi.addExchange(exchangeToAdd))
@@ -65,7 +65,7 @@ describe('ExchangesApi', () => {
   describe('getSupportedExchanges()', () => {
     function replyValid() {
       mockHttp
-        .onGet('/api/supportedExchanges')
+        .onGet('/api/exchanges/supported')
         .replyOnce(200, {
           exchangeToParameterMap: {
             BINANCE: {
@@ -84,7 +84,7 @@ describe('ExchangesApi', () => {
       ExchangesApi.getSupportedExchanges();
 
       expect(axios.get)
-        .toHaveBeenCalledWith('/api/supportedExchanges');
+        .toHaveBeenCalledWith('/api/exchanges/supported');
     });
 
     describe('when succeeded', () => {
@@ -110,45 +110,45 @@ describe('ExchangesApi', () => {
           ]);
       });
 
-      it('should throw on invalid responses', async () => {
+      fit('should catch invalid responses', async () => {
         mockHttp
-          .onGet('/api/supportedExchanges')
+          .onGet('/api/exchanges/supported')
           .replyOnce(200, { });
 
-        expect(await ExchangesApi.getSupportedExchanges().catch(errorFn))
-          .toEqual(undefined);
-        expect(errorFn).toHaveBeenCalledWith(new Error('Data could not be loaded.'));
+        await ExchangesApi.getSupportedExchanges().catch(errorFn);
+        expect(errorFn)
+          .toHaveBeenCalledWith(new Error('Data could not be loaded.'));
       });
     });
 
     describe('when failed', () => {
       it('should reject with an error message', async () => {
         mockHttp
-          .onGet('/api/supportedExchanges')
+          .onGet('/api/exchanges/supported')
           .replyOnce(404);
 
-        expect(await ExchangesApi.getSupportedExchanges().catch(errorFn))
-          .toEqual(undefined);
-        expect(errorFn).toHaveBeenCalledWith(new Error('Request failed with status code 404'));
+        await ExchangesApi.getSupportedExchanges().catch(errorFn);
+        expect(errorFn)
+          .toHaveBeenCalledWith(new Error('Request failed with status code 404'));
       });
     });
   });
 
   describe('getWallets()', () => {
-    it('should call the /exchangeWallets endpoint', async () => {
+    it('should call the /user-exchange/wallets endpoint', async () => {
       mockHttp
-        .onGet('/api/exchangeWallets')
+        .onGet('/api/user-exchange/wallets')
         .replyOnce(200, { allExchangeWrappers: [] });
       ExchangesApi.getWallets();
 
       expect(axios.get)
-        .toHaveBeenCalledWith('/api/exchangeWallets');
+        .toHaveBeenCalledWith('/api/user-exchange/wallets');
     });
 
     describe('when succeeded', () => {
       it('should resolve a promise', () => {
         mockHttp
-          .onGet('/api/exchangeWallets')
+          .onGet('/api/user-exchange/wallets')
           .replyOnce(200, { allExchangeWrappers: [] });
 
         expect(ExchangesApi.getWallets())
@@ -159,7 +159,7 @@ describe('ExchangesApi', () => {
     describe('when failed', () => {
       it('should reject with an error message', () => {
         mockHttp
-          .onGet('/api/exchangeWallets')
+          .onGet('/api/user-exchange/wallets')
           .replyOnce(404);
 
         expect(ExchangesApi.getWallets())

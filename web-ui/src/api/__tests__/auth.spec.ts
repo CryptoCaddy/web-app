@@ -191,7 +191,7 @@ describe('AuthApi', () => {
    * signInWithEmailAndPassword
    */
   describe('signInWithEmailAndPassword()', () => {
-    const signUpEndpoint = '/api/createAccount';
+    const signUpEndpoint = '/api/users/add';
 
     beforeEach(() => {
       jest.spyOn(axios, 'post');
@@ -327,7 +327,7 @@ describe('AuthApi', () => {
    * signUpWithEmailAndPassword
    */
   describe('signUpWithEmailAndPassword()', () => {
-    const signUpEndpoint = '/api/createAccount';
+    const signUpEndpoint = '/api/users/add';
 
     beforeEach(() => {
       jest.spyOn(axios, 'post');
