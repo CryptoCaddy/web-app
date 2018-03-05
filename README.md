@@ -113,6 +113,8 @@ Please read [CONTRIBUTING.md](https://github.com/CryptoCaddy/web-app/blob/master
 ## Authors
 
 * **Jon Waggoner**
+* **Sven Flickinger**
+* **Michael Hudgins**
 * **Nicholas Fields**
 
 See also the list of [contributors](https://github.com/CryptoCaddy/web-services/contributors) who participated in this project.
