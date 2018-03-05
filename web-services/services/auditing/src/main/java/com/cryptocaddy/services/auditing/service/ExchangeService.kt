@@ -1,6 +1,6 @@
 package com.cryptocaddy.services.auditing.service
 
-import com.cryptocaddy.services.auditing.model.response.ResponseSupportedExchanges
+import com.cryptocaddy.services.auditing.dto.response.ResponseSupportedExchanges
 import com.cryptocaddy.xchange.data.exchanges.ExchangeType
 import com.cryptocaddy.xchange.data.factory.AbstractExchangeFactory
 import org.springframework.beans.factory.annotation.Autowired

@@ -10,6 +10,20 @@ services:
     depends_on:
       - web
 
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    ports:
+      - "33061:3306"
+
   web:
     restart: always
     build: ./web-services

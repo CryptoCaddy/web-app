@@ -1,4 +1,4 @@
-package com.cryptocaddy.services.auditing.controller;
+package com.cryptocaddy.services.common.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

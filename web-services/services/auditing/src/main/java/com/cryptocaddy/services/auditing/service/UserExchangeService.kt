@@ -3,27 +3,23 @@ package com.cryptocaddy.services.auditing.service
 import com.cryptocaddy.libraries.database.dao.UserExchange
 import com.cryptocaddy.libraries.database.dao.UserExchangeRepository
 import com.cryptocaddy.libraries.database.dao.UserRepository
-import com.cryptocaddy.services.auditing.model.Result
-import com.cryptocaddy.services.auditing.model.attributes.Exchange
-import com.cryptocaddy.services.auditing.model.request.RequestAddExchange
-import com.cryptocaddy.services.auditing.model.response.ResponseExchangeWrapper
-import com.cryptocaddy.services.auditing.model.response.ResponseUserData
+import com.cryptocaddy.services.auditing.dto.response.Result
+import com.cryptocaddy.services.auditing.dto.request.RequestAddExchange
+import com.cryptocaddy.services.auditing.dto.response.ResponseExchangeWrapper
+import com.cryptocaddy.services.auditing.dto.response.ResponseUserData
 import com.cryptocaddy.services.common.authentication.JWTBody
 import com.cryptocaddy.xchange.data.exchanges.ExchangeController
-import com.cryptocaddy.xchange.data.exchanges.ExchangeType
 import com.cryptocaddy.xchange.data.factory.AbstractExchangeFactory
-import com.cryptocaddy.xchange.data.model.TransactionHistory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.ArrayList
 import java.util.HashMap
-import javax.transaction.Transactional
 
 @Service
 class UserExchangeService @Autowired
 constructor(val abstractExchangeFactory: AbstractExchangeFactory, val userRepository: UserRepository, val userExchangeRepository: UserExchangeRepository) {
 
-    fun addUserExchange(userJWTBody: JWTBody, requestAddExchange: RequestAddExchange): ResponseExchangeWrapper {
+    fun addUserExchange(userJWTBody: JWTBody, requestAddExchange: RequestAddExchange): ResponseExchangeWrapper? {
 
         val user = userRepository.findUserByUid(userJWTBody.uid)
 
@@ -31,20 +27,26 @@ constructor(val abstractExchangeFactory: AbstractExchangeFactory, val userReposi
         val coinList = if (controller != null) controller.getAllCoins(requestAddExchange.parameters) else ArrayList()
 
         val pList = requestAddExchange.parameters
-        val key = pList[ExchangeController.API_KEY_PARAM] as String
-        val secret = pList[ExchangeController.API_SECRET_PARAM] as String
-        val nullablePass = pList[ExchangeController.API_PASSPHRASE_PARAM]
+        if (pList != null){
+            val key : String? = pList[ExchangeController.API_KEY_PARAM]  //?: throw IllegalArgumentException("api key parameter expected")
+            val secret : String? = pList[ExchangeController.API_SECRET_PARAM]
+            val nullablePass :String? = pList[ExchangeController.API_PASSPHRASE_PARAM]
 
+            if (key == null || secret == null){
+                throw IllegalArgumentException("key and secret must not be null")
+            }
 
-        val userExchange = UserExchange(requestAddExchange.exchangeName, key, secret, nullablePass)
-        userExchange.user = user
-        userExchangeRepository.save(userExchange)
+            val userExchange = UserExchange(requestAddExchange.exchangeName, key, secret, nullablePass)
+            userExchange.user = user
+            userExchangeRepository.save(userExchange)
 
-        val wrapper = ResponseExchangeWrapper(requestAddExchange.exchangeName)
-        wrapper.exchangeEntryId = userExchange.id
-        wrapper.exchangeCoins = coinList
-        return wrapper
+            val wrapper = ResponseExchangeWrapper(requestAddExchange.exchangeName)
+            wrapper.exchangeEntryId = userExchange.id ?: return null
+            wrapper.exchangeCoins = coinList
+            return wrapper
+        }
 
+        return null
 
     }
 
@@ -53,10 +55,9 @@ constructor(val abstractExchangeFactory: AbstractExchangeFactory, val userReposi
 
         val user = userRepository.findUserByUid(userJWTBody.uid)
         val ux = userExchangeRepository.findById(exchangeIdRemove)
-        if (ux.user.uid !== user.uid) {
+        if (ux.user?.uid !== user.uid) {
             //we have somehow ended up somewhere very bad. The requested exchange to be removed is not owned by this user.
-            //TODO: handle this error properly
-            return null
+            throw IllegalArgumentException("Requested exchange to be removed is not owned by this user")
         }
 
         userExchangeRepository.removeById(exchangeIdRemove)
@@ -65,23 +66,28 @@ constructor(val abstractExchangeFactory: AbstractExchangeFactory, val userReposi
     }
 
 
-    fun getExchangeWallets(jwtBody: JWTBody): ResponseUserData {
+    fun getExchangeWallets(jwtBody: JWTBody): ResponseUserData? {
 
         val user = userRepository.findUserByUid(jwtBody.uid)
 
-        val exchanges = user.exchanges
+        val exchanges = user.getExchanges()
 
         val response = ResponseUserData()
+
+        if (exchanges == null){
+            //TODO: this probably shouldn't be handled so quietly.
+            return null
+        }
 
         for (userExchange in exchanges) {
             val controller = abstractExchangeFactory.getExchangeController(userExchange.name)
 
-            val parameters = HashMap<String, String>()
-            parameters.put(ExchangeController.API_KEY_PARAM, userExchange.apiKey)
-            parameters.put(ExchangeController.API_SECRET_PARAM, userExchange.secret)
+            val parameters = HashMap<String, String?>()
+            parameters[ExchangeController.API_KEY_PARAM] = userExchange.apiKey
+            parameters[ExchangeController.API_SECRET_PARAM] = userExchange.secret
 
             if (userExchange.passphrase != null)
-                parameters.put(ExchangeController.API_PASSPHRASE_PARAM, userExchange.passphrase)
+                parameters[ExchangeController.API_PASSPHRASE_PARAM] = userExchange.passphrase
 
             val coinList = if (controller != null) controller.getAllCoins(parameters) else ArrayList()
 
@@ -96,23 +102,27 @@ constructor(val abstractExchangeFactory: AbstractExchangeFactory, val userReposi
         return response
     }
 
-    fun getExchangeTrades(jwtBody: JWTBody): ResponseUserData {
+    fun getExchangeTrades(jwtBody: JWTBody): ResponseUserData? {
 
         val user = userRepository.findUserByUid(jwtBody.uid)
 
-        val exchanges = user.exchanges
+        val exchanges = user.getExchanges()
 
         val response = ResponseUserData()
+
+        if (exchanges == null){
+            return null
+        }
 
         for (userExchange in exchanges) {
             val controller = abstractExchangeFactory.getExchangeController(userExchange.name)
 
-            val parameters = HashMap<String, String>()
-            parameters.put(ExchangeController.API_KEY_PARAM, userExchange.apiKey)
-            parameters.put(ExchangeController.API_SECRET_PARAM, userExchange.secret)
+            val parameters = HashMap<String, String?>()
+            parameters[ExchangeController.API_KEY_PARAM] = userExchange.apiKey
+            parameters[ExchangeController.API_SECRET_PARAM] = userExchange.secret
 
             if (userExchange.passphrase != null)
-                parameters.put(ExchangeController.API_PASSPHRASE_PARAM, userExchange.passphrase)
+                parameters[ExchangeController.API_PASSPHRASE_PARAM] = userExchange.passphrase
 
             val txHistory = if (controller != null) controller.getTransactionHistory(parameters) else null
 

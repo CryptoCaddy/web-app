@@ -3,8 +3,6 @@
 package com.cryptocaddy.services.common.security;
 
 import com.cryptocaddy.services.common.authorization.JWTAuthorizationFilter;
-import com.cryptocaddy.services.common.authentication.JWTAuthenticationFilter;
-import static com.cryptocaddy.services.common.security.SecurityConstants.API_DOCS_URL;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

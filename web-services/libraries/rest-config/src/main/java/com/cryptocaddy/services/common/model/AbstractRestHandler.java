@@ -1,4 +1,4 @@
-package com.cryptocaddy.services.auditing.api;
+package com.cryptocaddy.services.common.model;
 
 import com.cryptocaddy.services.common.model.RestErrorInfo;
 import com.cryptocaddy.services.common.exception.ResourceNotFoundException;
