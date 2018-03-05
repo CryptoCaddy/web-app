@@ -11,6 +11,7 @@ import {
   ExchangeWalletsState,
   SupportedExchangeState,
 } from '@/store/modules/exchanges.state';
+import { StoreUtils } from '@/store/util';
 import { AxiosError } from 'axios';
 import { RequestState } from 'cryptocaddy/util';
 import { ActionContext } from 'vuex';
@@ -101,6 +102,7 @@ export const module = {
     supportedLoadSuccess(state: ExchangesState, data: SupportedExchange[]) {
       state.supported.pending = false;
       state.supported.data = data;
+      state.supported.timestamp = Date.now();
     },
 
     supportedLoadError(state: ExchangesState, err: Error) {
@@ -117,6 +119,7 @@ export const module = {
     walletsLoadSuccess(state: ExchangesState, data: ExchangeWallet[]) {
       state.wallets.pending = false;
       state.wallets.data = data;
+      state.wallets.timestamp = Date.now();
     },
 
     walletsLoadError(state: ExchangesState, err: Error) {
@@ -144,7 +147,15 @@ export const module = {
         });
     },
 
-    async loadSupported(ctx: ExchangesContext): Promise<SupportedExchange[]> {
+    async loadSupported(
+      ctx: ExchangesContext,
+      { forceLoad = false } = { },
+    ): Promise<SupportedExchange[]> {
+      if (!forceLoad) {
+        const stored = StoreUtils.getStoredData(ctx.state.supported);
+        if (stored) { return stored; }
+      }
+
       commiters.supportedLoading(ctx);
 
       return ExchangesApi.getSupportedExchanges()
@@ -158,7 +169,16 @@ export const module = {
         });
     },
 
-    async loadWallets(ctx: ExchangesContext): Promise<ExchangeWallet[]> {
+    async loadWallets(
+      ctx: ExchangesContext,
+      { forceLoad = false } = { },
+    ): Promise<ExchangeWallet[]> {
+      if (!forceLoad) {
+        const stored = StoreUtils.getStoredData(ctx.state.wallets);
+        console.log('loadWallets', stored);
+        if (stored) { return stored; }
+      }
+
       commiters.walletsLoading(ctx);
 
       return ExchangesApi.getWallets()
