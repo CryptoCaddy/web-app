@@ -1,18 +1,10 @@
 version: '3'
 services:
-  static:
-    restart: always
-    build: ./web-ui
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - web
 
-  mysql:
+  db_user_data:
     image: mysql:5.7
-    container_name: mysql
+    #note that specifically declaring a container name has Docker Swarm implications. Since we are not using swarm this has been ignored.
+    container_name: db_user_data
     volumes:
       - dbdata:/var/lib/mysql
     restart: always
@@ -24,34 +16,42 @@ services:
     ports:
       - "33061:3306"
 
-  web:
+  python_service:
+    restart: always
+    build: ./fiat-engine
+    environment:
+      - MYSQL_HOST=db_user_data
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+  backend:
     restart: always
     build: ./web-services
-    #we compile here instead of at build because when running we get a persistent volume that we can use for maven's cache
-    command: "sh -c 'mvn package && java -jar services/auditing/target/auditing-1.0.jar'"
     ports:
       - "8080:8080"
     volumes:
       - ./web-services:/code
     environment:
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=db_user_data
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
+      #set the path as the location within the container after web-services directory is copied.
       - FIREBASE_CRED_PATH=/code/firebase-credentials.json
-    links:
-      - mysql
     depends_on:
-      - fiat
-      - mysql
+      - db_user_data
+      - python_service
 
-  fiat:
+  frontend:
     restart: always
-    build: ./fiat-engine
+    build: ./web-ui
     ports:
-      - "5000:5000"
-    environment:
-      - MYSQL_HOST
-      - MYSQL_DATABASE
-      - MYSQL_USER
-      - MYSQL_PASSWORD
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+
+volumes:
+  dbdata:

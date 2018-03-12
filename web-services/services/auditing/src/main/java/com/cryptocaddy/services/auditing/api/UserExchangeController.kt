@@ -22,8 +22,6 @@ class UserExchangeController(val userExchangeService: UserExchangeService) {
             userExchangeService.userExchangeRepository.findOne(id)
 
 
-
-
     @PostMapping(value = ["/add"], produces = ["application/json"], consumes = ["application/json"])
     fun addUserExchange(@RequestHeader(value = "Authorization") authorization: String, @RequestBody requestAddExchange: RequestAddExchange): ResponseEntity<ResponseExchangeWrapper> {
         val jwtBody = JWTAuthenticator.getBodyFromToken(authorization)
