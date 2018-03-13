@@ -32,13 +32,19 @@ Clone the repo
 git clone https://github.com/CryptoCaddy/web-app.git
 ```
 
-Export the following environment variables in terminal (arbitrary values are fine for testing)
+Export the following environment variables in terminal (arbitrary values are fine for testing).
 
 ```
+MYSQL_ROOT_PASSWORD
 MYSQL_DATABASE
 MYSQL_USER
 MYSQL_PASSWORD
-MYSQL_ROOT_PASSWORD
+```
+
+A script with default variable values is provided to simplify setting these 4 variables with default testing values. From the root directory you can set the variables in one line by running:
+
+```
+source set-default-env.sh
 ```
 
 Build with docker (run in the project's root directory).

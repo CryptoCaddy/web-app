@@ -38,16 +38,3 @@ fiat:
   engine:
     base:
       url: http://localhost:7001/api/
-binance:
-  binancekey:
-  binancesecret:
-bittrex:
-  bittrexkey:
-  bittrexsecret:
-coinbase:
-  coinbasekey:
-  coinbasesecret:
-gdax:
-  gdaxkey:
-  gdaxsecret:
-  gdaxpass:

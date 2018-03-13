@@ -13,15 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+//import org.springframework.data.jpa.repository.config.EnableJPARepositories;
 
-/**
- * Created by Nick Fields
- * Date: 1/7/2018
- */
+
 @SpringBootApplication
 @ComponentScan(basePackages = {"io.swagger", "com.cryptocaddy.*"})
-@EnableJpaRepositories("com.cryptocaddy.*")
+//@EnableJpaRepositories("com.cryptocaddy.*")
 @EntityScan("com.cryptocaddy.*")
 public class Application extends SpringBootServletInitializer{
     Application() {
