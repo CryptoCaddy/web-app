@@ -61,7 +61,7 @@ docker logs -f $(docker ps -f name=webapp_backend -q)
 
 When the following line appears the server has started. Feel free to use CTRL-C to exit the previous command, it will not kill the server.
 ```
-2018-01-16 04:23:33.392  INFO 36 --- [           main] c.c.services.auditing.Application        : Started Application in 49.511 seconds (JVM running for 55.378)
+2018-03-12 22:32:17.350  INFO 1 --- [           main] c.c.services.auditing.Application        : Started Application in 16.402 seconds (JVM running for 17.31)
 ```
 
 CryptoCaddy will now be running on your local machine. You can access it in your browser at the ip given by the following command
