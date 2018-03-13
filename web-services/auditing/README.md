@@ -11,23 +11,16 @@ These instructions will get the api server running on your local machine for dev
 What you'll need the begin development:
 
 ```
-Java 9
+Java 8
 Apache Maven 3.5+
 IntelliJ IDEA (or other IDE that can run a Spring Boot App)
-A Firebase authentication credential (https://firebase.google.com/)
 ```
-
-### Firebase
-
-This project uses Google Firebase for authentication.  You can create an account for free or use an existing one if you have it.  Once an account is created generate an admin sdk service account and download the json credentials.  Rename the file to firebase-credentials.json and place it in the web-services folder.
 
 ### Installing
 
 Compile the source code - in terminal go to the web-services directory and run a clean install
-
+Note that a valid sql connection is required for the service to start. So the necessary environment variables sill need to be set.
 ```
-export MYSQL_HOST=localhost
-
 cd web-services
 mvn clean install
 ```
@@ -45,9 +38,6 @@ If running from an IDE just use the run configuration described above.
 Otherwise you can use the Spring command line to run start the application (look up Spring CLI).
 Another option is to use jetty to run the application through terminal.
 
-## API Documentation
-
-Currently only available when service is running locally and can be found at localhost:{port-number}/api
 
 ## Debugging with Docker
 

@@ -6,7 +6,7 @@ services:
     #note that specifically declaring a container name has Docker Swarm implications. Since we are not using swarm this has been ignored.
     container_name: db_user_data
     volumes:
-      - dbdata:/var/lib/mysql
+      - dbvolume:/var/lib/mysql
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD
@@ -27,11 +27,13 @@ services:
 
   backend:
     restart: always
-    build: ./web-services
+    build: ./web-services/auditing
     ports:
-      - "8080:8080"
+      #DEBUG PORT
+      - "50505:50505"
     volumes:
-      - ./web-services:/code
+      #Make the code folder visible from within the container
+      - ./web-services/auditing:/code
     environment:
       - MYSQL_HOST=db_user_data
       - MYSQL_DATABASE
@@ -54,4 +56,4 @@ services:
       - backend
 
 volumes:
-  dbdata:
+  dbvolume:

@@ -5,10 +5,7 @@ import org.knowm.xchange.dto.account.Balance;
 
 import java.math.BigDecimal;
 
-/**
- * Created by Jon Waggoner
- * Date: 1/11/2018
- */
+
 public class Coin {
     //private Currency backingCurrency;
     //private Balance backingBalance;
