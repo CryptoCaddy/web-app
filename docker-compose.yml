@@ -29,16 +29,17 @@ services:
     restart: always
     build: ./web-services/auditing
     ports:
-      #DEBUG PORT
+      #debug port
       - "50505:50505"
     volumes:
-      #Make the code folder visible from within the container
+      #make the code folder visible from within the container
       - ./web-services/auditing:/code
     environment:
       - MYSQL_HOST=db_user_data
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
       #set the path as the location within the container after web-services directory is copied.
       - FIREBASE_CRED_PATH=/code/firebase-credentials.json
     depends_on:

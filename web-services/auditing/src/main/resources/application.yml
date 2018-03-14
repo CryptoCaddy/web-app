@@ -19,8 +19,8 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    username: root
+    password: ${MYSQL_ROOT_PASSWORD}
 security:
   basic:
     enabled: false
