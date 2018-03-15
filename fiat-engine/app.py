@@ -38,6 +38,16 @@ def convert(conversion_request):
 
     return conversion
 
+@app.route('/api/getRandom/', methods=['GET'])
+def getRandom():
+    value = random.randint(1, 100)
+    returnval = {'random_value': str(value)}
+    print (returnval)
+    returnval = jsonify(returnval)
+    return returnval
+
+
 #TODO: change to correct host and port
 if __name__ == '__main__':
-    app.run(host='localhost', port=7001)
+    app.run('0.0.0.0', 8000, debug=True)
+    #app.run(host='localhost', port=7001)

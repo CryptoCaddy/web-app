@@ -37,4 +37,4 @@ server:
 fiat:
   engine:
     base:
-      url: http://localhost:7001/api/
+      url: http://${PYTHON_HOST}:8000/api/

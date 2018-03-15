@@ -24,6 +24,9 @@ services:
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
+    ports:
+      #debug port
+      - "8000:8000"
 
   backend:
     restart: always

@@ -1,14 +1,10 @@
-FROM python:3.6
-ENV PYTHONUNBUFFERED 1
+FROM python:alpine3.6
+WORKDIR /usr/src/app
+EXPOSE 8000
 
-#mount our source code in the docker container
-RUN mkdir /code
-WORKDIR /code
-COPY . /code/
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-#install dependencies
-RUN apt-get install libmysqlclient-dev
-RUN pip install -r requirements.txt
+COPY . .
 
-#set the entrypoint
-CMD ["python", "main.py"]
+CMD ["gunicorn", "--workers=2", "--bind=0.0.0.0:8000", "app:app"]
