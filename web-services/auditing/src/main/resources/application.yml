@@ -1,0 +1,40 @@
+info:
+  build:
+    artifact: ${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+logging:
+  level:
+    .: debug
+    org.springframework: debug
+spring:
+  cloud:
+    config:
+      enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
+    username: root
+    password: ${MYSQL_ROOT_PASSWORD}
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: "/api-docs"
+server:
+  contextPath: "/api"
+fiat:
+  engine:
+    base:
+      url: http://${PYTHON_HOST}:8000/api/

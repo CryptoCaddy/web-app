@@ -1,14 +1,25 @@
-import 'hammerjs/hammer';
+import './helpers/axios.interceptors';
+import './registerServiceWorker';
+import './cc-packages';
+import './theme';
+import 'firebase/auth';
 
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import firebase from 'firebase/app';
+import Vue from 'vue';
+import VueScrollReveal from 'vue-scroll-reveal';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import firebaseConfig from '../config/firebase';
+import App from './App.vue';
+import router from './router';
+import store from './store';
 
-if (environment.production) {
-  enableProdMode();
-}
+Vue.config.productionTip = false;
+Vue.use(VueScrollReveal);
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+firebase.initializeApp(firebaseConfig);
+
+new Vue({
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount('#app');

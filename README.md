@@ -1,12 +1,12 @@
 
 <img src='https://github.com/CryptoCaddy/web-app/blob/master/web-ui/src/assets/img/caddy-cropped.png'/>
 
-CryptoCaddy is a platform designed to automate the complicated process of generating gain/loss documents for tax purposes and live portfolio tracking based on exchange API keys, blockchain explorers and csv uploads. The web-app is the central component to the project and will be at the core of any peripheral mobile or desktop applications that become a part of the CryptoCaddy platform. 
+CryptoCaddy is a platform designed to automate the complicated process of generating gain/loss documents for tax purposes and live portfolio tracking based on exchange API keys, blockchain explorers and csv uploads. The web-app is the central component to the project and will be at the core of any peripheral mobile or desktop applications that become a part of the CryptoCaddy platform.
 
-This web-app repository is divided into 3 main components: web-services (Java/MySQL), fiat-engine (Python/MySQL) and web-ui (TypeScript/Angular). 
+This web-app repository is divided into 3 main components: web-services (Java/MySQL), fiat-engine (Python/MySQL) and web-ui (TypeScript/Angular).
 
 
-* The web-services directory is the root of the Java back end service for the web-app. It houses the central api that the web-ui and other peripherals will leverage to access private user and market level data. 
+* The web-services directory is the root of the Java back end service for the web-app. It houses the central api that the web-ui and other peripherals will leverage to access private user and market level data.
 * The fiat-engine directory is the root of the Python service that will be used to access the historical fiat value of coins based on timestamps. It will keep the MySQL database up to date with historical market data and access that data as neccessary to convert historical coin values into fiat values when generating gain/loss data in the Java web-service.
 * The web-ui is written with TypeScript and Angular. It uses the Java back end api for all data. It does not directly interface with the fiat-engine.
 
@@ -22,12 +22,7 @@ This project uses Docker Compose for its deployment, so you'll need
 ```
 Docker 18.01+
 Docker Compose 1.18+
-A Firebase authentication credential (https://firebase.google.com/)
 ```
-
-### Firebase
-
-This project uses Google Firebase for authentication.  You can create an account for free or use an existing one if you have one.  Once an account is created generate an admin sdk service account and download the json credentials.  Rename the file to firebase-credentials.json and place it in the web-services folder.
 
 ### Installing
 
@@ -37,13 +32,19 @@ Clone the repo
 git clone https://github.com/CryptoCaddy/web-app.git
 ```
 
-Export the following environment variables in terminal (arbitrary values are fine for testing)
+Export the following environment variables in terminal (arbitrary values are fine for testing).
 
 ```
+MYSQL_ROOT_PASSWORD
 MYSQL_DATABASE
 MYSQL_USER
 MYSQL_PASSWORD
-MYSQL_ROOT_PASSWORD
+```
+
+A script with default variable values is provided to simplify setting these 4 variables with default testing values. From the root directory you can set the variables in one line by running:
+
+```
+source set-default-env.sh
 ```
 
 Build with docker (run in the project's root directory).
@@ -59,14 +60,14 @@ Run with Docker
 docker-compose up -d
 ```
 
-The server will take 3-5 minutes to fully start up, you can monitor its progress with this command
+The backend webapp server will likely take upwards of 30 seconds to fully start up, you can monitor its progress with this command
 ```
-docker logs -f $(docker ps -f name=webapp_web -q)
+docker logs -f $(docker ps -f name=webapp_backend -q)
 ```
 
 When the following line appears the server has started. Feel free to use CTRL-C to exit the previous command, it will not kill the server.
 ```
-2018-01-16 04:23:33.392  INFO 36 --- [           main] c.c.services.auditing.Application        : Started Application in 49.511 seconds (JVM running for 55.378)
+2018-03-12 22:32:17.350  INFO 1 --- [           main] c.c.services.auditing.Application        : Started Application in 16.402 seconds (JVM running for 17.31)
 ```
 
 CryptoCaddy will now be running on your local machine. You can access it in your browser at the ip given by the following command
@@ -112,8 +113,10 @@ Please read [CONTRIBUTING.md](https://github.com/CryptoCaddy/web-app/blob/master
 
 ## Authors
 
-* **Jon Waggoner** 
-* **Nicholas Fields** 
+* **Jon Waggoner**
+* **Sven Flickinger**
+* **Michael Hudgins**
+* **Nicholas Fields**
 
 See also the list of [contributors](https://github.com/CryptoCaddy/web-services/contributors) who participated in this project.
 

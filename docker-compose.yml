@@ -1,6 +1,57 @@
 version: '3'
 services:
-  static:
+
+  db_user_data:
+    image: mysql:5.7
+    #note that specifically declaring a container name has Docker Swarm implications. Since we are not using swarm this has been ignored.
+    container_name: db_user_data
+    volumes:
+      - dbvolume:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    ports:
+      - "33061:3306"
+
+  python_service:
+    restart: always
+    build: ./fiat-engine
+    container_name: python_service
+    environment:
+      - MYSQL_HOST=db_user_data
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    ports:
+      #debug port
+      - "8000:8000"
+
+  backend:
+    restart: always
+    build: ./web-services/auditing
+    ports:
+      #debug port
+      - "50505:50505"
+    volumes:
+      #make the code folder visible from within the container
+      - ./web-services/auditing:/code
+    environment:
+      - MYSQL_HOST=db_user_data
+      - PYTHON_HOST=python_service
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+      #set the path as the location within the container after web-services directory is copied.
+      - FIREBASE_CRED_PATH=/code/firebase-credentials.json
+    depends_on:
+      - db_user_data
+      - python_service
+
+  frontend:
     restart: always
     build: ./web-ui
     ports:
@@ -8,33 +59,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - web
+      - backend
 
-  web:
-    restart: always
-    build: ./web-services
-    #we compile here instead of at build because when running we get a persistent volume that we can use for maven's cache
-    command: "sh -c 'mvn package && java -jar services/auditing/target/auditing-1.0.jar'"
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./web-services:/code
-    environment:
-      - MYSQL_HOST
-      - MYSQL_DATABASE
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - FIREBASE_CRED_PATH=/code/firebase-credentials.json
-    depends_on:
-      - fiat
-
-  fiat:
-    restart: always
-    build: ./fiat-engine
-    ports:
-      - "5000:5000"
-    environment:
-      - MYSQL_HOST
-      - MYSQL_DATABASE
-      - MYSQL_USER
-      - MYSQL_PASSWORD
+volumes:
+  dbvolume:

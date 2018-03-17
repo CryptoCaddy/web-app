@@ -1,21 +1,33 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
     "target": "es5",
+    "module": "es2015",
+    "strict": true,
+    "jsx": "preserve",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "declaration": false,
-    "baseUrl": "./src",
-    "typeRoots": [
-      "node_modules/@types"
+    "baseUrl": ".",
+    "types": [
+      "node",
+      "jest"
     ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "skipLibCheck": true
-  }
+    "paths": {
+      "@/*": [ "src/*" ],
+      "cryptocaddy/*": [ "src/packages/*" ]
+    },
+    "lib": ["dom", "esnext"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    // required by ramda
+    "strictFunctionTypes": false
+  },
+  "include": [
+    "__mocks__/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

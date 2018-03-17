@@ -4,3 +4,4 @@ Flask-RESTful==0.3.6
 Flask-SQLAlchemy==2.3.2
 Jinja2==2.10
 SQLAlchemy==1.2.0
+gunicorn==19.7.1
