@@ -19,7 +19,7 @@ services:
   fiat_engine:
     restart: always
     build: ./web-services/fiat-engine
-    container_name: python_service
+    container_name: fiat_engine
     environment:
       - MYSQL_HOST=db_user_data
       - MYSQL_DATABASE
@@ -40,7 +40,7 @@ services:
       - ./web-services/auditing:/code
     environment:
       - MYSQL_HOST=db_user_data
-      - PYTHON_HOST=python_service
+      - PYTHON_HOST=fiat_engine
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
