@@ -16,9 +16,9 @@ services:
     ports:
       - "33061:3306"
 
-  python_service:
+  fiat_engine:
     restart: always
-    build: ./fiat-engine
+    build: ./web-services/fiat-engine
     container_name: python_service
     environment:
       - MYSQL_HOST=db_user_data
@@ -49,7 +49,7 @@ services:
       - FIREBASE_CRED_PATH=/code/firebase-credentials.json
     depends_on:
       - db_user_data
-      - python_service
+      - fiat_engine
 
   frontend:
     restart: always
