@@ -1,4 +1,0 @@
-#List of:  <type-of-file> <account> <file-to-read-in>
-#Types: simple, bittrex, gemini
-simple acct1 simple21.csv
-simple acct2 simple22.csv

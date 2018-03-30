@@ -1,4 +1,0 @@
-#0:date (12/01/2018), 1:time (23:01:10),2:txid,3:action,4:pair,5:sym,6:symopp,7:quantity,8:gross,9:fee,10:address,11:note
-3/2/2017,12:05:01,tx6,DEP,BTCUSD,BTC,USD,0,0,0,none,Deposit from acct1
-3/4/2017,13:05:01,tx8,BUY,ETHBTC,ETH,BTC,5.0,.5,0,none,Buy 5 ETH with BTC exp 100 gain, 
-3/5/2017,13:05:01,tx9,SELL,ETH,ETH,USD,4.0,2180,0,none,Sell 4 ETH for USD exp 100 gain
