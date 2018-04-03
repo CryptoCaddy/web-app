@@ -3,10 +3,10 @@ import os
 z1=os.path.dirname(os.path.abspath(__file__)) 
 z2=os.path.abspath(z1+'/..')      # move up to the root directory so we can import packages
 sys.path.insert(0, z2)
-from tornadotax.core import tax
-from tornadotax.core import utils
-from tornadotax.runlocal import importer
-from tornadotax.runlocal import control
+from tax_engine import tax
+from tax_engine import utils
+from run_local import importer
+from run_local import control
 
 class Obj():
     pass
@@ -22,7 +22,7 @@ def sym_price(sym, date):
 
 def test_single():
     options=Obj()
-    options.file='tests/files1.txt'   # directory is relative to root
+    options.file='tests_local/files1.txt'   # directory is relative to root
     options.addr=None
     taxobj=control.run(options)
     print('RESULTS: GAINS')
@@ -35,8 +35,8 @@ def test_single():
     
 def test_double():
     options=Obj()
-    options.file='tests/files2.txt'   # directory is relative to root
-    options.addr='tests/addr.txt'
+    options.file='tests_local/files2.txt'   # directory is relative to root
+    options.addr='tests_local/addr.txt'
     taxobj=control.run(options, price_cb=sym_price)
     print('\nRESULTS: GAINS (FORM 8949)')
     gains=taxobj.get_gains()

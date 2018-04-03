@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #import tornadotax
-from tornadotax.runlocal import control
-from tornadotax.runlocal.pricing import Price
-from tornadotax.core import utils
+from run_local import control
+from run_local.pricing import Price
+from tax_engine import utils
 
 price=Price()  # lookup object
 options=control.do_parser()

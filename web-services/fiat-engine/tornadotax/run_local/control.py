@@ -21,8 +21,9 @@ import argparse
 import traceback
 import datetime
 from . import importer
-from ..core import tax
-from ..core import utils
+sys.path.append("..")  # so we can include the tax-engine files
+from tax_engine import tax
+from tax_engine import utils
 
 def read_addr_map(file, lowercase=True):
     #read the addr file and return the dict of addres->account mappings
