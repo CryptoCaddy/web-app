@@ -1,0 +1,4 @@
+#0:date (12/01/2018), 1:time (23:01:10),2:txid,3:action,4:pair,5:sym,6:symopp,7:quantity,8:gross,9:fee,10:address,11:tx,12:note
+1/1/2017,12:05:01,tx1,INIT,BTCUSD,BTC,USD,2.0,10000,0,none,tx1,Note1
+2/1/2017,13:05:01,tx2,SELL,BTCUSD,BTC,USD,1.0,5100,0,none,tx2,Note1
+2/2/2017,14:05:01,tx3,WD,BTCx,BTC,,1.0,0,0,0xF0022,tx3,Transfer all remaining 1.0 BTC to acct2
